@@ -138,6 +138,39 @@ body.no-webgl .mute-btn{display:none}
 #loader-bar{height:1px;background:linear-gradient(90deg,var(--amber),var(--gold));width:0%;transition:width 0.12s linear}
 #loader-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.28em;color:rgba(193,127,36,0.7);text-transform:uppercase}
 
+/* GEOLOGICAL CRACK LOADER — canvas overlay that tears horizontally during load */
+#crack-canvas{position:fixed;inset:0;z-index:2001;pointer-events:none;opacity:0;transition:opacity 0.3s}
+#crack-canvas.active{opacity:1}
+
+/* 5-ACT GEOLOGICAL LOADER — book-opening shells + amber core */
+/* Two overlay halves that slide apart (top up, bottom down) to reveal terrain.
+   Hidden by default (opacity:0); shown via GSAP at the start of the 5-act sequence. */
+#loader-shell-top, #loader-shell-bottom{
+  position:fixed;left:0;right:0;z-index:1999;background:var(--void);
+  pointer-events:none;opacity:0;
+  transform:translateY(0);
+}
+#loader-shell-top{top:0;height:50vh}
+#loader-shell-bottom{bottom:0;height:50vh}
+/* Amber core — radial gradient that ignites and expands from center */
+#loader-core{
+  position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(0);
+  width:8px;height:8px;border-radius:50%;
+  background:radial-gradient(circle, rgba(232,169,77,0.95) 0%, rgba(193,127,36,0.6) 30%, rgba(60,20,5,0.2) 60%, transparent 80%);
+  z-index:2002;pointer-events:none;opacity:0;
+  box-shadow:0 0 40px rgba(232,169,77,0.6), 0 0 80px rgba(193,127,36,0.3);
+}
+
+/* EROSION WIPE (Phase D.1) — particle burst overlay for About→Projects */
+/* A canvas that fills with amber particles when triggered; particles blow
+   rightward with simplex-like wind, fading out. Reveals the Projects section
+   underneath as they clear. */
+#erosion-canvas{
+  position:fixed;inset:0;z-index:1997;pointer-events:none;opacity:0;
+  transition:opacity 0.2s;
+}
+#erosion-canvas.active{opacity:1}
+
 /* CURSOR */
 /* Cursor transforms are managed by GSAP (xPercent/yPercent:-50). No CSS transform here to avoid double-offset. */
 #cursor{position:fixed;width:7px;height:7px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;left:0;top:0;mix-blend-mode:screen;transition:width .2s,height .2s}
@@ -195,6 +228,30 @@ nav.visible{opacity:1}
 /* SECTIONS */
 section{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center}
 
+/* TYPOGRAPHY RENDERING — subpixel precision for large display text */
+.hero-name, .about-headline, .projects-headline, .skills-headline, .proj-title, .ending-ltp{
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Scroll-velocity blur + distortion: JS sets --scroll-blur and --scroll-distort
+     on <html>. Headlines blur AND stretch/skew when scrolling fast, snap sharp
+     + upright when stopped. Lusion-style reactive typography. */
+  filter: blur(var(--scroll-blur, 0px));
+  transform: skewX(var(--scroll-skew, 0deg)) scaleY(var(--scroll-scaleY, 1));
+  transform-origin: center bottom;
+  transition: filter 0.15s linear, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* PHASE G.3: INVISIBLE 12-COLUMN GRID — diagonal content placement */
+/* Sections don't all left-align to the same edge. The diagonal rhythm of
+   content placement creates visual depth without 3D. Each section sits at
+   a different column offset on the implicit 12-col grid. */
+@media(min-width:769px){
+  #about{padding-left:calc(12vw + 4vw)}           /* col 4 — shifted right */
+  #projects{padding-left:calc(12vw - 2vw)}        /* col 2 — shifted left */
+  #skills{padding-left:calc(12vw + 8vw)}          /* col 6 — shifted further right */
+}
+
 /* HERO */
 #hero{flex-direction:column;justify-content:center;align-items:flex-start;padding:0 12vw;min-height:100vh}
 .hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.32em;color:var(--amber);text-transform:uppercase;margin-bottom:22px;opacity:0}
@@ -204,6 +261,15 @@ section{position:relative;min-height:100vh;display:flex;align-items:center;justi
 .hero-role{font-size:clamp(13px,1.3vw,17px);font-weight:300;line-height:1.6;letter-spacing:0.02em;color:var(--bone-dim);margin-top:28px;opacity:0;max-width:480px}
 .hero-role .char{display:inline-block;opacity:0;transform:translateY(14px)}
 .hero-scroll-hint{position:absolute;bottom:44px;left:12vw;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.26em;color:var(--bone-ghost);text-transform:uppercase;display:flex;align-items:center;gap:14px;opacity:0}
+
+/* LIVE COORDINATES — geolocation feel in the hero. Updates in real-time
+   as the cursor moves within ±0.001° noise around Kerala. */
+.hero-coords{position:absolute;bottom:44px;right:12vw;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:var(--bone-ghost);text-transform:uppercase;text-align:right;line-height:1.7;opacity:0;transition:opacity 1s}
+.hero-coords.visible{opacity:1}
+.hero-coords-label{color:rgba(193,127,36,0.6);font-size:9px;letter-spacing:0.28em;margin-bottom:4px}
+.hero-coords-val{color:rgba(245,240,232,0.7)}
+.hero-coords-lat,.hero-coords-lng{display:block}
+
 .pulse-line{width:36px;height:1px;background:var(--amber);animation:pulse 2.2s ease-in-out infinite;transform-origin:left}
 @keyframes pulse{0%,100%{transform:scaleX(0.4);opacity:0.3}50%{transform:scaleX(1);opacity:0.9}}
 
@@ -211,6 +277,10 @@ section{position:relative;min-height:100vh;display:flex;align-items:center;justi
 #about{padding:80px 12vw;align-items:flex-start;flex-direction:row;gap:6vw;min-height:auto}
 .about-left{flex:0 0 auto;width:180px}
 .section-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.3em;color:var(--amber);text-transform:uppercase;margin-bottom:18px;display:block}
+/* SDF-style reveal: characters scramble through ASCII noise before settling.
+   Implemented via JS — each label's text is revealed character-by-character
+   with random noise substitution for the not-yet-revealed chars. */
+.section-label.is-decrypting{color:var(--gold);text-shadow:0 0 8px rgba(232,169,77,0.4)}
 .about-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:300;line-height:1.04;color:var(--bone);letter-spacing:-0.01em}
 .about-headline em{font-style:italic;color:var(--gold)}
 .about-right{flex:1;max-width:520px}
@@ -345,9 +415,28 @@ section{position:relative;min-height:100vh;display:flex;align-items:center;justi
 }
 .proj-stack span+span::before{content:' · ';color:rgba(74,124,89,0.35)}
 
-/* Hover: title glows slightly gold */
-.proj-link:hover .proj-title{color:var(--bone)}
+/* Hover: title glows slightly gold + arrow appears */
+.proj-link:hover .proj-title{color:var(--bone);text-shadow:0 0 24px rgba(232,169,77,0.3)}
 .proj-link:hover{text-decoration:none}
+.proj-link{cursor:pointer !important;pointer-events:auto !important}
+
+/* PHASE H.1: DOF-STYLE BLUR on non-hovered project annotations */
+/* When one project is hovered, the others blur out — depth-of-field effect.
+   Applied via JS adding .dof-blur to non-hovered annotations. */
+.project-annotation{transition:filter 0.4s ease, opacity 0.4s ease}
+.project-annotation.dof-blur{
+  filter:drop-shadow(0 8px 24px rgba(10,21,9,0.7)) drop-shadow(0 2px 8px rgba(193,127,36,0.08)) blur(3px) brightness(0.6);
+  opacity:0.5;
+}
+/* PHASE H.2: CARD GROUNDING SHADOWS — base state (no blur) */
+.project-annotation{
+  filter:drop-shadow(0 8px 24px rgba(10,21,9,0.7)) drop-shadow(0 2px 8px rgba(193,127,36,0.08));
+}
+.project-annotation.is-entered .proj-ground{
+  background:
+    linear-gradient(90deg,rgba(193,127,36,0.18),transparent 70%),
+    radial-gradient(ellipse 40% 8px at 20% 0%, rgba(10,21,9,0.4), transparent 70%);
+}
 
 /* Ground line — thin horizontal rule anchoring text to "terrain" */
 .proj-ground{
@@ -582,6 +671,17 @@ body.no-webgl .wrd{opacity:1!important;transform:none!important;filter:none!impo
   <div id="loader-label">Generating terrain</div>
 </div>
 
+<!-- Geological crack canvas — draws the horizontal tear during loader → content reveal -->
+<canvas id="crack-canvas" aria-hidden="true"></canvas>
+
+<!-- 5-Act Geological Loader: book-opening shells + amber core -->
+<div id="loader-shell-top" aria-hidden="true"></div>
+<div id="loader-shell-bottom" aria-hidden="true"></div>
+<div id="loader-core" aria-hidden="true"></div>
+
+<!-- Erosion wipe canvas (Phase D.1) — particle burst for About→Projects -->
+<canvas id="erosion-canvas" aria-hidden="true"></canvas>
+
 <div id="cursor" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
 <div id="cursor-glow" aria-hidden="true"></div>
@@ -649,6 +749,11 @@ body.no-webgl .wrd{opacity:1!important;transform:none!important;filter:none!impo
     <h1 class="hero-name" id="hero-name-el">Leon</h1>
     <p class="hero-role" id="hero-role-el">I build AI systems that close<br>the gap between people and information.</p>
     <div class="hero-scroll-hint"><div class="pulse-line"></div>Descend into the work</div>
+    <div class="hero-coords" id="hero-coords" aria-hidden="true">
+      <div class="hero-coords-label">SITE COORDINATES</div>
+      <span class="hero-coords-lat hero-coords-val">LAT: 10.8505° N</span>
+      <span class="hero-coords-lng hero-coords-val">LNG: 76.2711° E</span>
+    </div>
   </section>
 
   <!-- ABOUT — compact, about coding/AI in general -->
@@ -755,6 +860,8 @@ body.no-webgl .wrd{opacity:1!important;transform:none!important;filter:none!impo
         <div class="skill-items">
           <span class="skill-item">Python</span><span class="skill-item">JavaScript</span>
           <span class="skill-item">TypeScript</span>
+          <span class="skill-item">Java</span>
+          <span class="skill-item">C</span>
           <span class="skill-item">SQL</span>
         </div>
         <span class="skill-depth">Core</span>
@@ -767,6 +874,8 @@ body.no-webgl .wrd{opacity:1!important;transform:none!important;filter:none!impo
           <span class="skill-item">LLMs</span>
           <span class="skill-item">Computer Vision</span>
           <span class="skill-item">Sensor Data</span>
+          <span class="skill-item">Data Science</span>
+          <span class="skill-item">Data Processing</span>
         </div>
         <span class="skill-depth">Applied</span>
       </div>
@@ -787,6 +896,7 @@ body.no-webgl .wrd{opacity:1!important;transform:none!important;filter:none!impo
           <span class="skill-item">REST APIs</span>
           <span class="skill-item">WebGL</span>
           <span class="skill-item">GSAP</span>
+          <span class="skill-item">Robotics</span>
         </div>
         <span class="skill-depth">Daily</span>
       </div>
@@ -868,6 +978,9 @@ body.no-webgl .wrd{opacity:1!important;transform:none!important;filter:none!impo
 }
 </script>
 
+<!-- PROJECT MODAL — opened when clicking an engraved project marker -->
+<!-- Removed: project engravings + modal reverted to original DOM annotations -->
+
 <script type="module">
 import * as THREE from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
@@ -875,6 +988,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { AfterimagePass } from 'three/addons/postprocessing/AfterimagePass.js';
 
 // ── COLOR MANAGEMENT ─────────────────────────────────────────────
 // r152+ enables ColorManagement by default. The previous file disabled it
@@ -950,10 +1064,14 @@ const VERT_SHADER = `
   uniform vec3 uInvertCenter;
   uniform float uInvertRadius;
   uniform vec2 uMouse;
+  uniform float uMouseStrength;   // 0..1 — damped cursor velocity, drives terrain deformation
   uniform float uShockwaveTime;
   uniform vec2 uShockwaveOrigin;
   uniform float uBreath;
   uniform float uAudio;
+  uniform vec2 uFaultOrigin;      // Phase C: geological rupture — fault line origin (world XZ)
+  uniform float uFaultAngle;      // fault line direction (radians)
+  uniform float uFaultAmount;     // 0..1 — how much the terrain is split along the fault
 
   attribute float baseHeight;
   varying vec3 vColor;
@@ -992,6 +1110,16 @@ const VERT_SHADER = `
     float wave = sin(dist*0.55 - uTime*4.0)*exp(-dist*0.18)*(1.0-smoothstep(0.,14.,dist))*1.4;
     h += wave * 0.35;
 
+    // ── CURSOR TERRAIN DEFORMATION (Lusion-style "clay press") ────
+    // A gaussian depression at the cursor position — the terrain dents
+    // inward as you move the mouse, like pressing your finger into wet
+    // clay. The dent lerps back to zero via the cursor history buffer
+    // tracked on the CPU (mouseWorld + a fading uMouseTrail uniform).
+    // Resting state: no deformation. Moving: subtle dent that follows.
+    float dentRadius = 5.0;
+    float dentFalloff = exp(-dist * dist / (dentRadius * dentRadius * 0.4));
+    h -= dentFalloff * 0.8 * uMouseStrength;
+
     // Shockwave (preserved)
     if(uShockwaveTime > 0.0){
       vec2 sd = pos.xz - uShockwaveOrigin;
@@ -1012,6 +1140,28 @@ const VERT_SHADER = `
     if(vInvertMask > 0.001){
       float invH = -h * 1.3 + sin(pos.x*0.12+uTime)*2.0*vInvertMask;
       pos.y = mix(h, invH, vInvertMask);
+    }
+
+    // ── GEOLOGICAL RUPTURE (Phase C.1) ───────────────────────
+    // The terrain splits along a fault line passing through uFaultOrigin
+    // at angle uFaultAngle. Vertices on one side of the fault shift
+    // perpendicular to the fault direction, creating a visible tear.
+    // Amount is 0 at rest, spikes to 1 on section change, decays to 0.
+    if(uFaultAmount > 0.001){
+      vec2 faultDir = vec2(cos(uFaultAngle), sin(uFaultAngle));
+      vec2 toVert = pos.xz - uFaultOrigin;
+      // Signed distance from the fault line (perpendicular component)
+      float signedDist = dot(toVert, vec2(-faultDir.y, faultDir.x));
+      // Which side of the fault: +1 or -1
+      float side = sign(signedDist);
+      // Falloff — only vertices near the fault (within ~8 units) shift
+      float falloff = exp(-abs(signedDist) * 0.15);
+      // Shift perpendicular to the fault, away from the line
+      vec2 shift = faultDir * side * uFaultAmount * 1.5 * falloff;
+      pos.x += shift.x;
+      pos.z += shift.y;
+      // Also drop the vertices near the fault slightly — deepens the rift
+      pos.y -= uFaultAmount * 0.8 * falloff;
     }
 
     // === ANALYTIC NORMALS (kept for color/slope blending in vertex stage) ===
@@ -1101,6 +1251,13 @@ const FRAG_SHADER = `
   uniform sampler2D uHeightMap;
   uniform vec2 uHeightMapSize;
   uniform vec2 uHeightMapOrigin;
+  uniform float uTimeOfDay;   // 0..1 cycling slowly — drives color temperature
+  uniform vec2 uTrail0; uniform vec2 uTrail1; uniform vec2 uTrail2; uniform vec2 uTrail3;
+  uniform vec2 uTrail4; uniform vec2 uTrail5; uniform vec2 uTrail6; uniform vec2 uTrail7;
+  // Phase F.3: cursor trail heatmap — last 8 cursor world positions, fading.
+  // Rendered as additive amber glow on the terrain at each position.
+  uniform vec3 uColorTemp;    // Phase G.1: per-section color temperature tint
+  uniform float uDesaturation; // Phase G.2: selective desaturation (0=color, 1=gray)
 
   // Minimal noise — only for surface grain (no FBM in fragment).
   float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
@@ -1162,45 +1319,81 @@ const FRAG_SHADER = `
     );
     N = normalize(N + microPerturb);
 
+    // ── HEIGHTMAP BUMP (relief approximation) ─────────────
+    // Sample the heightmap at 4 offsets and compute a fine-grain bump.
+    // This adds real surface relief — tiny ripples + cracks that catch light
+    // differently than the macro geometry. Decoupled from mesh resolution.
+    float bumpEps = 0.4;
+    float bhL = sampleHeightMap(vWorldXZ - vec2(bumpEps, 0.0));
+    float bhR = sampleHeightMap(vWorldXZ + vec2(bumpEps, 0.0));
+    float bhD = sampleHeightMap(vWorldXZ - vec2(0.0, bumpEps));
+    float bhU = sampleHeightMap(vWorldXZ + vec2(0.0, bumpEps));
+    float bDhdx = (bhR - bhL) / (2.0 * bumpEps);
+    float bDhdz = (bhU - bhD) / (2.0 * bumpEps);
+    // Scale down — this is micro-bump, not macro normal
+    vec3 bumpNormal = normalize(vec3(-bDhdx * 0.3, 1.0, -bDhdz * 0.3));
+    // Blend 30% bump + 70% analytic — keeps macro shape, adds micro relief
+    N = normalize(mix(N, bumpNormal, 0.3));
+
     // Recompute slope from per-pixel normal
     float slopeAngle = 1.0 - abs(N.y);
     float heightT = clamp((vHeight + 1.0) / 13.0, 0.0, 1.0);
 
-    // === COLOR ZONES — refined from vertex hint, with riverbed + scree ===
-    vec3 cMoss     = vec3(0.045, 0.095, 0.050);
-    vec3 cGrass    = vec3(0.085, 0.140, 0.075);
-    vec3 cSoil     = vec3(0.110, 0.090, 0.055);
-    vec3 cRock     = vec3(0.205, 0.165, 0.095);
-    vec3 cDrystone = vec3(0.560, 0.395, 0.155);
-    vec3 cSnow     = vec3(0.86, 0.84, 0.80);
+    // === COLOR ZONES — richer, more realistic palette ===
+    vec3 cMoss     = vec3(0.038, 0.082, 0.045);  // dark moss — valley floor
+    vec3 cGrass    = vec3(0.092, 0.148, 0.068);  // grass — low flats
+    vec3 cSoil     = vec3(0.135, 0.098, 0.058);  // dark soil
+    vec3 cRock     = vec3(0.225, 0.180, 0.110);  // sandstone — steep slopes
+    vec3 cDrystone = vec3(0.585, 0.418, 0.180);  // amber dry stone — peaks
+    vec3 cSnow     = vec3(0.88, 0.86, 0.82);     // bright snow caps
 
     vec3 flatColor = mix(cMoss, cGrass, smoothstep(0.0, 0.18, heightT));
     flatColor = mix(flatColor, cSoil, smoothstep(0.18, 0.42, heightT));
     flatColor = mix(flatColor, cDrystone, smoothstep(0.45, 0.85, heightT));
 
-    // SNOW CAPS — only on high, flat areas
+    // SNOW CAPS — only on high, flat areas. Subtle sparkle for crystalline feel.
     float snowAmount = smoothstep(0.62, 0.85, heightT) * smoothstep(0.32, 0.10, slopeAngle);
     float snowSparkle = pow(noise(vWorldXZ * 28.0), 6.0) * 0.18;
     flatColor = mix(flatColor, cSnow + snowSparkle, snowAmount);
 
     // SCREE AT SLOPE BASES
     float screeMask = smoothstep(0.18, 0.42, slopeAngle) * smoothstep(0.45, 0.15, heightT);
-    vec3 cScree = vec3(0.34, 0.27, 0.16);
+    vec3 cScree = vec3(0.36, 0.29, 0.18);
     flatColor = mix(flatColor, cScree, screeMask * 0.55);
 
     // Steep slopes → rock
     vec3 baseColor = mix(flatColor, cRock, smoothstep(0.28, 0.72, slopeAngle));
 
     // RIVERBED TINT — lighter sandy color where the riverbed was carved
-    vec3 cRiverbed = vec3(0.42, 0.34, 0.20);
+    vec3 cRiverbed = vec3(0.46, 0.38, 0.24);
     baseColor = mix(baseColor, cRiverbed, vRiverbed * 0.65);
 
-    // === SURFACE GRAIN — single-octave, subtle ===
-    float grain = noise(vWorldXZ * 6.0);
+    // ── MULTI-OCTAVE SURFACE GRAIN (realism: 3 octaves of detail) ──
+    // Was single-octave — looked flat-painted. Now: 3 octaves of fine
+    // color variation simulate real rock grain at multiple scales.
+    float grain1 = noise(vWorldXZ * 4.0);    // large-scale mottling
+    float grain2 = noise(vWorldXZ * 14.0);   // medium grain
+    float grain3 = noise(vWorldXZ * 38.0);   // fine grit
+    float grainCombined = grain1 * 0.5 + grain2 * 0.3 + grain3 * 0.2;
+
     vec3 surfaceColor = baseColor;
-    float ao = smoothstep(-0.5, 0.5, vHeight + 1.5);
-    surfaceColor *= 0.50 + 0.50 * ao;
-    surfaceColor *= 0.90 + 0.10 * grain;
+    // SOFTENED AO — was 0.50+0.50*ao (valleys went 50% black). Now 0.62+0.38*ao
+    // so valleys stay readable instead of crushing to black.
+    float ao = smoothstep(-0.8, 0.8, vHeight + 1.5);
+    surfaceColor *= 0.62 + 0.38 * ao;
+    // Multi-octave grain — more variation, looks like real rock
+    surfaceColor *= 0.82 + 0.18 * grainCombined;
+    // Per-channel variation — rocks aren't uniformly colored
+    surfaceColor.r *= 0.92 + 0.16 * grain2;
+    surfaceColor.g *= 0.90 + 0.20 * grain1;
+    surfaceColor.b *= 0.88 + 0.24 * grain3;
+
+    // ── ROUGHNESS VARIATION (fake PBR) ─────────────────────
+    // Different surfaces have different sheen. Snow = smooth (sharp spec),
+    // rock = rough (broad spec), moss = very rough (almost diffuse).
+    // We modulate the specular contribution later using this.
+    float roughness = mix(0.85, 0.15, snowAmount);  // snow=smooth, rock=rough
+    roughness = mix(roughness, 0.95, smoothstep(0.0, 0.3, slopeAngle) * (1.0 - snowAmount));  // steep=rougher
 
     // ── IBL ─────────────────────────────────────────────────
     vec3 irradiance = textureCube(uEnvMap, N).rgb;
@@ -1208,14 +1401,24 @@ const FRAG_SHADER = `
     vec3 R = reflect(-V, N);
     vec3 reflected = textureCube(uEnvMap, R).rgb;
 
-    float specMask = smoothstep(0.30, 0.75, heightT) * (1.0 - snowAmount * 0.6);
-    vec3 specCol = reflected * specMask * 0.50;
-    float snowSpec = pow(max(dot(N, normalize(vec3(0.38, 0.78, -0.50))), 0.0), 80.0) * snowAmount * 0.6;
-    specCol += vec3(1.0, 0.95, 0.85) * snowSpec;
-
     // Directional lighting
     vec3 sunDir  = normalize(vec3(0.38, 0.78, -0.50));
-    vec3 sunCol  = vec3(0.85, 0.55, 0.14);
+
+    // ── TIME-OF-DAY COLOR TEMPERATURE ─────────────────────
+    float tod = uTimeOfDay;
+    vec3 dawnSun  = vec3(0.95, 0.55, 0.18);
+    vec3 midSun   = vec3(1.00, 0.92, 0.78);
+    vec3 duskSun  = vec3(0.85, 0.30, 0.10);
+    vec3 nightSun = vec3(0.35, 0.45, 0.70);
+    vec3 sunCol;
+    if(tod < 0.25)      sunCol = mix(dawnSun,  midSun,  tod / 0.25);
+    else if(tod < 0.50) sunCol = mix(midSun,   duskSun, (tod - 0.25) / 0.25);
+    else if(tod < 0.75) sunCol = mix(duskSun,  nightSun,(tod - 0.50) / 0.25);
+    else                sunCol = mix(nightSun, dawnSun, (tod - 0.75) / 0.25);
+
+    float sunIntensity = 0.55 + 0.35 * sin(tod * 6.283185);
+    sunCol *= sunIntensity;
+
     float sunDif = max(dot(N, sunDir), 0.0);
     vec3 fillDir = normalize(vec3(-0.55, 0.40, 0.52));
     vec3 fillCol = vec3(0.12, 0.26, 0.14);
@@ -1224,19 +1427,39 @@ const FRAG_SHADER = `
     vec3 rimCol  = vec3(0.60, 0.34, 0.04);
     float rimDif = max(dot(N, rimDir), 0.0);
 
-    vec3 ambient = irradiance * 0.55;
+    vec3 ambient = irradiance * 0.40;
+
+    // ── ROUGHNESS-MODULATED SPECULAR (moved after sunCol is defined) ──
+    float specMask = smoothstep(0.30, 0.75, heightT) * (1.0 - snowAmount * 0.6);
+    float specPower = mix(8.0, 90.0, 1.0 - roughness);  // rough=8, smooth=90
+    vec3 specCol = reflected * specMask * 0.50;
+    float sunSpec = pow(max(dot(N, sunDir), 0.0), specPower);
+    specCol += sunCol * sunSpec * specMask * (1.0 - roughness) * 0.4;
+    float snowSpec = pow(max(dot(N, sunDir), 0.0), 80.0) * snowAmount * 0.6;
+    specCol += vec3(1.0, 0.95, 0.85) * snowSpec;
 
     vec3 col = surfaceColor * (ambient
-      + sunCol  * sunDif  * 1.45
-      + fillCol * fillDif * 0.55
-      + rimCol  * rimDif  * 0.38
+      + sunCol  * sunDif  * 1.05    // was 1.45 — caused white-out
+      + fillCol * fillDif * 0.45
+      + rimCol  * rimDif  * 0.30
     );
     col += specCol;
-    col += vec3(0.85, 0.58, 0.12) * specMask * 0.12;
+    col += vec3(0.85, 0.58, 0.12) * specMask * 0.08;
 
     // Audio-reactive pulses
     col += vec3(0.06, 0.03, 0.0) * uBreath * 0.45;
     col += vec3(0.04, 0.02, 0.0) * uAudio * 0.30;
+
+    // ── SUBSURFACE SCATTERING (cheap approximation) ────────
+    // Where the terrain is thin (low elevation, near valley floors or
+    // ridge edges), let amber light bleed through — like sunlight through
+    // a leaf or hot magma through rock crust. Visual payoff is enormous
+    // for 4 lines of GLSL.
+    float thickness = 1.0 - smoothstep(0.0, 1.2, vHeight + 1.5);
+    // SSS only fires where the sun is grazing the surface (low N·sun angle)
+    float sssMask = thickness * smoothstep(0.0, 0.4, sunDif) * (1.0 - snowAmount);
+    vec3 sssColor = vec3(0.55, 0.30, 0.08) * sssMask * 0.35;  // was 0.9,0.5,0.1 * 0.55 — too hot
+    col += sssColor;
 
     // ── NATIVE WEBGL CURSOR GLOW ───────────────────────────
     float mouseDist = length(vWorldXZ - uMouse);
@@ -1245,6 +1468,24 @@ const FRAG_SHADER = `
     glow *= (1.0 - smoothstep(0.0, 1.0, mouseDist / glowRadius));
     float glowIntensity = 0.18 + uAudio * 0.35;
     col += vec3(0.92, 0.66, 0.18) * glow * glowIntensity;
+
+    // ── CURSOR TRAIL HEATMAP (Phase F.3) ──────────────────
+    // Last 8 cursor positions render as fading amber glow on the terrain.
+    // Each trail point is smaller + dimmer than the main cursor, creating
+    // a heat-map trail that fades behind the cursor as it moves.
+    vec2 trailPoints[8];
+    trailPoints[0] = uTrail0; trailPoints[1] = uTrail1; trailPoints[2] = uTrail2; trailPoints[3] = uTrail3;
+    trailPoints[4] = uTrail4; trailPoints[5] = uTrail5; trailPoints[6] = uTrail6; trailPoints[7] = uTrail7;
+    float trailGlow = 0.0;
+    for(int i = 0; i < 8; i++){
+      float td = length(vWorldXZ - trailPoints[i]);
+      float trailRadius = 2.5;
+      float trailFalloff = exp(-td * td / (trailRadius * trailRadius * 0.6));
+      // Fade: oldest trail point (i=0) is dimmest, newest (i=7) is brightest
+      float trailFade = float(i + 1) / 8.0;
+      trailGlow += trailFalloff * trailFade * 0.12;
+    }
+    col += vec3(0.92, 0.66, 0.18) * trailGlow;
 
     // ── DISTANCE HAZE ──────────────────────────────────────
     float viewDist = length(uCamPos - vWorldPos);
@@ -1258,7 +1499,23 @@ const FRAG_SHADER = `
       col = mix(col, vec3(0.04, 0.06, 0.12), vInvertMask*0.55);
     }
 
+    // ── PHASE G.1: PER-SECTION COLOR TEMPERATURE ────────
+    // Tint the final color by uColorTemp (warm/cool per section).
+    // Hero: cold blue-white, About: warm forest, Projects: deep amber,
+    // Skills: neutral, Contact: cold void blue.
+    col *= uColorTemp;
+
+    // ── PHASE G.2: SELECTIVE DESATURATION ────────────────
+    // Lerp toward grayscale based on uDesaturation. Desaturates as the
+    // user leaves the hero, resaturates on project hover.
+    if(uDesaturation > 0.001){
+      float lum = dot(col, vec3(0.299, 0.587, 0.114));
+      col = mix(col, vec3(lum), uDesaturation);
+    }
+
+    // Slight gamma lift (kept — OutputPass does final sRGB conversion)
     col = pow(clamp(col, 0.0, 1.0), vec3(0.92));
+
     gl_FragColor = vec4(col, 1.0);
   }
 `;
@@ -1299,8 +1556,12 @@ if (WEBGL_OK) {
     renderer.setSize(window.innerWidth, window.innerHeight);
     // sRGB output encoding — required now that ColorManagement is enabled.
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
+    // NOJ tone mapping — was ACESFilmic which pushed highlights too hot,
+    // causing the white-light blowout. Linear tone mapping keeps the
+    // artist-authored colors intact; brightness is controlled by the
+    // fragment shader's gamma lift + the FX pass.
+    renderer.toneMapping = THREE.NoToneMapping;
+    renderer.toneMappingExposure = 1.0;
     renderer.setClearColor(0x0A1509,1);
   } catch (e) {
     console.warn('[Leon] WebGLRenderer construction failed; falling back to static.', e);
@@ -1441,6 +1702,13 @@ function authoredHeight(x,z) {
   h += peak(x, z, -22, -16, 4.5, 9.0);   // NW peak — taller
   h += peak(x, z,  20,  18, 5.5, 7.5);   // SE peak
 
+  // FORWARD PEAKS (Phase E) — 2 new mountains along the -Z flight path.
+  // Camera flies forward through the canyon; these peaks sit in front at
+  // successive depths so each project has a mountain to fly toward/past.
+  // Off-center so the camera passes them on one side.
+  h += peak(x, z,  14, -18, 4.0, 8.0);   // Front-right peak — Project 2 target
+  h += peak(x, z, -16, -32, 5.0, 10.0);  // Deep-front-left peak — Project 3 target (tallest, distant)
+
   // ── CENTRAL VALLEY ────────────────────────────────────────────
   // Wide gaussian basin centered at origin — carves out the canyon floor.
   h -= gauss2d(x, z, 0, 0, 18, 14, 3.2);
@@ -1542,11 +1810,29 @@ const terrUniforms = {
   uInvertCenter:{value:new THREE.Vector3(0, 0, 0)},
   uInvertRadius:{value:0},
   uMouse:{value:new THREE.Vector2(999,999)},
+  uMouseStrength:{value:0},
   uShockwaveTime:{value:0},uShockwaveOrigin:{value:new THREE.Vector2(0,0)},
   uBreath:{value:0},
   uAudio:{value:0},
   uCamPos:{value:new THREE.Vector3()},
   uEnvMap:{value:null},
+  uTimeOfDay:{value:0.25},   // start at "midday"
+  uFaultOrigin:{value:new THREE.Vector2(0, 0)},
+  uFaultAngle:{value:0},
+  uFaultAmount:{value:0},
+  // Phase F.3: cursor trail heatmap — 8 fading cursor world positions
+  uTrail0:{value:new THREE.Vector2(999,999)},
+  uTrail1:{value:new THREE.Vector2(999,999)},
+  uTrail2:{value:new THREE.Vector2(999,999)},
+  uTrail3:{value:new THREE.Vector2(999,999)},
+  uTrail4:{value:new THREE.Vector2(999,999)},
+  uTrail5:{value:new THREE.Vector2(999,999)},
+  uTrail6:{value:new THREE.Vector2(999,999)},
+  uTrail7:{value:new THREE.Vector2(999,999)},
+  // Phase G.1: per-section color temperature tint — init to hero values
+  uColorTemp:{value:new THREE.Vector3(0.85, 0.92, 1.05)},  // cold blue-white (hero)
+  // Phase G.2: selective desaturation (0=full color, 1=grayscale)
+  uDesaturation:{value:0},
 };
 const terrMat = new THREE.ShaderMaterial({
   vertexShader:VERT_SHADER, fragmentShader:FRAG_SHADER,
@@ -1801,17 +2087,21 @@ try {
 let composer = null;
 let bloomPass = null;
 let fxPass = null;
+let afterimagePass = null;
 const POST_FX_ENABLED = WEBGL_ACTIVE && !LOW_PERF;
 let uAberration = 0.0;        // current chromatic aberration amount (driven by scroll vel + shockwave)
 let uAberrationTarget = 0.0;  // resting target
 
-// Custom shader pass: film grain + chromatic aberration + subtle vignette.
+// Custom shader pass: film grain + chromatic aberration + lens distortion
+// + teal-orange color grade + subtle vignette. Combined into one pass to
+// minimize render-target bandwidth.
 const FX_SHADER = {
   uniforms: {
     tDiffuse:   {value: null},
     uTime:      {value: 0},
     uAberration:{value: 0.0},
-    uVignette:  {value: 0.10},   // subtle — DOM #vignette already provides the main vignette
+    uVignette:  {value: 0.10},
+    uLensDistort:{value: 0.06},  // barrel distortion strength
   },
   vertexShader: `
     varying vec2 vUv;
@@ -1822,15 +2112,22 @@ const FX_SHADER = {
     uniform float uTime;
     uniform float uAberration;
     uniform float uVignette;
+    uniform float uLensDistort;
     varying vec2 vUv;
-    // Hash for film grain
     float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+
     void main(){
       vec2 uv = vUv;
       vec2 centerOff = uv - 0.5;
       float r2 = dot(centerOff, centerOff);
 
-      // Chromatic aberration — radial, scales with uAberration
+      // ── LENS DISTORTION (barrel) ─────────────────────────
+      // Subtle pincushion warp — feels like a real optical instrument.
+      // Strength 0.06 = barely visible but adds "shot on camera" quality.
+      float distort = 1.0 + uLensDistort * r2;
+      uv = 0.5 + centerOff * distort;
+
+      // ── CHROMATIC ABERRATION (radial, scales with uAberration) ──
       float ca = uAberration * (0.4 + r2 * 1.6);
       vec2 dir = normalize(centerOff + 1e-6);
       vec3 col;
@@ -1838,15 +2135,25 @@ const FX_SHADER = {
       col.g = texture2D(tDiffuse, uv).g;
       col.b = texture2D(tDiffuse, uv - dir * ca).b;
 
-      // Film grain — animated, density scales slightly with r for cinematic vignette
+      // ── TEAL-ORANGE COLOR GRADE (split-tone) ─────────────
+      // Cinematic grade: push shadows toward teal, highlights toward amber.
+      // Subtle — this is what makes film look like film.
+      float lum = dot(col, vec3(0.299, 0.587, 0.114));
+      vec3 teal   = vec3(0.55, 0.78, 0.85);
+      vec3 orange = vec3(1.10, 0.85, 0.55);
+      vec3 graded = mix(teal, orange, smoothstep(0.15, 0.85, lum));
+      // Mix ~25% graded over original — keeps palette identity, adds warmth
+      col = mix(col, col * graded, 0.25);
+
+      // ── FILM GRAIN ────────────────────────────────────────
       float grain = (hash(uv * vec2(1920.0, 1080.0) + uTime * 60.0) - 0.5) * 0.06;
       col += grain;
 
-      // Vignette (in addition to the DOM #vignette layer)
+      // ── VIGNETTE (in-shader so it responds to depth) ─────
       float vig = 1.0 - r2 * uVignette * 2.4;
       col *= clamp(vig, 0.55, 1.0);
 
-      // Subtle scanline for Y2K-tech accent (very faint)
+      // ── SUBTLE SCANLINE (Y2K-tech accent) ────────────────
       float scan = sin(uv.y * 800.0) * 0.008;
       col -= scan;
 
@@ -1860,11 +2167,18 @@ if (POST_FX_ENABLED) {
   composer.addPass(new RenderPass(scene, camera));
   bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.55,   // strength — subtle, lets the amber highlights glow
-    0.7,    // radius
-    0.18    // threshold — only the brightest peaks bloom
+    0.32,   // strength — was 0.55, dropped to prevent white-out
+    0.6,    // radius
+    0.42    // threshold — raised from 0.18 so only the BRIGHTEST peaks bloom
   );
   composer.addPass(bloomPass);
+  // ── MOTION BLUR (AfterimagePass) ───────────────────────
+  // Trails on fast camera moves. Damp = trail length (0 = off, 1 = infinite).
+  // We modulate damp in the animate loop based on scroll velocity — fast
+  // scroll = more blur, stopped = crisp. Resting damp is low so static
+  // scenes don't smear.
+  afterimagePass = new AfterimagePass(0.0);  // starts off, ramped up by scroll
+  composer.addPass(afterimagePass);
   fxPass = new ShaderPass(FX_SHADER);
   composer.addPass(fxPass);
   composer.addPass(new OutputPass());
@@ -1975,6 +2289,223 @@ function fireShockwave(sx,sy,wx,wz){
   gsap.to('#breath-overlay',{backgroundColor:'rgba(232,169,77,0.08)',duration:.08,yoyo:true,repeat:1});
 }
 
+// ── SECTION FLARE — single-frame lens flare on section entry ─────
+// Smaller + faster than the user-triggered shockwave. A 200px radius
+// amber flash centered on the section's headline, propagating outward.
+// Cinematic "cut" signal — tells the user the world has changed.
+function fireSectionFlare(selector){
+  const el = document.querySelector(selector);
+  if(!el) return;
+  const r = el.getBoundingClientRect();
+  // Center on the section's vertical midpoint, slightly left for headline
+  const sx = r.left + r.width * 0.3;
+  const sy = r.top + r.height * 0.5;
+  // Push a smaller shockwave (maxAge 40 vs 80, no audio impact — we already
+  // fired playTectonicClick separately)
+  shockwaves.push({sx, sy, age: 0, maxAge: 40, wx: mouseWorld.x, wz: mouseWorld.z});
+  // Brief amber screen flash — single frame, very subtle
+  gsap.fromTo('#breath-overlay',
+    {backgroundColor:'rgba(232,169,77,0.06)'},
+    {backgroundColor:'rgba(10,21,9,0)',duration:0.5,ease:'power2.out'}
+  );
+}
+
+// ── GEOLOGICAL RUPTURE (Phase C.1) ────────────────────────────────
+// Triggers a terrain fault-line split on section change. The fault origin
+// is set to the current camera lookAt (world XZ), angle is randomized,
+// amount spikes to 1 then decays to 0 over ~1.2s. Combined with the
+// crack canvas overlay, this sells "the terrain ruptures between sections".
+function triggerFaultRupture(){
+  // Fault origin = current camera lookAt (where the user is looking)
+  terrUniforms.uFaultOrigin.value.set(cam.look.x, cam.look.z);
+  // Random fault angle — diagonal tears look more geological than axis-aligned
+  terrUniforms.uFaultAngle.value = Math.random() * Math.PI;
+  // Spike amount to 1, then decay to 0
+  const proxy = { v: 0 };
+  gsap.to(proxy, {
+    v: 1, duration: 0.25, ease: 'power2.out',
+    onUpdate: () => { terrUniforms.uFaultAmount.value = proxy.v; }
+  });
+  gsap.to(proxy, {
+    v: 0, duration: 1.0, ease: 'power2.inOut', delay: 0.3,
+    onUpdate: () => { terrUniforms.uFaultAmount.value = proxy.v; }
+  });
+}
+
+// ── SUBMERGENCE removed by user request — no black fade at About section
+
+// ═══════════════════════════════════════
+// EROSION WIPE (Phase D.1) — About→Projects particle dissolve
+// ═══════════════════════════════════════
+// Fires on the About→Projects transition. Spawns ~300 amber particles on a
+// 2D canvas, each with rightward velocity + gravity + fade. They blow across
+// the screen like dust in wind, revealing the Projects section underneath.
+const erosionCv = document.getElementById('erosion-canvas');
+const erosionCtx = erosionCv ? erosionCv.getContext('2d') : null;
+function resizeErosionCanvas(){
+  if(!erosionCv) return;
+  erosionCv.width = window.innerWidth;
+  erosionCv.height = window.innerHeight;
+}
+resizeErosionCanvas();
+window.addEventListener('resize', resizeErosionCanvas);
+
+let erosionParticles = [];
+let erosionActive = false;
+
+function triggerErosionWipe(){
+  if(!erosionCv || !erosionCtx) return;
+  erosionParticles = [];
+  // Spawn particles across the left 60% of the screen — they blow right
+  const count = 300;
+  for(let i = 0; i < count; i++){
+    erosionParticles.push({
+      x: Math.random() * erosionCv.width * 0.6,
+      y: Math.random() * erosionCv.height,
+      vx: 3 + Math.random() * 8,        // rightward wind
+      vy: (Math.random() - 0.5) * 2,    // slight vertical drift
+      r: 1 + Math.random() * 3,
+      life: 1,                          // 1 → 0
+      decay: 0.008 + Math.random() * 0.012,
+      hue: Math.random() > 0.5 ? 'amber' : 'gold',
+    });
+  }
+  erosionActive = true;
+  erosionCv.classList.add('active');
+  // Run the erosion RAF until all particles fade
+  function erosionLoop(){
+    if(!erosionActive) return;
+    erosionCtx.clearRect(0, 0, erosionCv.width, erosionCv.height);
+    let alive = 0;
+    for(const p of erosionParticles){
+      if(p.life <= 0) continue;
+      alive++;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.99;  // wind slows
+      p.life -= p.decay;
+      const alpha = Math.max(0, p.life) * 0.8;
+      const col = p.hue === 'amber' ? `rgba(193,127,36,${alpha})` : `rgba(232,169,77,${alpha})`;
+      erosionCtx.fillStyle = col;
+      erosionCtx.beginPath();
+      erosionCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      erosionCtx.fill();
+    }
+    if(alive === 0){
+      erosionActive = false;
+      erosionCv.classList.remove('active');
+      erosionCtx.clearRect(0, 0, erosionCv.width, erosionCv.height);
+    } else {
+      requestAnimationFrame(erosionLoop);
+    }
+  }
+  erosionLoop();
+}
+
+// ═══════════════════════════════════════
+// CRYSTALLISATION FLASH (Phase D.2) — Projects→Skills white-flash cut
+// ═══════════════════════════════════════
+// A single-frame white flash on the Projects→Skills transition. Cinematic
+// "cut" signal — the camera shakes (impact mode), freezes for one frame of
+// pure white, then the new section snaps into place.
+function triggerCrystallisationFlash(){
+  const overlay = document.getElementById('breath-overlay');
+  if(!overlay) return;
+  // Single-frame white flash (20ms at full white, then fade out over 300ms)
+  gsap.fromTo(overlay,
+    {backgroundColor:'rgba(245,240,232,1)'},
+    {backgroundColor:'rgba(10,21,9,0)',duration:0.3,ease:'power2.out'}
+  );
+  // Impact camera shake — spike the shockwave uniform briefly
+  terrUniforms.uShockwaveOrigin.value.set(cam.look.x, cam.look.z);
+  terrUniforms.uShockwaveTime.value = 0.001;
+}
+
+// ═══════════════════════════════════════
+// DOLLY ZOOM (Phase E.1) — Hero→Projects Hitchcock effect
+// ═══════════════════════════════════════
+// The classic Vertigo shot: camera pushes forward while FOV widens.
+// The subject (terrain feature) stays the same apparent size while the
+// background compresses — deeply disorienting, deeply memorable.
+// We overlay a temporary FOV boost + Z push on top of the spline camera
+// during the Hero→Projects transition, then let it settle back.
+let dollyZoomActive = false;
+let dollyZoomFOVBoost = 0;    // added to camera FOV
+let dollyZoomZPush = 0;       // subtracted from camera Z (pushes forward)
+
+function triggerDollyZoom(){
+  dollyZoomActive = true;
+  // FOV: spike +18deg over 1.2s, then settle back to 0 over 1.5s
+  const fovProxy = { v: 0 };
+  gsap.to(fovProxy, {
+    v: 18, duration: 1.2, ease: 'power2.in',
+    onUpdate: () => { dollyZoomFOVBoost = fovProxy.v; }
+  });
+  gsap.to(fovProxy, {
+    v: 0, duration: 1.5, ease: 'power2.out', delay: 1.2,
+    onUpdate: () => { dollyZoomFOVBoost = fovProxy.v; },
+    onComplete: () => { dollyZoomActive = false; }
+  });
+  // Z push: -8 units forward over 1.2s, settle back over 1.5s
+  const zProxy = { v: 0 };
+  gsap.to(zProxy, {
+    v: -8, duration: 1.2, ease: 'power2.in',
+    onUpdate: () => { dollyZoomZPush = zProxy.v; }
+  });
+  gsap.to(zProxy, {
+    v: 0, duration: 1.5, ease: 'power2.out', delay: 1.2,
+    onUpdate: () => { dollyZoomZPush = zProxy.v; }
+  });
+}
+
+// ═══════════════════════════════════════
+// ANTICIPATION FRAMES (Phase E.2)
+// ═══════════════════════════════════════
+// Before any major camera move, give the camera 1-2 frames of opposite
+// movement first — like a pitcher winding up. Camera dips slightly backward
+// before dollying forward. Makes motion feel intentional rather than mechanical.
+// We fire a brief backward Z nudge before the forward dolly zoom.
+function triggerAnticipation(){
+  // Brief backward nudge (Z +2) over 150ms, then the forward dolly takes over
+  const proxy = { v: 0 };
+  gsap.to(proxy, {
+    v: 2, duration: 0.15, ease: 'power2.out',
+    onUpdate: () => { dollyZoomZPush = proxy.v; }
+  });
+  // The dolly zoom's forward push will override this once it starts
+}
+
+// ═══════════════════════════════════════
+// CAMERA-ROTATION INVERSION (Phase D.3) — Skills→Contact
+// ═══════════════════════════════════════
+// At the ending, the camera does ONE clean 180° roll and HOLDS there.
+// You're now looking at the terrain from "below" — the underside of the
+// world, which is the thematic point of the contact/inversion finale.
+// The DOM content (LTP, contact links) sits on top as an overlay and
+// remains readable. The roll resets to 0 only when scrolling back up.
+let inversionActive = false;
+
+function triggerCameraInversion(){
+  inversionActive = true;
+  // Single 180° roll over 1.2s, then HOLD. No return rotation.
+  gsap.to(cam, {
+    rollTarget: Math.PI,
+    duration: 1.2,
+    ease: 'power2.inOut',
+  });
+}
+
+function triggerInversionReset(){
+  if(!inversionActive) return;
+  inversionActive = false;
+  // Roll back to 0 over 1s when leaving the ending
+  gsap.to(cam, {
+    rollTarget: 0,
+    duration: 1.0,
+    ease: 'power2.inOut',
+  });
+}
+
 function drawShockwaves(){
   // Early-return when no shockwaves — saves a full-canvas clearRect per frame.
   // The shockwave canvas is full-viewport; clearRect on a 1440×900 canvas
@@ -2021,14 +2552,18 @@ const CAM_KEYFRAMES = [
   { pos: new THREE.Vector3(0, 22, 36),   look: new THREE.Vector3(0, -2, 0),    fov: 40 },
   // 0.14 — About: descend toward the arch, dolly forward
   { pos: new THREE.Vector3(-4, 14, 28),  look: new THREE.Vector3(-12, 2, -8),  fov: 48 },
-  // 0.28 — Project 1: fly to the stone arch. v2: raised y 5→9 so the
-  // camera clears the arch (height ~6) instead of clipping through it.
-  { pos: new THREE.Vector3(-14, 9, 14),  look: new THREE.Vector3(-12, 3, -8),  fov: 54 },
-  // 0.42 — Project 2: sweep east to the plateau. v2: y 6→10 (plateau is 4.5).
-  { pos: new THREE.Vector3(12, 10, 12),  look: new THREE.Vector3(8, 4, 5),     fov: 56 },
-  // 0.56 — Project 3: dive toward the spiral canyon center. v2: y 4→9 — was
-  // the worst offender, camera went straight under the canyon walls.
-  { pos: new THREE.Vector3(0, 9, 10),    look: new THREE.Vector3(0, 0, 0),    fov: 60 },
+  // 0.28 — Project 1 (arch at -12,-8): fly forward to the arch.
+  // Consistent altitude (y=9). Camera looks at the arch from the front.
+  // Forward motion: z 36→28→16 across hero→about→P1.
+  { pos: new THREE.Vector3(-8, 9, 16),   look: new THREE.Vector3(-12, 4, -8),  fov: 54 },
+  // 0.42 — Project 2 (front-right peak at 14,-18): fly forward, mountain passes on the right.
+  // Same altitude (y=9). Camera is now at z=0 — halfway through the canyon.
+  // The front-right peak (14,-18) is ahead and to the right.
+  { pos: new THREE.Vector3(0, 9, 0),     look: new THREE.Vector3(14, 5, -18),  fov: 56 },
+  // 0.56 — Project 3 (deep-front-left peak at -16,-32): fly forward, mountain passes on the left.
+  // Same altitude (y=9). Camera at z=-14 — deep in the canyon, gazing at the distant peak.
+  // Forward motion total: z 36→16→0→-14 = 50 units of forward travel across the projects.
+  { pos: new THREE.Vector3(-4, 9, -14),  look: new THREE.Vector3(-16, 6, -32), fov: 60 },
   // 0.72 — Skills: rise above the canopy, wider FOV
   { pos: new THREE.Vector3(0, 14, 30),   look: new THREE.Vector3(0, -4, 0),   fov: 62 },
   // 1.00 — Ending: lift off, look up at the stars
@@ -2057,9 +2592,86 @@ const cam = {
   lookK: 16.0,   // lookAt damping — was 8.0, snappier so aim feels intentional
   fovK: 6.0,     // FOV damping — was 4.0, slightly snappier
   idleArcRadius: 6,
+  // ── SPRING INERTIA (Steadicam feel) ────────────────────
+  // Velocity-based spring per axis. Gives the camera mass — it doesn't
+  // snap to target, it accelerates toward it, overshoots slightly, settles.
+  velX: 0, velY: 0, velZ: 0,
+  lookVelX: 0, lookVelY: 0, lookVelZ: 0,
+  // ── DUTCH TILT (seismic bank on section change) ────────
+  roll: 0,           // current Z rotation in radians
+  rollTarget: 0,     // 0 at rest, spikes on section change
 };
 
+// Spring + damping constants — tuned for "honey, not rubber band"
+// v2: lowered lerp so mouse-wheel steps blend into continuous flow.
+//     Critical damping (no overshoot) eliminates the micro-wobble that
+//     read as "mechanical" during slow scroll.
+const CAM_SPRING = 0.045;        // was 0.085 — gentler, more cinematic
+const CAM_DAMPING = 0.92;        // was 0.82 — critical damping, no oscillation
+const CAM_LOOK_SPRING = 0.08;    // was 0.12 — lookAt still snappier than position
+const CAM_LOOK_DAMPING = 0.88;   // was 0.78 — critical damping
+
+// ── PROCEDURAL NOISE (for camera shake) ───────────────────
+// Lightweight 1D smooth-noise — no dependency, sufficient for shake.
+function hash1D(x){ const n = Math.sin(x * 12.9898) * 43758.5453; return n - Math.floor(n) - 0.5; }
+function smoothNoise1D(x){
+  const i = Math.floor(x), f = x - i;
+  const u = f * f * (3 - 2 * f);
+  return hash1D(i) * (1 - u) + hash1D(i + 1) * u;
+}
+
 function smoothstep(t){ t = Math.max(0, Math.min(1, t)); return t*t*(3-2*t); }
+// 0..1 clamped smoothstep — used for fade curves
+function smoothstep01(t){ t = Math.max(0, Math.min(1, t)); return t*t*(3-2*t); }
+
+// ═══════════════════════════════════════
+// COORDINATED GSAP + THREE.JS TIMELINES (Phase A.3)
+// ═══════════════════════════════════════
+// Lusion-style: section transitions drive DOM content AND the Three.js
+// camera/world on the SAME timeline with the SAME easing. This helper
+// creates a gsap.timeline() and exposes a `.onUpdate3D(fn)` method that
+// registers a callback fired every frame — so you can mutate camera
+// position, fog, lights, uniforms in sync with DOM tweens.
+//
+// Usage:
+//   const tl = coordinatedTimeline({ duration: 1.2, ease: 'power3.inOut' });
+//   tl.to('.about-headline', { opacity: 1, y: 0 });
+//   tl.onUpdate3D((progress) => {
+//     camera.position.y = 22 - progress * 8;
+//     scene.fog.density = 0.025 + progress * 0.01;
+//   });
+//
+function coordinatedTimeline(opts = {}){
+  const tl = gsap.timeline({ defaults: { ease: opts.ease || 'power2.inOut', duration: opts.duration || 1.0 } });
+  let update3D = null;
+  // Hook into the timeline's onUpdate — fires every frame during the timeline
+  tl.eventCallback('onUpdate', () => {
+    if(update3D) update3D(tl.progress());
+  });
+  tl.onUpdate3D = (fn) => { update3D = fn; return tl; };
+  return tl;
+}
+
+// ═══════════════════════════════════════
+// CUSTOM EASING PER MATERIAL (Phase A.4)
+// ═══════════════════════════════════════
+// Lusion/Resn: every element has a deliberate ease that communicates its
+// material properties. Using the same ease for everything is like filming
+// everything with the same lens. These named eases are applied throughout
+// the site's GSAP tweens.
+//
+//   EASE_TERRAIN   — power4.inOut  — geological, massive, slow to start/stop
+//   EASE_TEXT       — power3.out    — snaps in with authority, settles
+//   EASE_CURSOR     — power1.out    — direct, minimal lag (near-linear)
+//   EASE_CAMERA     — power2.inOut  — cinematic, balanced
+//   EASE_HOVER      — back.out(1.7) — slight overshoot, tactile
+//   EASE_PARTICLE   — 'elastic.out(1, 0.5)' — natural, physical
+const EASE_TERRAIN  = 'power4.inOut';
+const EASE_TEXT      = 'power3.out';
+const EASE_CURSOR    = 'power1.out';
+const EASE_CAMERA    = 'power2.inOut';
+const EASE_HOVER     = 'back.out(1.7)';
+const EASE_PARTICLE  = 'elastic.out(1, 0.5)';
 
 function sampleCameraPath(t){
   const tc = Math.max(0, Math.min(1, t));
@@ -2084,11 +2696,11 @@ function updateCamera(dt){
   const idleX = Math.cos(idleAngle) * cam.idleArcRadius;
   const idleZ = Math.sin(idleAngle) * cam.idleArcRadius;
 
-  // Mouse parallax — smoothstep-dampened, max ±0.8 world units (was 2.4)
+  // Mouse parallax — smoothstep-dampened, max ±0.8 world units
   const mNX = smoothstep(Math.abs(mouseInflX) / 0.5) * Math.sign(mouseInflX) * 0.8;
   const mNZ = smoothstep(Math.abs(mouseInflZ) / 0.5) * Math.sign(mouseInflZ) * 0.5;
 
-  // Aspect compensation — pull camera back on portrait, forward on ultrawide
+  // Aspect compensation
   const aspect = window.innerWidth / window.innerHeight;
   const aspectAdjust = aspect < 0.8 ? 1.4 : (aspect > 2 ? 0.8 : 1.0);
 
@@ -2103,32 +2715,73 @@ function updateCamera(dt){
     sample.look.z + mNZ * 0.3
   );
 
-  // Frame-rate-independent exponential damping
-  const posAlpha = 1 - Math.exp(-cam.posK * dt * 0.0167);
-  const lookAlpha = 1 - Math.exp(-cam.lookK * dt * 0.0167);
-  const fovAlpha = 1 - Math.exp(-cam.fovK * dt * 0.0167);
-
-  cam.pos.lerp(_tmpMousePos, posAlpha);
+  // ── CAMERA POSITION SMOOTHING (v3: exponential, not spring) ────
+  // Replaced the spring-mass-damper with exponential smoothing. The spring
+  // was underdamped — it overshot and bounced back, creating a "mechanical"
+  // micro-oscillation during slow scroll. Exponential smoothing is
+  // mathematically monotonic: it NEVER overshoots, NEVER reverses. The
+  // "mass" feel comes from the smoothScroll layer underneath.
+  //
+  // Frame-rate-independent: factor = 1 - (1-rate)^dt
+  const dtScale = Math.min(dt, 2);
+  const camPosAlpha = 1 - Math.pow(1 - 0.12, dtScale);  // 0.12 = smooth, heavy
+  cam.pos.x += (_tmpMousePos.x - cam.pos.x) * camPosAlpha;
+  cam.pos.y += (_tmpMousePos.y - cam.pos.y) * camPosAlpha;
+  cam.pos.z += (_tmpMousePos.z - cam.pos.z) * camPosAlpha;
+  // Zero out velocity (no longer used, but keep for debug)
+  cam.velX = cam.velY = cam.velZ = 0;
 
   // ── TERRAIN CLEARANCE CLAMP ─────────────────────────────
-  // Even with raised project keyframes, the CatmullRom spline can dip
-  // below terrain between keyframes (especially around project 2→3 where
-  // the path arcs through the canyon walls). Sample the cached terrain
-  // height at the camera's XZ and push the camera up if it would clip.
-  // MIN_CLEARANCE keeps the camera 3.5 units above the surface so the
-  // viewer never sees "inside" a mountain.
   const terrainH = sampleHeightCached(cam.pos.x, cam.pos.z);
   const MIN_CLEARANCE = 3.5;
   const minY = terrainH + MIN_CLEARANCE;
   if(cam.pos.y < minY){
     cam.pos.y = minY;
+    cam.velY = Math.max(0, cam.velY);  // kill downward velocity
   }
 
-  cam.look.lerp(_tmpMouseLook, lookAlpha);
-  cam.fov += (sample.fov - cam.fov) * fovAlpha;
+  // LookAt — exponential smoothing (snappier than position, same no-overshoot)
+  const camLookAlpha = 1 - Math.pow(1 - 0.18, dtScale);  // 0.18 = snappier
+  cam.look.x += (_tmpMouseLook.x - cam.look.x) * camLookAlpha;
+  cam.look.y += (_tmpMouseLook.y - cam.look.y) * camLookAlpha;
+  cam.look.z += (_tmpMouseLook.z - cam.look.z) * camLookAlpha;
+  cam.lookVelX = cam.lookVelY = cam.lookVelZ = 0;
 
-  camera.position.copy(cam.pos);
+  // FOV — blend spline FOV with scroll-velocity widening + dolly zoom boost
+  const scrollFOVBoost = Math.min(Math.abs(scrollVel) * 12, 8);
+  // Phase E.1: dolly zoom adds a temporary FOV spike on Hero→Projects
+  cam.fov += (sample.fov + scrollFOVBoost + dollyZoomFOVBoost - cam.fov) * 0.08 * dtScale;
+
+  // ── PROCEDURAL CAMERA SHAKE (3 modes) ──────────────────
+  // Breathe: always-on idle organism sway (0.2Hz, amp 0.004)
+  // Rumble: scroll-velocity tectonic rumble (1.5Hz, amp 0.018)
+  // Impact: shockwave decaying hit (8Hz, amp 0.06)
+  const tNow = globalTime;
+  const breatheX = smoothNoise1D(tNow * 0.2) * 0.004;
+  const breatheY = smoothNoise1D(tNow * 0.2 + 100) * 0.003;
+  const breatheRoll = smoothNoise1D(tNow * 0.2 + 200) * 0.0008;
+  const rumbleAmp = Math.min(scrollVel * 0.018, 0.018);
+  const rumbleX = smoothNoise1D(tNow * 1.5 + 300) * rumbleAmp;
+  const rumbleY = smoothNoise1D(tNow * 1.5 + 400) * rumbleAmp;
+  const impactAmp = terrUniforms.uShockwaveTime.value * 0.06;
+  const impactX = smoothNoise1D(tNow * 8 + 500) * impactAmp;
+  const impactY = smoothNoise1D(tNow * 8 + 600) * impactAmp;
+
+  // ── DUTCH TILT decay ────────────────────────────────────
+  cam.roll += (cam.rollTarget - cam.roll) * 0.12 * dtScale;
+  // Decay rollTarget toward 0 — UNLESS inversion is active (the 180° roll
+  // must HOLD for the entire ending section, not decay).
+  if(!inversionActive){
+    cam.rollTarget *= Math.pow(0.88, dtScale);  // decay toward 0
+  }
+
+  camera.position.set(
+    cam.pos.x + breatheX + rumbleX + impactX,
+    cam.pos.y + breatheY + rumbleY + impactY,
+    cam.pos.z + dollyZoomZPush   // Phase E.1: dolly zoom forward push
+  );
   camera.lookAt(cam.look);
+  camera.rotation.z = cam.roll + breatheRoll;  // Dutch tilt + breathe roll
   camera.fov = cam.fov;
   camera.updateProjectionMatrix();
 }
@@ -2137,11 +2790,16 @@ function updateCamera(dt){
 // WORLD STATE SYSTEM
 // ═══════════════════════════════════════
 const WS={
-  hero:    {fog:.025,sun:2.5,sunR:.76,sunG:.50,sunB:.14,amb:1.0,moon:0,pOp:.68,fogR:.039,fogG:.082,fogB:.036},
-  about:   {fog:.020,sun:1.9,sunR:.65,sunG:.44,sunB:.16,amb:1.2,moon:0,pOp:.52,fogR:.045,fogG:.090,fogB:.040},
-  projects:{fog:.030,sun:2.9,sunR:.84,sunG:.56,sunB:.09,amb:0.8,moon:0,pOp:.78,fogR:.038,fogG:.075,fogB:.033},
-  skills:  {fog:.044,sun:0.8,sunR:.28,sunG:.26,sunB:.32,amb:0.5,moon:.5,pOp:.38,fogR:.028,fogG:.048,fogB:.038},
-  ending:  {fog:.016,sun:0.2,sunR:.16,sunG:.16,sunB:.26,amb:0.3,moon:2.0,pOp:.22,fogR:.016,fogG:.026,fogB:.042},
+  hero:    {fog:.025,sun:2.5,sunR:.76,sunG:.50,sunB:.14,amb:1.0,moon:0,pOp:.68,fogR:.039,fogG:.082,fogB:.036,
+            ctR:.92,ctG:.96,ctB:1.02,desat:0.0},    // cold blue-white (subtle)
+  about:   {fog:.020,sun:1.9,sunR:.65,sunG:.44,sunB:.16,amb:1.2,moon:0,pOp:.52,fogR:.045,fogG:.090,fogB:.040,
+            ctR:1.05,ctG:1.01,ctB:.95,desat:0.05},  // warm forest (minimal desat)
+  projects:{fog:.030,sun:2.9,sunR:.84,sunG:.56,sunB:.09,amb:0.8,moon:0,pOp:.78,fogR:.038,fogG:.075,fogB:.033,
+            ctR:1.06,ctG:.98,ctB:.85,desat:0.08},  // deep amber (minimal desat)
+  skills:  {fog:.044,sun:0.8,sunR:.28,sunG:.26,sunB:.32,amb:0.5,moon:.5,pOp:.38,fogR:.028,fogG:.048,fogB:.038,
+            ctR:.98,ctG:1.0,ctB:1.0,desat:0.10},   // neutral, clinical (minimal desat)
+  ending:  {fog:.016,sun:0.2,sunR:.16,sunG:.16,sunB:.26,amb:0.3,moon:2.0,pOp:.22,fogR:.016,fogG:.026,fogB:.042,
+            ctR:.85,ctG:.90,ctB:1.05,desat:0.12},  // cold void blue (minimal desat)
 };
 let wsName='hero', wsT=1;
 let wsFrom=Object.assign({},WS.hero), wsTo=Object.assign({},WS.hero);
@@ -2153,6 +2811,8 @@ function transWorld(name){
     sunR:sun.color.r,sunG:sun.color.g,sunB:sun.color.b,
     amb:ambient.intensity,moon:moon.intensity,pOp:pMat.opacity,
     fogR:scene.fog.color.r,fogG:scene.fog.color.g,fogB:scene.fog.color.b,
+    ctR:terrUniforms.uColorTemp.value.x, ctG:terrUniforms.uColorTemp.value.y, ctB:terrUniforms.uColorTemp.value.z,
+    desat:terrUniforms.uDesaturation.value,
   };
   wsTo=WS[name]; wsT=0; wsName=name;
   document.body.className='state-'+name;
@@ -2168,12 +2828,25 @@ function applyWS(t){
   pMat.opacity=L(wsFrom.pOp,wsTo.pOp);
   scene.fog.color.setRGB(L(wsFrom.fogR,wsTo.fogR),L(wsFrom.fogG,wsTo.fogG),L(wsFrom.fogB,wsTo.fogB));
   renderer.setClearColor(scene.fog.color,1);
+  // Phase G.1 + G.2: color temperature tint + desaturation
+  terrUniforms.uColorTemp.value.set(L(wsFrom.ctR,wsTo.ctR), L(wsFrom.ctG,wsTo.ctG), L(wsFrom.ctB,wsTo.ctB));
+  terrUniforms.uDesaturation.value = L(wsFrom.desat, wsTo.desat);
 }
 
 // ═══════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════
 let scrollProg=0, tgtScroll=0;
+// ── VIRTUAL SMOOTH SCROLL ──────────────────────────────
+// tgtScroll = raw scroll position (0..1). smoothScroll = lerped version
+// that drives the camera + visuals. The gap between them IS the scroll
+// velocity, giving kinetic feel — the world keeps moving slightly after
+// you stop scrolling. Replaces native scroll's instant snap.
+let smoothScroll = 0;
+// v2: lowered from 0.085 → 0.05. Heavier = more luxurious. Mouse wheel
+// sends discrete 100px steps; a lower lerp blends them into continuous
+// flow instead of "ease-almost-reach-ease-again" stepping.
+const SMOOTH_SCROLL_LERP = 0.05;  // 0.05 = Lusion-weight honey. 0.085 = mechanical.
 let mouseInflX=0, mouseInflZ=0;
 let mouseWorld={x:0,z:0};
 let rawMX=window.innerWidth/2, rawMY=window.innerHeight/2;
@@ -2184,6 +2857,19 @@ let isInverted=false;
 let globalTime=0;
 let lastTime=performance.now();
 let shockwaveActive=0;
+// Phase 1 god-mode state:
+let lastMouseWorldX = 0, lastMouseWorldZ = 0;   // for cursor velocity tracking
+let uMouseStrengthCurrent = 0;                   // damped cursor strength → terrain dent
+let heroCoordsLatEl = null, heroCoordsLngEl = null;  // live coordinate display
+let headlineBlurEl = null;                       // root element for scroll-velocity blur CSS var
+// Phase F.3: cursor trail history — last 8 mouseWorld positions
+const cursorTrail = [
+  new THREE.Vector2(999,999), new THREE.Vector2(999,999),
+  new THREE.Vector2(999,999), new THREE.Vector2(999,999),
+  new THREE.Vector2(999,999), new THREE.Vector2(999,999),
+  new THREE.Vector2(999,999), new THREE.Vector2(999,999),
+];
+let cursorTrailTimer = 0;
 
 window.addEventListener('scroll',()=>{
   const max=document.body.scrollHeight-window.innerHeight;
@@ -2382,17 +3068,46 @@ document.addEventListener('mouseover', e => {
   if(!isHoverTarget(e.target)) return;
   // Skip on touch devices — cursor is hidden anyway, no need to animate.
   if(COARSE_POINTER) return;
-  gsap.to('#cursor',     {width:4, height:4, opacity:.3, duration:.18});
-  gsap.to('#cursor-ring',{width:54, height:54, borderColor:'rgba(232,169,77,.7)', duration:.24});
+  gsap.to('#cursor',     {width:4, height:4, opacity:.3, duration:.18, ease: EASE_HOVER});
+  gsap.to('#cursor-ring',{width:54, height:54, borderColor:'rgba(232,169,77,.7)', duration:.24, ease: EASE_HOVER});
+  playHover();
+  // Magnetic snap: pull cursor toward element center via GSAP quickTo
+  magneticSnapTo(e.target);
 });
 document.addEventListener('mouseout', e => {
   if(!isHoverTarget(e.target)) return;
   // Only reset if the related target (where mouse is going) is NOT also a hover target
   if(isHoverTarget(e.relatedTarget)) return;
   if(COARSE_POINTER) return;
-  gsap.to('#cursor',     {width:7, height:7, opacity:1, duration:.18});
-  gsap.to('#cursor-ring',{width:32, height:32, borderColor:'rgba(232,169,77,.3)', duration:.24});
+  gsap.to('#cursor',     {width:7, height:7, opacity:1, duration:.18, ease: EASE_HOVER});
+  gsap.to('#cursor-ring',{width:32, height:32, borderColor:'rgba(232,169,77,.3)', duration:.24, ease: EASE_HOVER});
+  magneticRelease();
 });
+
+// ── MAGNETIC CURSOR SNAPPING ────────────────────────────────────
+// When hovering an interactive element, the cursor ring elastically
+// snaps toward the element's center. Lusion-style magnetic UI.
+let magneticTarget = null;
+const magneticX = gsap.quickTo('#cursor-ring', 'x', {duration: 0.4, ease: 'elastic.out(1, 0.5)'});
+const magneticY = gsap.quickTo('#cursor-ring', 'y', {duration: 0.4, ease: 'elastic.out(1, 0.5)'});
+function magneticSnapTo(el){
+  magneticTarget = el;
+}
+function magneticRelease(){
+  magneticTarget = null;
+}
+// Called from animate() each frame — if magneticTarget is set, the ring
+// drifts toward its center; otherwise it follows curX/curY normally.
+function updateMagneticCursor(){
+  if(!magneticTarget || COARSE_POINTER) return;
+  const r = magneticTarget.getBoundingClientRect();
+  if(!r.width){ magneticTarget = null; return; }
+  const cx = r.left + r.width / 2;
+  const cy = r.top + r.height / 2;
+  // Override the ring lerp target — pulls ring toward element center
+  ringX = cx;
+  ringY = cy;
+}
 
 // ═══════════════════════════════════════
 // AUDIO — Cinematic tier
@@ -2486,6 +3201,47 @@ function playImpact(){
       o.start();o.stop(audioCtx.currentTime+.9);
     },i*30);
   });
+}
+
+// ── TECTONIC CLICK — deep resonant 300ms hit on section transitions ──
+// Resn uses sound as punctuation. This is a sub-bass thud with a short
+// high-frequency "tick" attack — sounds like a stone door closing.
+function playTectonicClick(){
+  if(!audioCtx||isMuted) return;
+  const now = audioCtx.currentTime;
+  // Sub-bass thud (40Hz, exponential decay over 300ms)
+  const o1=audioCtx.createOscillator(),g1=audioCtx.createGain();
+  o1.type='sine';o1.frequency.setValueAtTime(60,now);
+  o1.frequency.exponentialRampToValueAtTime(30,now+0.3);
+  g1.gain.setValueAtTime(0.18,now);
+  g1.gain.exponentialRampToValueAtTime(0.001,now+0.32);
+  o1.connect(g1);g1.connect(masterGain);
+  o1.start(now);o1.stop(now+0.34);
+  // High-freq attack tick (800Hz, 30ms)
+  const o2=audioCtx.createOscillator(),g2=audioCtx.createGain();
+  o2.type='triangle';o2.frequency.value=820;
+  g2.gain.setValueAtTime(0.04,now);
+  g2.gain.exponentialRampToValueAtTime(0.001,now+0.04);
+  o2.connect(g2);g2.connect(masterGain);
+  o2.start(now);o2.stop(now+0.05);
+}
+
+// ── HOVER TONE — subtle amber-frequency sine on interactive hover ──
+// 220Hz sine, 80ms, -24dB. Subliminal but effective.
+let lastHoverTime = 0;
+function playHover(){
+  if(!audioCtx||isMuted) return;
+  const now = audioCtx.currentTime;
+  // Throttle — don't fire on every pixel of mouseover
+  if(now - lastHoverTime < 0.08) return;
+  lastHoverTime = now;
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.type='sine';o.frequency.value=220;
+  g.gain.setValueAtTime(0,now);
+  g.gain.linearRampToValueAtTime(0.012,now+0.005);
+  g.gain.exponentialRampToValueAtTime(0.001,now+0.08);
+  o.connect(g);g.connect(masterGain);
+  o.start(now);o.stop(now+0.09);
 }
 
 function shiftAudio(name){
@@ -2631,7 +3387,98 @@ function animate(now){
   // ── ANALYSER → audioBass (drives uAudio) ────────────────
   updateAnalyser();
 
-  scrollProg+=(tgtScroll-scrollProg)*.036*dt;
+  // ── TIME-OF-DAY CYCLING (60s period) ────────────────────
+  // Drives the color temperature shifts in the fragment shader.
+  terrUniforms.uTimeOfDay.value = (globalTime * 0.0167) % 1.0;  // 0..1 over ~60s
+
+  // ── CURSOR STRENGTH for terrain deformation ─────────────
+  // Track mouse velocity (world-space). High velocity = strong dent.
+  // Damped so the dent fades back to 0 when the cursor stops.
+  const mouseWorldDist = Math.hypot(mouseWorld.x - lastMouseWorldX, mouseWorld.z - lastMouseWorldZ);
+  lastMouseWorldX = mouseWorld.x;
+  lastMouseWorldZ = mouseWorld.z;
+  const mouseStrengthTarget = Math.min(mouseWorldDist * 0.4, 1.0);
+  uMouseStrengthCurrent += (mouseStrengthTarget - uMouseStrengthCurrent) * 0.12 * dt;
+  uMouseStrengthCurrent = Math.max(0, uMouseStrengthCurrent - 0.005 * dt);
+  terrUniforms.uMouseStrength.value = uMouseStrengthCurrent;
+
+  // ── CURSOR TRAIL HEATMAP (Phase F.3) ────────────────────
+  // Shift the trail history every ~6 frames and push the current mouseWorld.
+  // The trail renders as fading amber glow on the terrain in the fragment shader.
+  cursorTrailTimer += dt;
+  if(cursorTrailTimer > 6){
+    cursorTrailTimer = 0;
+    // Shift: drop oldest (index 0), shift rest down, push current at end
+    for(let i = 0; i < 7; i++){
+      cursorTrail[i].copy(cursorTrail[i + 1]);
+    }
+    cursorTrail[7].set(mouseWorld.x, mouseWorld.z);
+    // Update uniforms
+    terrUniforms.uTrail0.value.copy(cursorTrail[0]);
+    terrUniforms.uTrail1.value.copy(cursorTrail[1]);
+    terrUniforms.uTrail2.value.copy(cursorTrail[2]);
+    terrUniforms.uTrail3.value.copy(cursorTrail[3]);
+    terrUniforms.uTrail4.value.copy(cursorTrail[4]);
+    terrUniforms.uTrail5.value.copy(cursorTrail[5]);
+    terrUniforms.uTrail6.value.copy(cursorTrail[6]);
+    terrUniforms.uTrail7.value.copy(cursorTrail[7]);
+  }
+
+  // ── MAGNETIC CURSOR ─────────────────────────────────────
+  updateMagneticCursor();
+
+  // ── SCROLL VELOCITY → HEADLINE BLUR + DISTORTION ──────
+  // Lusion-style: fast scroll blurs + skews + stretches headlines, they
+  // snap sharp + upright when you stop. Applied to all h1/h2/proj-title
+  // elements via CSS variables on <html>.
+  if(headlineBlurEl){
+    const blur = Math.min(scrollVel * 6, 4);
+    const skew = Math.min(scrollVel * 8, 6);   // skewX up to 6deg
+    const scaleY = 1 + Math.min(scrollVel * 0.15, 0.08);  // stretch up to 1.08
+    headlineBlurEl.style.setProperty('--scroll-blur', blur > 0.1 ? blur + 'px' : '0px');
+    headlineBlurEl.style.setProperty('--scroll-skew', skew > 0.1 ? skew + 'deg' : '0deg');
+    headlineBlurEl.style.setProperty('--scroll-scaleY', scaleY.toFixed(3));
+  }
+
+  // ── LIVE COORDINATES (hero) ─────────────────────────────
+  // Update the Kerala lat/lng display with small noise based on cursor.
+  if(heroCoordsLatEl && heroCoordsLngEl){
+    const baseLat = 10.8505;
+    const baseLng = 76.2711;
+    // Tiny drift based on mouseWorld position (within ±0.001°)
+    const latDrift = (mouseWorld.x / 1000) * 0.0008;
+    const lngDrift = (mouseWorld.z / 1000) * 0.0008;
+    const lat = (baseLat + latDrift + Math.sin(globalTime * 0.5) * 0.00015).toFixed(4);
+    const lng = (baseLng + lngDrift + Math.cos(globalTime * 0.4) * 0.00015).toFixed(4);
+    heroCoordsLatEl.textContent = `LAT: ${lat}° N`;
+    heroCoordsLngEl.textContent = `LNG: ${lng}° E`;
+  }
+
+  // ── PHASE G.4: NARRATIVE VELOCITY CURVE ────────────────
+  // Maps scroll progress to a tension value (0..1) following a 3-act
+  // structure: rising intro → plateau → climbing tension → release → climax.
+  // Drives bloom strength so the site gains narrative momentum.
+  {
+    const sp = scrollProg;  // from previous frame (1-frame latency, imperceptible)
+    let tension;
+    if(sp < 0.14)      tension = 0.0 + (sp / 0.14) * 0.3;           // Hero: rising intro
+    else if(sp < 0.28) tension = 0.3 + ((sp-0.14) / 0.14) * 0.05;   // About: plateau
+    else if(sp < 0.56) tension = 0.35 + ((sp-0.28) / 0.28) * 0.45;  // Projects: climbing
+    else if(sp < 0.72) tension = 0.8 - ((sp-0.56) / 0.16) * 0.2;    // Skills: slight release
+    else               tension = 0.6 + ((sp-0.72) / 0.28) * 0.4;    // Ending: climactic peak
+    // Modulate bloom strength with tension — higher tension = more glow
+    if(bloomPass){
+      bloomPass.strength = 0.32 + tension * 0.25;  // 0.32 → 0.57 at peak tension
+    }
+  }
+
+  // ── VIRTUAL SMOOTH SCROLL ──────────────────────────────
+  // Lerp smoothScroll toward tgtScroll. The camera + visuals read
+  // smoothScroll, giving kinetic inertia — the world drifts slightly
+  // after you stop scrolling. Frame-rate-independent via dt scaling.
+  smoothScroll += (tgtScroll - smoothScroll) * SMOOTH_SCROLL_LERP * Math.min(dt, 2);
+
+  scrollProg = smoothScroll;
 
   // World state
   if(wsT<1){wsT=Math.min(1,wsT+.016*dt);applyWS(wsT);}
@@ -2678,12 +3525,21 @@ function animate(now){
   uAberrationTarget = resting + spike;
   uAberration += (uAberrationTarget - uAberration) * 0.18 * dt;
 
+  // ── MOTION BLUR modulation ─────────────────────────────
+  // AfterimagePass damp scales with scroll velocity. At rest = 0 (crisp),
+  // fast scroll = up to 0.65 (visible trails). Decays back to 0 when stopped.
+  if(afterimagePass){
+    const targetDamp = Math.min(scrollVel * 1.8, 0.65);
+    afterimagePass.uniforms.damp.value += (targetDamp - afterimagePass.uniforms.damp.value) * 0.12 * dt;
+  }
+
   // GPU uniforms
   terrUniforms.uTime.value=globalTime;
   terrUniforms.uErosion.value=Math.min(scrollProg*2.8,.9);
   terrUniforms.uAudio.value = audioBass;
   terrUniforms.uCamPos.value.copy(camera.position);
   rim.position.set(mouseInflX*16,14,mouseInflZ*10-18);
+  // 3D hero text removed by user request — no uniform updates needed
 
   // GPU PARTICLE UNIFORMS — replaces the entire CPU particle loop.
   pUniforms.uTime.value = globalTime;
@@ -2734,6 +3590,7 @@ function animate(now){
 
   drawStars();
   drawShockwaves();
+  drawCrack();   // geological crack loader overlay
 }
 
 // ═══════════════════════════════════════
@@ -2752,6 +3609,53 @@ function splitChars(el){
   el.innerHTML=out;
   return el.querySelectorAll('.char');
 }
+
+// ═══════════════════════════════════════
+// SDF-STYLE DECRYPT REVEAL for section labels
+// ═══════════════════════════════════════
+// Resn-style: labels emerge from random ASCII noise character-by-character.
+// Each label's final text is stored, then revealed one char at a time with
+// the not-yet-revealed chars cycling through random uppercase letters/digits.
+// 300ms total per label. Fits the geological/data aesthetic.
+const NOISE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789░▒▓·';
+function decryptReveal(el){
+  if(!el || el.dataset.decrypted === '1') return;
+  el.dataset.decrypted = '1';
+  const finalText = el.dataset.label || el.textContent.trim();
+  el.dataset.label = finalText;
+  el.classList.add('is-decrypting');
+  const len = finalText.length;
+  let revealed = 0;
+  const tick = () => {
+    let out = '';
+    for(let i = 0; i < len; i++){
+      if(i < revealed || finalText[i] === ' ' || finalText[i] === '/'){
+        out += finalText[i];
+      } else {
+        out += NOISE_CHARS[Math.floor(Math.random() * NOISE_CHARS.length)];
+      }
+    }
+    el.textContent = out;
+    revealed += Math.max(1, Math.ceil(len / 12));  // ~12 ticks total
+    if(revealed < len){
+      setTimeout(tick, 24);
+    } else {
+      el.textContent = finalText;
+      el.classList.remove('is-decrypting');
+    }
+  };
+  tick();
+}
+
+// Wire decrypt reveal to all section labels via ScrollTrigger
+document.querySelectorAll('.section-label').forEach(label => {
+  ScrollTrigger.create({
+    trigger: label,
+    start: 'top 92%',
+    onEnter: () => decryptReveal(label),
+    once: true,
+  });
+});
 
 // ═══════════════════════════════════════
 // GSAP TIMELINES
@@ -2830,6 +3734,7 @@ function bootAnimations(){
            duration:1.0 + weight*0.4, ease:'expo.out', delay:baseDelay}
         );
       });
+      // Phase 2: 3D hero text removed by user request
     }, 2.0);
 
     // Beat 2.5: eyebrow label
@@ -2845,6 +3750,7 @@ function bootAnimations(){
     // Beat 3.0: scroll hint + interaction hints
     cinematic.to('.hero-scroll-hint',{opacity:1,duration:0.8,ease:'power2.out'},3.0);
     cinematic.to('.hero-role',{opacity:1,y:0,duration:0.9,ease:'power2.out'},2.8);
+    cinematic.to('.hero-coords',{opacity:1,duration:1.0,ease:'power2.out'},3.2);
     cinematic.add(()=>{
       document.getElementById('hints').classList.add('visible');
     }, 3.2);
@@ -2858,6 +3764,7 @@ function bootAnimations(){
         userHasScrolled = true;
         cinematic.kill();
         gsap.set(['.hero-eyebrow','.hero-role','#hero-name-el','.hero-scroll-hint','#nav','#hints'],{opacity:1});
+        gsap.set('.hero-coords',{opacity:1});
         document.getElementById('nav').classList.add('visible');
         document.getElementById('hints').classList.add('visible');
         // Ensure world is fully lit (in case we killed mid-fade)
@@ -2927,37 +3834,73 @@ function bootAnimations(){
     );
   }
 
-  // PROJECT ANNOTATIONS: title drops from terrain, rule draws, desc surfaces
+  // PROJECT ANNOTATIONS (Phase C.3: Stratum Slide)
+  // Content slides in from the left like a geological core sample being
+  // pushed out of the earth — the strata column (crosshair) arrives first,
+  // then the title, then the desc, each offset by 80ms. Horizontal translate
+  // + clip-path reveal sells the "core sample" metaphor.
   document.querySelectorAll('.project-annotation').forEach((ann, ai) => {
-    // Crosshair fades first
+    // Crosshair — the strata column, slides in first
     const crosshair = ann.querySelector('.proj-crosshair');
     if(crosshair) gsap.fromTo(crosshair,
-      {opacity:0, x:-14},
-      {opacity:1, x:0, duration:0.7, ease:'expo.out',
+      {opacity:0, x:-60, clipPath:'inset(0 100% 0 0)'},
+      {opacity:1, x:0, clipPath:'inset(0 0% 0 0)', duration:0.8, ease:EASE_TERRAIN,
        scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'}
       }
     );
-    // Title drops in with weight — the big terrain typography
+    // Title — KINETIC TYPOGRAPHY (Phase F.2): each letter arrives from a
+    // DIFFERENT direction. Some from left, some from below, some rotating —
+    // Lusion's signature controlled chaos. We split the title into chars
+    // and animate each with a random direction + stagger.
     const title = ann.querySelector('.proj-title');
-    if(title) gsap.fromTo(title,
-      {opacity:0, y:40, filter:'blur(10px)'},
-      {opacity:1, y:0, filter:'blur(0px)', duration:1.3, ease:'expo.out', delay:0.1,
-       scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'},
-       onComplete:()=>{ ann.classList.add('is-entered'); }
+    if(title){
+      // Split into chars (preserve <em> and <br> by splitting text nodes only)
+      const titleChars = splitChars(title);
+      const directions = [
+        {x:-60, y:0, rot:0},      // from left
+        {x:0, y:40, rot:0},       // from below
+        {x:60, y:0, rot:0},       // from right
+        {x:-30, y:-30, rot:-8},   // from upper-left, rotated
+        {x:30, y:30, rot:8},      // from lower-right, rotated
+        {x:0, y:-40, rot:0},      // from above
+      ];
+      gsap.fromTo(titleChars,
+        {opacity:0, x:0, y:0, rotation:0, filter:'blur(6px)'},
+        {
+          opacity:1, x:0, y:0, rotation:0, filter:'blur(0px)',
+          duration:0.9, ease:EASE_TEXT, delay:0.08,
+          stagger:{ each: 0.04, from: 'start' },
+          scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'},
+          onComplete:()=>{ ann.classList.add('is-entered'); }
+        }
+      );
+      // Set each char's initial position from a random direction
+      titleChars.forEach((ch, i) => {
+        const dir = directions[i % directions.length];
+        gsap.set(ch, {x: dir.x, y: dir.y, rotation: dir.rot, opacity: 0, filter: 'blur(6px)'});
+      });
+    }
+    // Rule — draws horizontally as the core sample extends
+    const rule = ann.querySelector('.proj-rule');
+    if(rule) gsap.fromTo(rule,
+      {opacity:0, scaleX:0, transformOrigin:'left center'},
+      {opacity:1, scaleX:1, duration:0.9, ease:EASE_TERRAIN, delay:0.2,
+       scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'}
       }
     );
-    // Desc and stack surface after title lands
+    // Desc — surfaces after title, 80ms offset
     const desc = ann.querySelector('.proj-desc');
     if(desc) gsap.fromTo(desc,
-      {opacity:0, y:16},
-      {opacity:1, y:0, duration:0.9, ease:'power2.out', delay:0.55,
+      {opacity:0, x:-40},
+      {opacity:1, x:0, duration:0.9, ease:EASE_TERRAIN, delay:0.16,
        scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'}
       }
     );
+    // Stack — final stratum layer, 80ms after desc
     const stack = ann.querySelector('.proj-stack');
     if(stack) gsap.fromTo(stack,
-      {opacity:0, y:10},
-      {opacity:1, y:0, duration:0.7, ease:'power2.out', delay:0.75,
+      {opacity:0, x:-30},
+      {opacity:1, x:0, duration:0.7, ease:EASE_TERRAIN, delay:0.24,
        scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'}
       }
     );
@@ -3080,8 +4023,46 @@ function bootAnimations(){
   sectionMap.forEach(([id, idx, wsName])=>{
     ScrollTrigger.create({
       trigger:`#${id}`,start:'top center',end:'bottom center',
-      onEnter:()=>{updateStrata(idx);transWorld(wsName);shiftAudio(wsName);},
-      onEnterBack:()=>{updateStrata(idx);transWorld(wsName);shiftAudio(wsName);}
+      onEnter:()=>{
+        updateStrata(idx);transWorld(wsName);shiftAudio(wsName);playTectonicClick();fireSectionFlare(`#${id}`);
+        triggerFaultRupture();   // Phase C.1: geological rupture on every section change
+        // ── PHASE D: section-specific transition vocabulary ──
+        // D.1: Erosion wipe on About→Projects (id==='projects' means entering projects from about)
+        if(id === 'projects'){
+          triggerErosionWipe();
+          // Phase E.1 + E.2: anticipation nudge, then dolly zoom on Hero→Projects
+          triggerAnticipation();
+          gsap.delayedCall(0.15, triggerDollyZoom);  // fire dolly zoom right after anticipation
+        }
+        // D.2: Crystallisation flash on Projects→Skills (id==='skills')
+        if(id === 'skills') triggerCrystallisationFlash();
+        // D.3: Camera-rotation inversion on Skills→Contact (id==='ending')
+        if(id === 'ending') triggerCameraInversion();
+        // Reset inversion when leaving the ending (entering any other section)
+        if(id !== 'ending') triggerInversionReset();
+        // ── DUTCH TILT — seismic bank on section change ─────
+        // Skip the random tilt if inversion is active (would override the 180° roll)
+        if(!inversionActive){
+          const tiltDir = Math.random() > 0.5 ? 1 : -1;
+          const tiltAmt = THREE.MathUtils.degToRad(2 + Math.random() * 2);
+          cam.rollTarget = tiltDir * tiltAmt;
+        }
+      },
+      onEnterBack:()=>{
+        updateStrata(idx);transWorld(wsName);shiftAudio(wsName);playTectonicClick();fireSectionFlare(`#${id}`);
+        triggerFaultRupture();
+        // Reverse transitions
+        if(id === 'projects') triggerErosionWipe();
+        if(id === 'skills') triggerCrystallisationFlash();
+        // When scrolling back up INTO skills from ending, reset the inversion
+        if(id === 'skills') triggerInversionReset();
+        // Dutch tilt — skip if inversion still active
+        if(!inversionActive){
+          const tiltDir = Math.random() > 0.5 ? 1 : -1;
+          const tiltAmt = THREE.MathUtils.degToRad(2 + Math.random() * 2);
+          cam.rollTarget = tiltDir * tiltAmt;
+        }
+      }
     });
   });
 
@@ -3135,6 +4116,59 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   });
 });
 
+// PROJECT LINKS — explicit click handlers for external project links.
+// Safety net: ensures clicks open in a new tab even if some interaction
+// (cursor:none, pointer-events, etc.) interferes with the default <a> behavior.
+document.querySelectorAll('.proj-link').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if(href && href.startsWith('http')){
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    }
+  });
+  link.style.pointerEvents = 'auto';
+  link.style.cursor = 'pointer';
+  // Phase G.2: resaturate terrain on project hover
+  link.addEventListener('mouseenter', () => {
+    gsap.to(terrUniforms.uDesaturation, {value: 0, duration: 0.5, ease: 'power2.out'});
+    // Phase H.1: blur all OTHER project annotations (DoF effect)
+    const currentAnn = link.closest('.project-annotation');
+    document.querySelectorAll('.project-annotation').forEach(ann => {
+      if(ann !== currentAnn) ann.classList.add('dof-blur');
+    });
+  });
+  link.addEventListener('mouseleave', () => {
+    // Restore to the current section's desaturation target
+    gsap.to(terrUniforms.uDesaturation, {value: WS[wsName].desat, duration: 0.8, ease: 'power2.out'});
+    // Phase H.1: remove DoF blur from all annotations
+    document.querySelectorAll('.project-annotation').forEach(ann => {
+      ann.classList.remove('dof-blur');
+    });
+  });
+});
+
+// Phase H.1: DoF blur on hovering project titles without links (e.g. Oil Safety).
+// These don't have .proj-link, so we attach to the .proj-title element directly.
+document.querySelectorAll('.project-annotation').forEach(ann => {
+  const title = ann.querySelector('.proj-title');
+  if(title && !ann.querySelector('.proj-link')){
+    // Make the title hoverable
+    title.style.pointerEvents = 'auto';
+    title.style.cursor = 'default';
+    title.addEventListener('mouseenter', () => {
+      document.querySelectorAll('.project-annotation').forEach(other => {
+        if(other !== ann) other.classList.add('dof-blur');
+      });
+    });
+    title.addEventListener('mouseleave', () => {
+      document.querySelectorAll('.project-annotation').forEach(other => {
+        other.classList.remove('dof-blur');
+      });
+    });
+  }
+});
+
 // ═══════════════════════════════════════
 // RESIZE
 // ═══════════════════════════════════════
@@ -3160,8 +4194,133 @@ setTimeout(()=>{
 },200);
 
 // ═══════════════════════════════════════
-// LAUNCH
+// GEOLOGICAL CRACK LOADER — horizontal tear on content reveal
 // ═══════════════════════════════════════
+// When the loader finishes, a jagged amber crack tears across the screen
+// left-to-right. Through the crack, the terrain is visible. The crack
+// expands briefly then fades as the content settles. Replaces a boring
+// fade-out with a cinematic "the earth ruptures" moment.
+const crackCv = document.getElementById('crack-canvas');
+const crackCtx = crackCv ? crackCv.getContext('2d') : null;
+function resizeCrackCanvas(){
+  if(!crackCv) return;
+  crackCv.width = window.innerWidth;
+  crackCv.height = window.innerHeight;
+}
+resizeCrackCanvas();
+window.addEventListener('resize', resizeCrackCanvas);
+
+// Pre-generate the jagged crack path (deterministic so it doesn't flicker)
+const CRACK_POINTS = 80;
+const crackPath = [];
+for(let i = 0; i <= CRACK_POINTS; i++){
+  const t = i / CRACK_POINTS;
+  // Jagged Y offset — sum of sines at different frequencies for organic fracture
+  const yOff = Math.sin(t * 31.4) * 8 + Math.sin(t * 78.5 + 1.3) * 4 + (Math.random() - 0.5) * 6;
+  crackPath.push({ x: t, y: yOff });
+}
+
+let crackProgress = 0;       // 0..1 — how far the tear has progressed
+let crackFadeOut = 1;        // 1..0 — fades the crack out after full tear
+let crackActive = false;
+
+function drawCrack(){
+  if(!crackCtx || !crackActive) return;
+  const w = crackCv.width, h = crackCv.height;
+  crackCtx.clearRect(0, 0, w, h);
+  if(crackProgress < 0.01 && crackFadeOut < 0.01) return;
+
+  const midY = h / 2;
+  const drawCount = Math.floor(crackPath.length * crackProgress);
+
+  // Outer glow — wide, soft amber halo
+  crackCtx.save();
+  crackCtx.shadowColor = '#E8A94D';
+  crackCtx.shadowBlur = 24 * crackFadeOut;
+  crackCtx.strokeStyle = `rgba(232, 169, 77, ${0.15 * crackFadeOut})`;
+  crackCtx.lineWidth = 8;
+  crackCtx.beginPath();
+  for(let i = 0; i <= drawCount; i++){
+    const p = crackPath[i];
+    const x = p.x * w;
+    const y = midY + p.y;
+    if(i === 0) crackCtx.moveTo(x, y);
+    else crackCtx.lineTo(x, y);
+  }
+  crackCtx.stroke();
+  crackCtx.restore();
+
+  // Inner crack — sharp bright line
+  crackCtx.save();
+  crackCtx.shadowColor = '#C17F24';
+  crackCtx.shadowBlur = 8 * crackFadeOut;
+  crackCtx.strokeStyle = `rgba(245, 240, 232, ${0.85 * crackFadeOut})`;
+  crackCtx.lineWidth = 1.5;
+  crackCtx.beginPath();
+  for(let i = 0; i <= drawCount; i++){
+    const p = crackPath[i];
+    const x = p.x * w;
+    const y = midY + p.y;
+    if(i === 0) crackCtx.moveTo(x, y);
+    else crackCtx.lineTo(x, y);
+  }
+  crackCtx.stroke();
+  crackCtx.restore();
+
+  // Sparks at the crack tip — small amber dots at the leading edge
+  if(crackProgress < 1 && drawCount > 0){
+    const tip = crackPath[Math.min(drawCount, crackPath.length - 1)];
+    const tipX = tip.x * w;
+    const tipY = midY + tip.y;
+    crackCtx.save();
+    crackCtx.shadowColor = '#E8A94D';
+    crackCtx.shadowBlur = 16;
+    crackCtx.fillStyle = '#F5F0E8';
+    crackCtx.beginPath();
+    crackCtx.arc(tipX, tipY, 2.5, 0, Math.PI * 2);
+    crackCtx.fill();
+    crackCtx.restore();
+  }
+}
+
+function triggerGeologicalCrack(){
+  if(!crackCv) return;
+  crackActive = true;
+  crackProgress = 0;
+  crackFadeOut = 1;
+  crackCv.classList.add('active');
+  // Tear across in 600ms — use an object proxy so onUpdate can read the value
+  const tearProxy = { v: 0 };
+  gsap.to(tearProxy, {
+    v: 1, duration: 0.6, ease: 'power2.inOut',
+    onUpdate: () => { crackProgress = tearProxy.v; }
+  });
+  // Hold for 200ms, then fade out over 800ms
+  const fadeProxy = { v: 1 };
+  gsap.to(fadeProxy, {
+    v: 0, duration: 0.8, ease: 'power2.out', delay: 0.8,
+    onUpdate: () => { crackFadeOut = fadeProxy.v; },
+    onComplete: () => {
+      crackActive = false;
+      crackCv.classList.remove('active');
+    }
+  });
+  // ── CRACK RAF LOOP ──────────────────────────────────────
+  // The main animate() loop hasn't started yet (loader still visible),
+  // so we run a dedicated RAF for the crack until it completes.
+  function crackLoop(){
+    drawCrack();
+    if(crackActive) requestAnimationFrame(crackLoop);
+  }
+  crackLoop();
+}
+// Expose for testing
+window.__triggerCrack = triggerGeologicalCrack;
+// Phase 1 god-mode: cache hero coordinate DOM nodes for the live update loop.
+heroCoordsLatEl = document.querySelector('.hero-coords-lat');
+heroCoordsLngEl = document.querySelector('.hero-coords-lng');
+headlineBlurEl = document.documentElement;  // CSS var on <html> cascades to all
+
 // Previous version: fake timer incremented loadPct to 100 in ~2s and triggered
 // the cinematic — but CDN assets (Three.js, GSAP, ~600KB) might still be
 // downloading, leaving users staring at "Terrain ready" over a black screen.
@@ -3193,16 +4352,72 @@ if (!WEBGL_ACTIVE || REDUCED_MOTION) {
       setLoad(loadPct, assetsReady ? 'Terrain ready' : 'Awaiting assets');
       if (assetsReady) {
         clearInterval(li);
+        // ── 5-ACT GEOLOGICAL LOADER ──────────────────────────
+        // Replaces the old single-fade with a cinematic overture:
+        //   Act 1 (0.0-0.3s)  Black void. Loader UI fades. Shells cover screen.
+        //   Act 2 (0.3-1.2s)  Amber core ignites + expands from center.
+        //   Act 3 (1.2-2.0s)  Crack tears across. Render loop starts. Terrain visible through crack.
+        //   Act 4 (2.0-3.2s)  Shells slide apart (book opening). Terrain revealed. Hero name scales.
+        //   Act 5 (3.2-4.0s)  Nav fades. Shells removed. bootAnimations fires.
         setTimeout(()=>{
-          gsap.to('#loader',{opacity:0,duration:1.3,ease:'power2.inOut',
-            onComplete:()=>{
-              const lEl=document.getElementById('loader');
-              if (lEl) lEl.style.display='none';
-              animate(performance.now());
-              bootAnimations();
+          const loaderEl = document.getElementById('loader');
+          const shellTop = document.getElementById('loader-shell-top');
+          const shellBottom = document.getElementById('loader-shell-bottom');
+          const core = document.getElementById('loader-core');
+
+          // Show shells (they cover the screen with void, replacing the loader)
+          gsap.set([shellTop, shellBottom], {opacity: 1, y: 0});
+          gsap.set(core, {opacity: 0, scale: 0});
+
+          // Act 1 — Black: fade out loader UI (name/bar/label), shells already covering
+          gsap.to('#loader-name, #loader-bar-wrap, #loader-label', {
+            opacity: 0, duration: 0.3, ease: 'power2.out'
+          });
+
+          // Act 2 — Core: amber pixel ignites at 0.3s, expands to fill screen by 1.2s
+          gsap.to(core, {
+            opacity: 1, scale: 1, duration: 0.15, ease: 'power2.out', delay: 0.3
+          });
+          gsap.to(core, {
+            scale: 120, duration: 0.75, ease: 'power2.inOut', delay: 0.45,
+            // Core fades as it expands — becomes a brief flash then settles to void
+            opacity: 0, delay: 0.45
+          });
+
+          // Act 3 — Rupture: crack tears at 1.2s. Start render loop so terrain shows through.
+          gsap.delayedCall(1.2, () => {
+            animate(performance.now());
+            triggerGeologicalCrack();
+          });
+
+          // Act 4 — Emergence: shells slide apart at 2.0s (book opening)
+          gsap.to(shellTop, {
+            y: '-100%', duration: 1.2, ease: 'power3.inOut', delay: 2.0
+          });
+          gsap.to(shellBottom, {
+            y: '100%', duration: 1.2, ease: 'power3.inOut', delay: 2.0
+          });
+          // Fade the #loader div out during emergence
+          gsap.to('#loader', {
+            opacity: 0, duration: 0.4, ease: 'power2.out', delay: 2.0,
+            onComplete: () => {
+              const lEl = document.getElementById('loader');
+              if (lEl) lEl.style.display = 'none';
             }
           });
-        },400);
+
+          // Act 5 — Settle: nav fades, bootAnimations fires, shells removed
+          gsap.delayedCall(3.2, () => {
+            bootAnimations();
+          });
+          gsap.to([shellTop, shellBottom, core], {
+            opacity: 0, duration: 0.4, ease: 'power2.out', delay: 3.4,
+            onComplete: () => {
+              gsap.set([shellTop, shellBottom, core], {display: 'none'});
+            }
+          });
+
+        }, 400);
       }
     } else {
       const labels=['Authoring landmark terrain','Carving the spiral canyon','Scattering particles','Lighting the canyon','Ready'];
@@ -3229,6 +4444,9 @@ if (typeof window !== 'undefined') {
         POST_FX_ENABLED, SOFT_PARTICLES_ENABLED,
         audioBass, scrollVel, uAberration,
         envMap: !!envMap,
+        uMouseStrength: terrUniforms.uMouseStrength.value,
+        uTimeOfDay: terrUniforms.uTimeOfDay.value,
+        heightMap: !!terrUniforms.uHeightMap,
       };
     },
     THREE,
@@ -3240,6 +4458,7 @@ if (typeof window !== 'undefined') {
     bloomPass,
     fxPass,
     sampleHeight: sampleHeightCached,
+    cam: typeof cam !== 'undefined' ? cam : null,
   };
 }
 
