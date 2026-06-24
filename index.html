@@ -1,0 +1,3264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- viewport-fit=cover: extend layout into notched/display-cutout areas on iPhone/Pixel.
+     user-scalable=no would violate a11y; we leave pinch-zoom enabled. -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- theme-color: tints mobile browser chrome to match --void. Splits light/dark
+     via prefers-color-scheme so iOS Safari respects the system appearance. -->
+<meta name="theme-color" content="#0A1509" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0A1509" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark">
+<!-- apple-mobile-web-app-capable: hide UI chrome when launched from iOS home screen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+
+<title>Leon Punnoose — CS Engineer</title>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SEO + SOCIAL META (Phase 5)
+     ════════════════════════════════════════════════════════════════
+     All URLs use a placeholder domain (https://leon.dev/) — replace with
+     the real domain at deploy time. The OG image path points to a static
+     screenshot that should be generated from the live site (1200×630px).
+     ════════════════════════════════════════════════════════════════ -->
+
+<!-- Basic SEO -->
+<meta name="description" content="Leon Punnoose — Computer Science Engineer. AI/ML projects including carcinogenic oil detection, medical report explainer, and conversational AI chatbot.">
+<meta name="author" content="Leon Punnoose">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="generator" content="hand-coded">
+
+<!-- Canonical URL — dedupes duplicate content across domains -->
+<link rel="canonical" href="https://leontp05.github.io/">
+
+<!-- Open Graph (Facebook, LinkedIn, Slack, Discord previews) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Leon Punnoose — CS Engineer">
+<meta property="og:title" content="Leon Punnoose — CS Engineer">
+<meta property="og:description" content="Computer Science Engineer building AI/ML systems — oil safety detection, medical report explainer, and conversational AI.">
+<meta property="og:url" content="https://leontp05.github.io/">
+<meta property="og:image" content="https://leontp05.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Leon Punnoose's portfolio — a 3D geological terrain with the name 'Leon' rendered in serif type over a dark forest-green and amber palette.">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card (Twitter/X previews) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Leontp05">
+<meta name="twitter:creator" content="@Leontp05">
+<meta name="twitter:title" content="Leon Punnoose — CS Engineer">
+<meta name="twitter:description" content="Computer Science Engineer building AI/ML systems — oil safety detection, medical report explainer, and conversational AI.">
+<meta name="twitter:image" content="https://leontp05.github.io/og-image.png">
+<meta name="twitter:image:alt" content="Leon Punnoose's portfolio — 3D geological terrain with serif typography.">
+
+<!-- Favicon: inline SVG data URI (no extra HTTP request).
+     A stylized amber "L" on a dark void background — matches the site palette. -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230A1509'/%3E%3Cpath d='M9 7h3v15h8v3H9V7z' fill='%23E8A94D'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A1509'/%3E%3Cpath d='M9 7h3v15h8v3H9V7z' fill='%23E8A94D'/%3E%3C/svg%3E">
+<link rel="mask-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M9 7h3v15h8v3H9V7z' fill='%23E8A94D'/%3E%3C/svg%3E" color="#E8A94D">
+
+<!-- Web manifest: inline data URI so no extra file. Marks the site as
+     installable (PWA) on Chrome/Edge/Android. -->
+<link rel="manifest" href='data:application/manifest+json,{"name":"Leon Punnoose — CS Engineer","short_name":"Leon","start_url":"/","display":"standalone","background_color":"%230A1509","theme_color":"%230A1509","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%230A1509%27/%3E%3Cpath d=%27M9 7h3v15h8v3H9V7z%27 fill=%27%23E8A94D%27/%3E%3C/svg%3E","sizes":"any","type":"image/svg+xml"}]}'>
+
+<!-- Person schema (JSON-LD) — enables Google Knowledge Graph rich results.
+     sameAs links should point to the real profiles at deploy time. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Leon Punnoose",
+  "jobTitle": "Computer Science Engineer",
+  "description": "Computer Science Engineer building AI/ML systems for real-world impact.",
+  "url": "https://leontp05.github.io/",
+  "email": "mailto:leontp2810@gmail.com",
+  "sameAs": [
+    "https://github.com/Leontp05",
+    "https://www.linkedin.com/in/leon-punnoose-82b93a2b0"
+  ],
+  "knowsAbout": [
+    "Machine Learning",
+    "Natural Language Processing",
+    "LLMs",
+    "Python",
+    "React",
+    "Streamlit",
+    "Sensor Data Analysis"
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Font preload: the most critical font (Cormorant Garamond for hero name) loads
+     early so FCP doesn't wait for the full Google Fonts CSS to parse + fetch. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --void:#0A1509;--deep:#1C3320;--canopy:#4A7C59;
+  --amber:#C17F24;--gold:#E8A94D;--bone:#F5F0E8;
+  --bone-dim:rgba(245,240,232,0.62);--bone-ghost:rgba(245,240,232,0.30);
+  --focus:#E8A94D;
+}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--bone);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none}
+
+/* A11Y: visually-hidden helper for screen-reader-only text. */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* A11Y: skip-link. Hidden until focused, then visible top-left. */
+.skip-link{position:fixed;top:-100px;left:16px;z-index:9999;background:var(--void);color:var(--bone);padding:10px 16px;border:1px solid var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;transition:top .2s}
+.skip-link:focus{top:16px;outline:2px solid var(--focus);outline-offset:2px}
+
+/* A11Y: focus-visible styles — keyboard users get a gold ring; mouse users don't. */
+*:focus{outline:none}
+*:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:1px}
+a:focus-visible,button:focus-visible,.fissure-trigger:focus-visible .fissure-sealed{outline:2px solid var(--focus);outline-offset:3px}
+
+/* A11Y: mute toggle button (top-right). Visible always so users know audio is a thing. */
+.mute-btn{position:fixed;top:22px;right:48px;z-index:600;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(245,240,232,0.18);color:var(--bone-dim);cursor:none;padding:0;border-radius:2px;transition:border-color .3s,color .3s,background .3s;opacity:0;pointer-events:none}
+.mute-btn.visible{opacity:1;pointer-events:auto}
+.mute-btn:hover{border-color:var(--gold);color:var(--gold)}
+.mute-btn[aria-pressed="true"]{border-color:rgba(193,127,36,0.5);color:var(--amber);background:rgba(28,51,32,0.4)}
+.mute-btn .mute-icon-off{display:none}
+.mute-btn[aria-pressed="true"] .mute-icon-on{display:none}
+.mute-btn[aria-pressed="true"] .mute-icon-off{display:inline}
+body.no-webgl .mute-btn{display:none}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:2000;background:var(--void);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transition:opacity 1.2s}
+#loader-name{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,8vw,96px);font-weight:300;color:var(--bone);letter-spacing:-0.02em;opacity:0;transform:translateY(20px);transition:opacity 1s,transform 1s}
+#loader-bar-wrap{width:180px;height:1px;background:rgba(245,240,232,0.08);position:relative}
+#loader-bar{height:1px;background:linear-gradient(90deg,var(--amber),var(--gold));width:0%;transition:width 0.12s linear}
+#loader-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.28em;color:rgba(193,127,36,0.7);text-transform:uppercase}
+
+/* CURSOR */
+/* Cursor transforms are managed by GSAP (xPercent/yPercent:-50). No CSS transform here to avoid double-offset. */
+#cursor{position:fixed;width:7px;height:7px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;left:0;top:0;mix-blend-mode:screen;transition:width .2s,height .2s}
+#cursor-ring{position:fixed;width:32px;height:32px;border-radius:50%;border:1px solid rgba(232,169,77,0.3);pointer-events:none;z-index:9998;left:0;top:0;transition:width .3s,height .3s,border-color .3s}
+#cursor-glow{position:fixed;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(232,169,77,0.04) 0%,transparent 70%);pointer-events:none;z-index:9996;left:0;top:0}
+
+/* CANVAS — pointer-events:none so it never blocks clicks on content.
+   Mouse/touch interactions are handled by document-level listeners, not
+   by the canvas itself. */
+#canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* VIGNETTE / DOF */
+#vignette{position:fixed;inset:0;pointer-events:none;z-index:2;background:radial-gradient(ellipse 75% 65% at 50% 50%,transparent 35%,rgba(10,21,9,0.6) 100%);transition:background 1.8s ease}
+
+/* BREATH OVERLAY */
+#breath-overlay{position:fixed;inset:0;pointer-events:none;z-index:3;background:rgba(10,21,9,0);transition:background 0.1s}
+
+/* SHOCKWAVE CANVAS */
+#shock-canvas{position:fixed;inset:0;pointer-events:none;z-index:4;opacity:1}
+
+/* NAV — Y2K accent: bracketed logo, blinking status dot. Stays earthy
+   but the brackets + mono + amber dot give it the "system terminal" edge. */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:26px 48px;opacity:0;transition:opacity 1s}
+nav.visible{opacity:1}
+.nav-logo{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.24em;color:var(--bone-dim);text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.nav-logo::before{content:'[';color:var(--amber);font-weight:400}
+.nav-logo::after{content:']';color:var(--amber);font-weight:400}
+.nav-status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(232,169,77,0.8);animation:nav-blink 2.2s ease-in-out infinite;margin-right:2px}
+@keyframes nav-blink{0%,100%{opacity:1}50%{opacity:0.35}}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:var(--bone-dim);text-decoration:none;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a::before{content:'//';color:rgba(193,127,36,0.4);margin-right:6px;font-weight:300}
+.nav-hint{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:var(--bone-ghost);text-transform:uppercase;transition:opacity .5s}
+
+/* STRATA — now buttons. Reset default button styling.
+   v10 fix: width:fit-content + pointer-events:none on container so the
+   empty space doesn't block clicks on content behind it. */
+#strata{position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:7px;width:fit-content;pointer-events:none}
+.sl{width:2px;height:26px;background:rgba(245,240,232,0.28);border-radius:2px;transition:background .6s,height .6s;position:relative;cursor:none;border:none;padding:0;font:inherit;color:inherit;text-align:left;pointer-events:auto}
+.sl.active{background:var(--gold);height:50px}
+.sl-label{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:rgba(245,240,232,0);white-space:nowrap;text-transform:uppercase;transition:color .5s}
+.sl.active .sl-label{color:var(--gold)}
+
+/* INTERACTION HINTS — v2: persistent bottom-center bar (was bottom-right tiny).
+   90% of recruiters missed the old hints because they were tucked in a corner.
+   Now: a centered bottom bar that's visible at all times on desktop, with
+   subtle amber accents so it reads as part of the UI, not noise. */
+#hints{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:row;gap:24px;align-items:center;opacity:0;transition:opacity 1s;padding:10px 22px;background:rgba(10,21,9,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(193,127,36,0.18);border-radius:2px}
+#hints.visible{opacity:1}
+.hint-line{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;color:rgba(245,240,232,0.65);text-transform:uppercase;display:flex;align-items:center;gap:10px;white-space:nowrap}
+.hint-key{border:1px solid rgba(232,169,77,0.32);padding:3px 8px;border-radius:2px;color:var(--gold);background:rgba(193,127,36,0.08);font-weight:400}
+.hint-sep{width:1px;height:14px;background:rgba(245,240,232,0.14)}
+
+/* SECTIONS */
+section{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center}
+
+/* HERO */
+#hero{flex-direction:column;justify-content:center;align-items:flex-start;padding:0 12vw;min-height:100vh}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.32em;color:var(--amber);text-transform:uppercase;margin-bottom:22px;opacity:0}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(72px,11vw,148px);font-weight:300;line-height:0.88;letter-spacing:-0.025em;opacity:0;will-change:filter}
+.hero-name .char{display:inline-block;opacity:0;transform:translateY(50px) rotate(3deg);will-change:transform}
+.hero-name em{font-style:italic;color:var(--gold)}
+.hero-role{font-size:clamp(13px,1.3vw,17px);font-weight:300;line-height:1.6;letter-spacing:0.02em;color:var(--bone-dim);margin-top:28px;opacity:0;max-width:480px}
+.hero-role .char{display:inline-block;opacity:0;transform:translateY(14px)}
+.hero-scroll-hint{position:absolute;bottom:44px;left:12vw;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.26em;color:var(--bone-ghost);text-transform:uppercase;display:flex;align-items:center;gap:14px;opacity:0}
+.pulse-line{width:36px;height:1px;background:var(--amber);animation:pulse 2.2s ease-in-out infinite;transform-origin:left}
+@keyframes pulse{0%,100%{transform:scaleX(0.4);opacity:0.3}50%{transform:scaleX(1);opacity:0.9}}
+
+/* ABOUT — compact (v8: was 130px padding + 2 paragraphs, now 80px + 1 short paragraph) */
+#about{padding:80px 12vw;align-items:flex-start;flex-direction:row;gap:6vw;min-height:auto}
+.about-left{flex:0 0 auto;width:180px}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.3em;color:var(--amber);text-transform:uppercase;margin-bottom:18px;display:block}
+.about-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:300;line-height:1.04;color:var(--bone);letter-spacing:-0.01em}
+.about-headline em{font-style:italic;color:var(--gold)}
+.about-right{flex:1;max-width:520px}
+.about-body{font-size:15px;line-height:1.8;color:var(--bone-dim);font-weight:300;margin-bottom:0}
+.about-body strong{color:var(--bone);font-weight:400}
+.about-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--canopy);border:1px solid rgba(74,124,89,0.28);padding:5px 13px;border-radius:2px;text-transform:uppercase;transition:border-color .3s,color .3s,transform .25s}
+.tag:hover{border-color:rgba(193,127,36,0.5);color:var(--amber);transform:translateY(-1px)}
+
+/* PROJECTS — terrain-native annotations (no cards) */
+#projects{padding:130px 12vw;flex-direction:column;align-items:flex-start;gap:0}
+.projects-intro-section{padding:100px 12vw;min-height:60vh}
+.projects-intro{width:100%;display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0}
+.projects-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,62px);font-weight:300;line-height:1.04;color:var(--bone)}
+.projects-headline em{font-style:italic;color:var(--gold)}
+
+/* INDIVIDUAL PROJECT SECTIONS — full viewport, content sits in terrain */
+.project-section{min-height:100vh;display:flex;align-items:flex-end;justify-content:flex-start;padding:0 12vw 14vh;position:relative;overflow:hidden}
+
+/* KINETIC TYPOGRAPHY — massive ghost number clipped behind the terrain text.
+   The number sits as a huge background element, partly clipped by the
+   viewport edge. Reads as Y2K-oversized-stamp rather than a 2D label. */
+.proj-ghost-num{
+  position:absolute;
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:clamp(280px, 38vw, 560px);
+  line-height:0.78;
+  letter-spacing:-0.04em;
+  color:rgba(232,169,77,0.06);
+  pointer-events:none;
+  user-select:none;
+  z-index:0;
+  /* Offset to the right edge — partly off-screen for the kinetic feel */
+  right:-4vw;
+  top:14vh;
+  white-space:nowrap;
+  font-style:italic;
+  text-shadow:0 0 80px rgba(193,127,36,0.04);
+}
+.project-section .project-annotation{position:relative;z-index:2}
+
+/* Terrain annotation — text carved into the world, no box */
+.project-annotation{
+  position:relative;
+  max-width:640px;width:100%;
+  pointer-events:none;
+}
+.project-annotation a.proj-link{
+  pointer-events:auto;
+  text-decoration:none;
+  color:inherit;
+  display:block;
+}
+
+/* Crosshair marker — minimal terrain survey marker */
+.proj-crosshair{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+}
+.proj-crosshair::before{
+  content:'';
+  display:inline-block;
+  width:18px;height:1px;
+  background:var(--amber);
+  opacity:0.6;
+}
+.proj-num{
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.32em;
+  color:var(--amber);text-transform:uppercase;opacity:0.7;
+}
+.proj-coords{
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;
+  color:rgba(245,240,232,0.28);text-transform:uppercase;
+  margin-left:auto;
+}
+
+/* The title — huge, raw, terrain-scale typography.
+   v2: text-shadow for legibility over the moving WebGL canvas. */
+.proj-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,6.5vw,88px);
+  font-weight:300;
+  line-height:0.92;
+  letter-spacing:-0.025em;
+  color:var(--bone);
+  margin-bottom:22px;
+  text-wrap:balance;
+  text-shadow:0 2px 24px rgba(10,21,9,0.7), 0 0 60px rgba(232,169,77,0.06);
+}
+.proj-title em{font-style:italic;color:var(--gold)}
+.proj-title .proj-arrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.32em;
+  letter-spacing:0;
+  color:var(--amber);
+  vertical-align:middle;
+  margin-left:8px;
+  opacity:0;
+  transform:translateX(-6px);
+  display:inline-block;
+  transition:opacity .4s,transform .4s;
+}
+.proj-link:hover .proj-arrow{opacity:0.9;transform:translateX(0)}
+
+/* Hairline separator */
+.proj-rule{
+  width:0;height:1px;
+  background:linear-gradient(90deg,var(--amber),transparent);
+  margin-bottom:18px;
+  transition:width 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.project-annotation.is-entered .proj-rule{width:180px}
+
+/* Description — appears after rule, tight mono-like feel.
+   v2: raised color contrast on project desc (was --bone-dim 0.62) so
+   paragraphs about ML/React stacks stay readable over the dimmed terrain. */
+.proj-desc{
+  font-size:13px;line-height:1.85;
+  color:rgba(245,240,232,0.85);font-weight:300;
+  max-width:460px;
+  margin-bottom:18px;
+  text-shadow:0 1px 8px rgba(10,21,9,0.6);
+}
+
+/* Stack — bare, no pill boxes */
+.proj-stack{
+  display:flex;flex-wrap:wrap;gap:0;
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:rgba(74,124,89,0.7);
+}
+.proj-stack span+span::before{content:' · ';color:rgba(74,124,89,0.35)}
+
+/* Hover: title glows slightly gold */
+.proj-link:hover .proj-title{color:var(--bone)}
+.proj-link:hover{text-decoration:none}
+
+/* Ground line — thin horizontal rule anchoring text to "terrain" */
+.proj-ground{
+  position:absolute;bottom:10vh;left:12vw;right:12vw;
+  height:1px;
+  background:linear-gradient(90deg,rgba(193,127,36,0.18),transparent 70%);
+  pointer-events:none;
+}
+
+/* FISSURE CARDS — legacy styles (kept for reference, no longer used in v9) */
+
+/* FISSURE CARDS — v8: always visible (was hover-only, projects were invisible)
+   The geological fissure aesthetic stays: horizontal bar, number, glow on hover.
+   But the content is visible by default so users can actually read the projects. */
+.fissure{position:relative;width:100%;margin-bottom:3px;overflow:hidden;cursor:none}
+.fissure-trigger{display:block;width:100%;padding:0;border:none;background:none;color:inherit;font:inherit;text-align:left;cursor:none}
+.fissure-sealed{min-height:120px;background:linear-gradient(90deg,rgba(74,124,89,0.08),rgba(193,127,36,0.15),rgba(74,124,89,0.08));border-top:1px solid rgba(193,127,36,0.12);border-bottom:1px solid rgba(193,127,36,0.08);transition:border-color .5s,background .5s;position:relative}
+.fissure-sealed::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent 0%,rgba(232,169,77,0.08) 50%,transparent 100%);opacity:0;transition:opacity .5s}
+.fissure:hover .fissure-sealed,.fissure-trigger:focus-visible .fissure-sealed,.fissure.is-open .fissure-sealed{border-top-color:rgba(232,169,77,0.5);border-bottom-color:rgba(232,169,77,0.3);background:linear-gradient(90deg,rgba(74,124,89,0.12),rgba(193,127,36,0.2),rgba(74,124,89,0.12))}
+.fissure:hover .fissure-sealed::before,.fissure.is-open .fissure-sealed::before{opacity:1}
+.fissure-glow{position:absolute;top:0;left:-100%;right:-100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),var(--amber),var(--gold),transparent);opacity:0;transition:opacity .4s,left .7s cubic-bezier(0.16,1,0.3,1)}
+.fissure:hover .fissure-glow,.fissure.is-open .fissure-glow{opacity:1;left:0;right:0}
+.fissure-content{position:relative;display:flex;align-items:center;padding:24px 52px;gap:40px;opacity:1;transform:none}
+.fissure-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:0.22em;flex-shrink:0;writing-mode:vertical-rl;transform:rotate(180deg)}
+.fissure-body{flex:1}
+.fissure-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.4vw,30px);font-weight:400;color:var(--bone);margin-bottom:10px;line-height:1.1}
+.fissure-desc{font-size:12px;line-height:1.75;color:var(--bone-dim);font-weight:300;max-width:500px;margin-bottom:18px}
+.fissure-stack{display:flex;flex-wrap:wrap;gap:7px}
+.stack-pill{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--canopy);background:rgba(74,124,89,0.12);padding:3px 9px;border-radius:2px;text-transform:uppercase}
+.fissure-arrow{font-size:16px;color:var(--amber);flex-shrink:0;opacity:0.7}
+.fissure-label{position:absolute;right:52px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:rgba(193,127,36,0.55);text-transform:uppercase;transition:opacity .3s}
+.fissure:hover .fissure-label,.fissure.is-open .fissure-label{opacity:0}
+
+/* SKILLS */
+#skills{padding:130px 12vw;flex-direction:column;align-items:flex-start;gap:56px}
+.skills-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,62px);font-weight:300;color:var(--bone);line-height:1.04}
+.skills-headline em{font-style:italic;color:var(--gold)}
+.skills-layers{width:100%;display:flex;flex-direction:column}
+.skill-stratum{display:flex;align-items:center;border-bottom:1px solid rgba(74,124,89,0.1);padding:26px 0;gap:56px;transition:padding-left .4s,background .4s}
+.skill-stratum:hover{background:rgba(28,51,32,0.18);padding-left:14px}
+.skill-stratum-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.24em;color:var(--amber);text-transform:uppercase;width:130px;flex-shrink:0}
+.skill-items{display:flex;flex-wrap:wrap;gap:9px;flex:1}
+.skill-item{font-family:'Inter',sans-serif;font-size:12px;font-weight:300;color:var(--bone-dim);padding:5px 15px;border:1px solid rgba(245,240,232,0.07);border-radius:2px;transition:color .3s,border-color .3s,transform .25s}
+.skill-item:hover{color:var(--bone);border-color:rgba(232,169,77,0.28);transform:translateY(-2px)}
+.skill-depth{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(245,240,232,0.30);letter-spacing:0.1em;width:76px;flex-shrink:0;text-align:right;text-transform:uppercase}
+
+/* ENDING — LTP initials + world inversion (v9) */
+#ending{min-height:100vh;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 12vw;position:relative;overflow:hidden}
+#star-canvas{position:absolute;inset:0;pointer-events:none}
+#inversion-canvas{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 2s}
+.ending-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:0}
+.ending-ltp{font-family:'Cormorant Garamond',serif;font-size:clamp(100px,18vw,220px);font-weight:300;line-height:0.86;color:var(--bone);letter-spacing:0.04em;margin-bottom:0;opacity:0}
+.ending-ltp .char{display:inline-block;opacity:0;transform:translateY(60px) rotate(4deg);will-change:transform,opacity}
+.ending-line{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),var(--amber),var(--gold),transparent);margin:28px 0 20px;transition:width 1.2s ease-out}
+.ending-line.drawn{width:240px}
+.ending-sub{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.32em;color:var(--amber);text-transform:uppercase;margin-bottom:32px;opacity:0}
+.ending-cta-line{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,1.8vw,22px);font-weight:300;font-style:italic;color:var(--bone-dim);letter-spacing:0.01em;line-height:1.6;margin-bottom:40px;opacity:0}
+.contact-links{display:flex;gap:2px;opacity:0}
+.contact-link{display:flex;flex-direction:column;align-items:center;gap:11px;padding:30px 50px;border:1px solid rgba(74,124,89,0.15);text-decoration:none;color:var(--bone-dim);transition:background .4s,border-color .4s,color .4s;position:relative;overflow:hidden}
+.contact-link::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .4s}
+.contact-link:hover{background:rgba(28,51,32,0.45);border-color:rgba(193,127,36,0.4);color:var(--bone)}
+.contact-link:hover::after{transform:scaleX(1)}
+.c-icon{font-family:'JetBrains Mono',monospace;font-size:16px;opacity:0.7;display:flex;align-items:center;justify-content:center}
+.c-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--amber)}
+.c-value{font-size:11px;font-weight:300;letter-spacing:0.04em}
+.ending-footer{position:absolute;bottom:28px;left:0;right:0;display:flex;justify-content:space-between;padding:0 48px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:rgba(245,240,232,0.30);text-transform:uppercase;z-index:2}
+
+/* SCROLL CONTAINER */
+#scroll-container{position:relative;z-index:10}
+
+/* REVEAL — elements start hidden, GSAP reveals them on scroll.
+   Safety net: if GSAP/ScrollTrigger fails to load, a JS fallback at the
+   bottom of the page forces all .reveal elements visible after 3s. */
+.reveal{opacity:0;transform:translateY(28px)}
+
+/* WORLD STATES — v2: stronger project/skills vignettes to dim the moving
+   terrain under dense text. Reduces the cognitive overload of reading ML
+   project descriptions over a breathing 3D canyon. */
+body.state-about #vignette{background:radial-gradient(ellipse 88% 78% at 50% 55%,transparent 45%,rgba(10,21,9,0.42) 100%)}
+body.state-projects #vignette{background:radial-gradient(ellipse 55% 45% at 30% 70%,transparent 12%,rgba(10,21,9,0.82) 100%)}
+body.state-skills #vignette{background:radial-gradient(ellipse 55% 45% at 50% 50%,transparent 18%,rgba(10,21,9,0.82) 100%)}
+body.state-ending #vignette{background:radial-gradient(ellipse 60% 50% at 50% 45%,transparent 22%,rgba(5,10,15,0.55) 100%)}
+
+/* BREATH STATE */
+body.breathing #breath-overlay{background:rgba(10,21,9,0.0)}
+body.exhaling #breath-overlay{background:rgba(232,169,77,0.03)}
+
+@media(max-width:768px){
+  nav{padding:18px 22px}.nav-links{display:none}
+  .mute-btn{top:14px;right:18px;width:36px;height:36px}
+  /* Use safe-area-inset for notched devices so content doesn't hide under the notch */
+  #hero,#about,#projects,#skills,#ending{
+    padding-left:max(6vw, env(safe-area-inset-left));
+    padding-right:max(6vw, env(safe-area-inset-right));
+  }
+  #about{flex-direction:column;gap:36px}.about-left{width:100%}
+  .contact-links{flex-direction:column;width:100%;gap:2px}
+  /* Strata and hints hidden on mobile — they require precise pointer + free viewport corners */
+  #strata,#hints{display:none}
+  .skill-depth{display:none}.skill-stratum{gap:18px}
+  /* Fissures on mobile: content always visible, compact padding */
+  .fissure-sealed{min-height:auto}
+  .fissure-content{padding:18px 20px;gap:18px}
+  .fissure-num{display:none}
+  .fissure-label{display:none}
+  .fissure-arrow{display:none}
+  /* Project annotations on mobile — tighten layout */
+  .project-section{padding:0 6vw 12vh;align-items:flex-end}
+  .proj-title{font-size:clamp(34px,10vw,56px)}
+  .proj-coords{display:none}
+  .proj-ground{display:none}
+  /* Contact links: stack and make tap targets bigger */
+  .contact-link{padding:22px 24px}
+  /* Ending footer wraps on small screens */
+  .ending-footer{flex-direction:column;gap:6px;align-items:center;padding:0 22px 12px}
+}
+
+/* ═══════════════════════════════════════
+   TOUCH / COARSE POINTER FALLBACK
+   ═══════════════════════════════════════
+   pointer:coarse = touch device (phone, tablet, touch laptop).
+   Hide the custom cursor (no precise pointer), restore system cursor,
+   and ensure tap targets meet the 44px iOS minimum where possible.
+*/
+@media(pointer:coarse){
+  body{cursor:auto}
+  #cursor,#cursor-ring,#cursor-glow{display:none!important}
+  /* Fissures can't be hover-revealed on touch; rely on .is-open from tap.
+     Make the closed state more visible so users know it's interactive. */
+  .fissure-sealed{min-height:10px;border-top-color:rgba(193,127,36,0.25)!important}
+  .fissure-label{display:none}
+  /* Strata buttons: even if shown (e.g. tablet landscape), make them wider
+     so they're tappable. Hidden entirely on phones via max-width:768px. */
+  .sl{width:14px;height:36px}
+  .sl.active{height:54px}
+  .sl-label{font-size:11px;left:20px}
+  /* Mute button: 44px iOS minimum */
+  .mute-btn{width:44px;height:44px}
+  /* Nav links hidden on phones but visible on tablets — pad them for touch */
+  .nav-links a{padding:8px 4px}
+}
+
+/* A11Y: prefers-reduced-motion — kill all motion & cinematic, reveal content.
+   v1 only killed CSS animations; v3 also kills the WebGL render loop,
+   the GSAP cinematic, and audio. See JS-side handling for full effect. */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .reveal{opacity:1!important;transform:none!important;filter:none!important}
+  .char{opacity:1!important;transform:none!important;filter:none!important}
+  .wrd{opacity:1!important;transform:none!important;filter:none!important}
+  #loader{display:none!important}
+  body{cursor:auto}
+  #cursor,#cursor-ring,#cursor-glow{display:none!important}
+  .hero-eyebrow,.hero-role,#hero-name-el,.hero-scroll-hint,#nav,#hints{opacity:1!important}
+  .ending-ltp,.ending-sub,.ending-cta-line,.contact-links{opacity:1!important}
+  .ending-line{width:240px!important}
+  .ending-ltp .char{opacity:1!important;transform:none!important;filter:none!important}
+  .fissure-sealed{height:auto;min-height:80px;border-top-color:rgba(232,169,77,0.4)!important}
+  .fissure-content{position:relative;opacity:1!important;transform:none!important;padding:18px 24px!important}
+  .fissure-label{display:none}
+}
+
+/* ═══════════════════════════════════════
+   NO-WEBGL FALLBACK
+   ═══════════════════════════════════════ */
+body.no-webgl{
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, #1C3320 0%, #0A1509 60%, #050908 100%);
+  cursor:auto;
+}
+body.no-webgl #hero,
+body.no-webgl #about,
+body.no-webgl #projects,
+body.no-webgl #skills,
+body.no-webgl #ending{
+  position:relative;
+  z-index:1;
+}
+body.no-webgl .reveal{opacity:1!important;transform:none!important;filter:none!important}
+body.no-webgl .char{opacity:1!important;transform:none!important;filter:none!important}
+body.no-webgl .wrd{opacity:1!important;transform:none!important;filter:none!important}
+
+/* ═══════════════════════════════════════
+   NOSCRIPT FALLBACK (Phase 5)
+   ═══════════════════════════════════════
+   When JS is disabled, the loader div sits on top (z-index:2000) and
+   hides the noscript content. These rules, scoped to noscript > style
+   or applied via a <noscript>-injected class, hide the loader + all
+   the JS-driven chrome so only the noscript message shows.
+   We use a <noscript><style> block in <head> to inject these rules
+   only when JS is disabled — clean progressive enhancement. */
+</style>
+
+<!-- Noscript-only CSS: injected when JS is disabled. Hides the loader
+     overlay and all JS-driven chrome so only the noscript body content shows. -->
+<noscript>
+<style>
+  #loader, #cursor, #cursor-ring, #cursor-glow, #canvas, #vignette,
+  #breath-overlay, #shock-canvas, #nav, #strata, #hints, #mute-toggle,
+  #scroll-container { display: none !important; }
+  body { background: #0A1509; cursor: auto; }
+</style>
+</noscript>
+</head>
+<body>
+
+<!-- NOSCRIPT FALLBACK (Phase 5): JS-disabled users see a styled message
+     with the core info. The CSS .no-webgl rules already handle the visual
+     styling — this just provides content when the module script doesn't run. -->
+<noscript>
+  <div style="position:fixed;inset:0;background:#0A1509;color:#F5F0E8;font-family:Georgia,serif;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6vw;text-align:center;gap:24px">
+    <h1 style="font-size:clamp(40px,8vw,80px);font-weight:300;color:#E8A94D;letter-spacing:-0.02em;margin:0">Leon Punnoose</h1>
+    <p style="font-size:14px;letter-spacing:0.16em;text-transform:uppercase;color:#C17F24;margin:0">Computer Science Engineer</p>
+    <p style="font-size:18px;line-height:1.7;max-width:520px;color:rgba(245,240,232,0.7);font-weight:300;margin:0">
+      This portfolio uses WebGL and JavaScript to render an interactive 3D terrain.
+      Please enable JavaScript to experience the full site, or contact Leon directly:
+    </p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:16px">
+      <a href="mailto:leontp2810@gmail.com" style="color:#E8A94D;text-decoration:none;font-size:14px;border:1px solid rgba(232,169,77,0.4);padding:10px 20px">Email</a>
+      <a href="https://github.com/Leontp05" style="color:#E8A94D;text-decoration:none;font-size:14px;border:1px solid rgba(232,169,77,0.4);padding:10px 20px">GitHub</a>
+      <a href="https://www.linkedin.com/in/leon-punnoose-82b93a2b0" style="color:#E8A94D;text-decoration:none;font-size:14px;border:1px solid rgba(232,169,77,0.4);padding:10px 20px">LinkedIn</a>
+    </div>
+  </div>
+</noscript>
+
+<!-- Skip link: keyboard users can jump past the cinematic/world chrome straight to content. -->
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<div id="loader" role="status" aria-live="polite" aria-label="Loading terrain">
+  <div id="loader-name">Leon</div>
+  <div id="loader-bar-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="loader-progress"><div id="loader-bar"></div></div>
+  <div id="loader-label">Generating terrain</div>
+</div>
+
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<!-- Main 3D canvas. aria-hidden="true" because the terrain is decorative —
+     it's a visual metaphor for "depth of craft", not informational content.
+     A visually-hidden description below gives screen-reader users context. -->
+<canvas id="canvas" aria-hidden="true"></canvas>
+<!-- Screen-reader-only description of the visual experience, so users who
+     can't see the 3D terrain still understand the site's aesthetic intent. -->
+<p class="visually-hidden">This site features an interactive 3D geological terrain rendered in WebGL, with a dark forest-green and amber color palette. The terrain responds to cursor movement and scrolls through sections representing different "depths" of the engineer's work: surface, about, projects, skills, and contact.</p>
+<div id="vignette" aria-hidden="true"></div>
+<div id="breath-overlay" aria-hidden="true"></div>
+<canvas id="shock-canvas" aria-hidden="true"></canvas>
+
+<nav id="nav" aria-label="Primary navigation">
+  <span class="nav-logo"><span class="nav-status-dot" aria-hidden="true"></span>Leon Punnoose — CS Engineer</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#ending">Contact</a></li>
+  </ul>
+  <span class="nav-hint" id="nav-hint">↓ scroll to descend</span>
+</nav>
+
+<!-- Strata = section indicator. 7 sections for v9 (3 project sections). -->
+<nav id="strata" aria-label="Section indicator">
+  <button type="button" class="sl active" data-s="hero" aria-current="true"><span class="sl-label">Surface</span></button>
+  <button type="button" class="sl" data-s="about" aria-current="false"><span class="sl-label">About</span></button>
+  <button type="button" class="sl" data-s="project1" aria-current="false"><span class="sl-label">Work I</span></button>
+  <button type="button" class="sl" data-s="project2" aria-current="false"><span class="sl-label">Work II</span></button>
+  <button type="button" class="sl" data-s="project3" aria-current="false"><span class="sl-label">Work III</span></button>
+  <button type="button" class="sl" data-s="skills" aria-current="false"><span class="sl-label">Skills</span></button>
+  <button type="button" class="sl" data-s="ending" aria-current="false"><span class="sl-label">Contact</span></button>
+</nav>
+
+<div id="hints" aria-hidden="true">
+  <div class="hint-line"><span class="hint-key">scroll</span> descend</div>
+  <div class="hint-sep"></div>
+  <div class="hint-line"><span class="hint-key">dbl-click</span> detonate</div>
+  <div class="hint-sep"></div>
+  <div class="hint-line"><span class="hint-key">hold</span> breathe</div>
+  <div class="hint-sep"></div>
+  <div class="hint-line"><span class="hint-key">M</span> audio</div>
+</div>
+
+<!-- Mute toggle: visible, keyboard-accessible, persists across sessions. -->
+<button type="button" id="mute-toggle" class="mute-btn" aria-pressed="false" aria-label="Mute ambient audio" title="Mute audio (M)">
+  <span class="mute-icon-on" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+  </span>
+  <span class="mute-icon-off" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+  </span>
+</button>
+
+<div id="scroll-container">
+
+  <main id="main-content">
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Introduction">
+    <div class="hero-eyebrow">Leon Punnoose · CS Engineer</div>
+    <h1 class="hero-name" id="hero-name-el">Leon</h1>
+    <p class="hero-role" id="hero-role-el">I build AI systems that close<br>the gap between people and information.</p>
+    <div class="hero-scroll-hint"><div class="pulse-line"></div>Descend into the work</div>
+  </section>
+
+  <!-- ABOUT — compact, about coding/AI in general -->
+  <section id="about">
+    <div class="about-left">
+      <span class="section-label">About</span>
+      <h2 class="about-headline reveal">Where<br><em>logic</em><br>meets<br>craft</h2>
+    </div>
+    <div class="about-right">
+      <p class="about-body reveal">CS engineer from Kerala. I build <strong>AI tools that do something real</strong> — detecting what a lab can't, explaining what a doctor won't, and making software feel less like software. Still learning. Never stopping.</p>
+      <div class="about-tags reveal">
+        <span class="tag">Machine Learning</span>
+        <span class="tag">NLP &amp; LLMs</span>
+        <span class="tag">Full-Stack</span>
+        <span class="tag">Python</span>
+        <span class="tag">React</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS INTRO — brief transition into the work -->
+  <section id="projects" class="projects-intro-section">
+    <div class="projects-intro">
+      <div>
+        <span class="section-label">Selected Work</span>
+        <h2 class="projects-headline reveal">Three<br><em>excavations</em></h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT 1 — camera flies to the stone arch -->
+  <section id="project1" class="project-section">
+    <div class="proj-ghost-num" aria-hidden="true">01</div>
+    <div class="proj-ground" aria-hidden="true"></div>
+    <div class="project-annotation reveal" data-proj="1">
+      <div class="proj-crosshair">
+        <span class="proj-num">001 · ARCH</span>
+        <span class="proj-coords">X:−12 Z:−8 · ELEV 6.0M</span>
+      </div>
+      <div class="proj-title">
+        Oil Safety —<br><em>No Lab Needed</em>
+      </div>
+      <div class="proj-rule"></div>
+      <p class="proj-desc">Reused cooking oil causes cancer. Lab testing is slow and expensive. This system detects carcinogenic compounds in real time using sensor data and ML — food safety that doesn't require a lab coat.</p>
+      <div class="proj-stack">
+        <span>Python</span><span>scikit-learn</span><span>Sensor IoT</span><span>ML</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT 2 — camera sweeps east to the plateau -->
+  <section id="project2" class="project-section">
+    <div class="proj-ghost-num" aria-hidden="true">02</div>
+    <div class="proj-ground" aria-hidden="true"></div>
+    <div class="project-annotation reveal" data-proj="2">
+      <div class="proj-crosshair">
+        <span class="proj-num">002 · PLATEAU</span>
+        <span class="proj-coords">X:8 Z:5 · ELEV 4.5M</span>
+      </div>
+      <a href="https://med-explain-u75r.vercel.app/" target="_blank" rel="noopener noreferrer" class="proj-link" aria-label="Medexplain — opens in new tab">
+        <div class="proj-title">
+          Medexplain<span class="proj-arrow">↗</span>
+        </div>
+      </a>
+      <div class="proj-rule"></div>
+      <p class="proj-desc">Most people receive lab reports they can't read. Medexplain changes that — paste any report, get a plain-language breakdown of every value, whether it's in range, and what it might mean. Built for the patient, not the physician.</p>
+      <div class="proj-stack">
+        <span>Next.js</span><span>React</span><span>LLM</span><span>Vercel</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT 3 — camera dives into the spiral canyon -->
+  <section id="project3" class="project-section">
+    <div class="proj-ghost-num" aria-hidden="true">03</div>
+    <div class="proj-ground" aria-hidden="true"></div>
+    <div class="project-annotation reveal" data-proj="3">
+      <div class="proj-crosshair">
+        <span class="proj-num">003 · CANYON</span>
+        <span class="proj-coords">X:0 Z:0 · ELEV 0.0M</span>
+      </div>
+      <a href="https://siachatbotai.streamlit.app/" target="_blank" rel="noopener noreferrer" class="proj-link" aria-label="Sia.ai — opens in new tab">
+        <div class="proj-title">
+          Sia.ai<span class="proj-arrow">↗</span>
+        </div>
+      </a>
+      <div class="proj-rule"></div>
+      <p class="proj-desc">Most chatbots feel like search bars with a personality disorder. Sia holds context, tracks the thread, and responds like someone actually paying attention. The goal: make the AI feel less like a tool and more like a collaborator.</p>
+      <div class="proj-stack">
+        <span>Python</span><span>Streamlit</span><span>NLP</span><span>LLM</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div>
+      <span class="section-label">Capabilities</span>
+      <h2 class="skills-headline reveal">Deep<br><em>strata</em></h2>
+    </div>
+    <div class="skills-layers">
+      <div class="skill-stratum reveal">
+        <span class="skill-stratum-label">Languages</span>
+        <div class="skill-items">
+          <span class="skill-item">Python</span><span class="skill-item">JavaScript</span>
+          <span class="skill-item">TypeScript</span>
+          <span class="skill-item">SQL</span>
+        </div>
+        <span class="skill-depth">Core</span>
+      </div>
+      <div class="skill-stratum reveal">
+        <span class="skill-stratum-label">AI / ML</span>
+        <div class="skill-items">
+          <span class="skill-item">scikit-learn</span>
+          <span class="skill-item">NLP</span>
+          <span class="skill-item">LLMs</span>
+          <span class="skill-item">Computer Vision</span>
+          <span class="skill-item">Sensor Data</span>
+        </div>
+        <span class="skill-depth">Applied</span>
+      </div>
+      <div class="skill-stratum reveal">
+        <span class="skill-stratum-label">Web</span>
+        <div class="skill-items">
+          <span class="skill-item">React</span>
+          <span class="skill-item">Next.js</span>
+          <span class="skill-item">Streamlit</span>
+          <span class="skill-item">Vercel</span>
+        </div>
+        <span class="skill-depth">Shipped</span>
+      </div>
+      <div class="skill-stratum reveal">
+        <span class="skill-stratum-label">Tools</span>
+        <div class="skill-items">
+          <span class="skill-item">Git</span>
+          <span class="skill-item">REST APIs</span>
+          <span class="skill-item">WebGL</span>
+          <span class="skill-item">GSAP</span>
+        </div>
+        <span class="skill-depth">Daily</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENDING — LTP initials + world inversion -->
+  <section id="ending">
+    <canvas id="star-canvas"></canvas>
+    <canvas id="inversion-canvas"></canvas>
+    <div class="ending-content">
+      <h2 class="ending-headline ending-ltp" id="ending-name-el" aria-label="LTP — Leon Punnoose">LTP</h2>
+      <div class="ending-line" aria-hidden="true"></div>
+      <p class="ending-sub">Leon T Punnoose</p>
+      <p class="ending-cta-line reveal">If you made it this deep, you know what I build.<br>Let's talk.</p>
+      <div class="contact-links" role="list">
+        <a href="mailto:leontp2810@gmail.com" class="contact-link" aria-label="Email Leon at leontp2810@gmail.com">
+          <span class="c-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+          </span>
+          <span class="c-label">Email</span>
+          <span class="c-value">leontp2810@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/leon-punnoose-82b93a2b0" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Leon Punnoose on LinkedIn (opens in new tab)">
+          <span class="c-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          </span>
+          <span class="c-label">LinkedIn</span>
+          <span class="c-value">/leon-punnoose</span>
+        </a>
+        <a href="https://github.com/Leontp05" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Leon on GitHub (opens in new tab)">
+          <span class="c-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.02c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+          </span>
+          <span class="c-label">GitHub</span>
+          <span class="c-value">/Leontp05</span>
+        </a>
+      </div>
+    </div>
+    <div class="ending-footer">
+      <span>© 2026 Leon Punnoose</span>
+      <span>CS Engineer</span>
+      <span>Built with intention</span>
+    </div>
+  </section>
+
+  </main>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SCRIPT LOADING — Phase 4 changes:
+     1. Three.js upgraded r128 (UMD, Aug 2021) → r160 (ESM, Jan 2024)
+        via importmap. Modern API, 2.5 years of bug/security fixes.
+     2. GSAP scripts now carry SRI (Subresource Integrity) hashes so a
+        compromised CDN can't inject malicious JS.
+     3. Inline script converted to type="module" — modules are deferred
+        by default, so DOM is ready when script executes.
+     ════════════════════════════════════════════════════════════════ -->
+
+<!-- GSAP UMD with SRI. integrity attr = SHA-384 base64 of the file. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+        integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+        integrity="sha384-poC0r6usQOX2Ayt/VGA+t81H6V3iN9L+Irz9iO8o+s0X20tLpzc9DOOtnKxhaQSE"
+        crossorigin="anonymous"></script>
+
+<!-- Three.js r160 ESM via importmap. Note: SRI is not supported on
+     importmap entries — this is a known browser limitation. If supply-chain
+     integrity is critical, self-host three.module.js and add SRI to a
+     modulepreload link. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+// ── COLOR MANAGEMENT ─────────────────────────────────────────────
+// r152+ enables ColorManagement by default. The previous file disabled it
+// because the shaders were authored for r128. We are now migrating to a
+// linear-workflow / sRGB-output pipeline so IBL + Bloom composite correctly.
+// The terrain fragment shader still writes linear color (no manual gamma);
+// the OutputPass handles linear→sRGB conversion at the end of the chain.
+THREE.ColorManagement.enabled = true;
+THREE.ColorManagement.legacyMode = false;
+
+// Expose key state on window for debugging/testing. In a module, top-level
+// const/let are module-scoped (not on window), so external scripts can't
+// inspect them. This is a dev convenience — no production impact.
+if (typeof window !== 'undefined') {
+  window.__LEON_DEBUG__ = true;
+}
+
+gsap.registerPlugin(ScrollTrigger);
+
+// ═══════════════════════════════════════
+// A11Y: REDUCED MOTION + MUTE STATE
+// ═══════════════════════════════════════
+// v1 only killed CSS animations via @media. v3 also gates the WebGL render
+// loop, the cinematic, particle animation, and audio behind this constant.
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ═══════════════════════════════════════
+// MOBILE / TOUCH / PERF DETECTION
+// ═══════════════════════════════════════
+// COARSE_POINTER: no precise pointer (touch). Drives cursor hiding + camera behavior.
+// SMALL_SCREEN: viewport ≤768px. Drives layout + perf scaling.
+// LOW_PERF: combined heuristic — small screen OR coarse pointer OR low DPR.
+//   Used to scale down particle count + terrain segments for stable framerate.
+const COARSE_POINTER = window.matchMedia('(pointer: coarse)').matches;
+const SMALL_SCREEN = window.innerWidth <= 768;
+const LOW_PERF = SMALL_SCREEN || (COARSE_POINTER && window.innerWidth <= 1024);
+// PERF_SCALE: 1.0 = full quality, 0.4 = mobile. Applied to particle count + terrain segments.
+const PERF_SCALE = LOW_PERF ? 0.4 : 1.0;
+
+// Mute state persists across sessions via localStorage.
+// Default: muted=true (audio is opt-in, never opt-out — many users find
+// unsolicited audio jarring, especially on a portfolio loaded in a meeting).
+let isMuted = (() => {
+  try { return localStorage.getItem('leon-muted') !== 'false'; }
+  catch (e) { return true; }
+})();
+
+// ═══════════════════════════════════════
+// LOADER VARS — must be first (used throughout init)
+// ═══════════════════════════════════════
+let loadPct = 0;
+function setLoad(pct, label) {
+  loadPct = pct;
+  document.getElementById('loader-bar').style.width = pct + '%';
+  // A11Y: sync aria-valuenow on the progressbar role
+  const prog = document.getElementById('loader-progress');
+  if (prog) prog.setAttribute('aria-valuenow', String(Math.round(pct)));
+  if (label) document.getElementById('loader-label').textContent = label;
+}
+
+// ═══════════════════════════════════════
+// GPU VERTEX SHADER TERRAIN (v3: deterministic, no FBM displacement)
+// ═══════════════════════════════════════
+// v3: removed all FBM/ridged/warpedFBM vertex displacement + erosion
+// gullies. The base mesh already carries the sculpted heightmap from
+// authoredHeight() — no GPU-side noise added. Only dynamic effects
+// (cursor wave, shockwave, breath, audio wobble, SDF inversion) modify
+// the height here. Result: terrain looks designed, not noisy.
+const VERT_SHADER = `
+  uniform float uTime;
+  uniform float uErosion;
+  uniform float uInvert;
+  uniform vec3 uInvertCenter;
+  uniform float uInvertRadius;
+  uniform vec2 uMouse;
+  uniform float uShockwaveTime;
+  uniform vec2 uShockwaveOrigin;
+  uniform float uBreath;
+  uniform float uAudio;
+
+  attribute float baseHeight;
+  varying vec3 vColor;
+  varying float vHeight;
+  varying vec3 vWorldPos;
+  varying vec3 vWorldNormal;
+  varying vec3 vViewPos;
+  varying vec2 vWorldXZ;
+  varying float vSlope;
+  varying float vInvertMask;
+  varying float vRiverbed;   // 0..1 — riverbed proximity (for color shader)
+
+  // Minimal hash + noise — ONLY used for analytic normal estimation.
+  // No displacement is added from these; the base mesh already has the
+  // sculpted height baked in.
+  float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+  float noise(vec2 p){
+    vec2 i=floor(p); vec2 f=fract(p);
+    vec2 u=f*f*(3.-2.*f);
+    float a=hash(i),b=hash(i+vec2(1,0)),c=hash(i+vec2(0,1)),d=hash(i+vec2(1,1));
+    return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
+  }
+
+  void main(){
+    vec3 pos = position;
+    float h = baseHeight;
+
+    // Erosion — preserved; it's a slow time-based shimmer, not noise displacement.
+    float erosion = sin(pos.x*0.18+uTime*0.28)*cos(pos.z*0.15-uTime*0.21)*0.14*uErosion
+                  + sin(pos.x*0.35-uTime*0.17)*0.07*uErosion;
+    h += erosion;
+
+    // Cursor displacement (preserved)
+    vec2 d = pos.xz - uMouse;
+    float dist = length(d);
+    float wave = sin(dist*0.55 - uTime*4.0)*exp(-dist*0.18)*(1.0-smoothstep(0.,14.,dist))*1.4;
+    h += wave * 0.35;
+
+    // Shockwave (preserved)
+    if(uShockwaveTime > 0.0){
+      vec2 sd = pos.xz - uShockwaveOrigin;
+      float sdist = length(sd);
+      float ring = uShockwaveTime * 28.0;
+      float shockWave = sin((sdist - ring)*0.5)*exp(-abs(sdist-ring)*0.3)*exp(-uShockwaveTime*1.8)*(1.0-uShockwaveTime);
+      h += shockWave * 3.2;
+    }
+
+    // Breath — audio-reactive amplitude.
+    h *= (1.0 + uBreath * 0.18 + uAudio * 0.04);
+    pos.y = h;
+
+    // ── SDF INVERSION SPHERE ────────────────────────────────────
+    float sdfDist = distance(pos.xz, uInvertCenter.xz);
+    float sphereMask = 1.0 - smoothstep(uInvertRadius * 0.85, uInvertRadius, sdfDist);
+    vInvertMask = sphereMask * uInvert;
+    if(vInvertMask > 0.001){
+      float invH = -h * 1.3 + sin(pos.x*0.12+uTime)*2.0*vInvertMask;
+      pos.y = mix(h, invH, vInvertMask);
+    }
+
+    // === ANALYTIC NORMALS (kept for color/slope blending in vertex stage) ===
+    // Sample the height function at small offsets. NOTE: we approximate
+    // the local surface by sampling baseHeight + the same erosion term,
+    // not the full authoredHeight — the baseHeight attribute already
+    // encodes that. This gives a smooth normal for slope-based color zones.
+    float eps = 0.6;
+    // Use the position attribute of neighboring vertices via dFdx-style
+    // sampling — but since we don't have neighbor access here, sample
+    // baseHeight at slight offsets by reading from position (which has
+    // already been displaced). Use the analytical gradient of h.
+    // Simpler approach: compute gradient from baseHeight attribute by
+    // sampling positions to the left/right. We don't have those here.
+    // Fallback: use a noise-derived gradient as a smooth normal estimate.
+    // This is only used for slope color blending; per-pixel dFdx/dFdy
+    // in the fragment shader gives the actual rendered normal.
+    float nL = noise(pos.xz - vec2(eps, 0.0));
+    float nR = noise(pos.xz + vec2(eps, 0.0));
+    float nD = noise(pos.xz - vec2(0.0, eps));
+    float nU = noise(pos.xz + vec2(0.0, eps));
+    // The noise here just provides directional variation — the actual
+    // slope comes from the per-pixel dFdx/dFdy in fragment. This analytic
+    // normal is blended in only on flat areas.
+    vec3 analyticNormal = normalize(vec3(
+      (nL - nR) * 0.3, 1.0, (nD - nU) * 0.3
+    ));
+
+    // Slope from analytic (used only for vertex-stage color zone hint)
+    float slopeAngle = 1.0 - abs(analyticNormal.y);
+    float heightT = clamp((h + 1.0) / 13.0, 0.0, 1.0);
+
+    // === SLOPE-BASED MATERIAL HINT (fragment shader refines) ===
+    vec3 cMoss     = vec3(0.045, 0.095, 0.050);
+    vec3 cSoil     = vec3(0.110, 0.090, 0.055);
+    vec3 cRock     = vec3(0.205, 0.165, 0.095);
+    vec3 cDrystone = vec3(0.560, 0.395, 0.155);
+    vec3 cSnow     = vec3(0.86, 0.84, 0.80);
+
+    vec3 flatColor = mix(cMoss, cSoil, smoothstep(0.0, 0.42, heightT));
+    flatColor = mix(flatColor, cDrystone, smoothstep(0.45, 0.85, heightT));
+    flatColor = mix(flatColor, cSnow, smoothstep(0.78, 0.95, heightT) * smoothstep(0.3, 0.0, slopeAngle));
+    vec3 baseColor = mix(flatColor, cRock, smoothstep(0.25, 0.72, slopeAngle));
+
+    vColor = baseColor;
+
+    // Riverbed proximity — pass to fragment for the lighter riverbed tint.
+    // Match the meander formula from authoredHeight().
+    float meanderZ = pos.z + sin(pos.x * 0.18) * 3.5;
+    float riverbedDist = abs(meanderZ - pos.x * 0.08);
+    vRiverbed = exp(-riverbedDist * riverbedDist * 0.6) * exp(-(pos.x*pos.x + pos.z*pos.z) * 0.002);
+
+    // Inversion color shift (vertex stage — fragment refines)
+    if(vInvertMask > 0.0){
+      vColor = mix(vColor, vec3(0.04, 0.06, 0.12), vInvertMask*0.7);
+    }
+
+    vHeight = h;
+    vWorldNormal = normalize(normalMatrix * analyticNormal);
+    vWorldXZ = pos.xz;
+    vSlope = slopeAngle;
+    vWorldPos = (modelMatrix * vec4(pos, 1.0)).xyz;
+
+    vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+    vViewPos = mvPos.xyz;
+    gl_Position = projectionMatrix * mvPos;
+  }
+`;
+
+const FRAG_SHADER = `
+  varying vec3 vColor;
+  varying float vHeight;
+  varying vec3 vWorldPos;
+  varying vec3 vWorldNormal;
+  varying vec3 vViewPos;
+  varying vec2 vWorldXZ;
+  varying float vSlope;
+  varying float vInvertMask;
+  varying float vRiverbed;
+  uniform float uInvert;
+  uniform float uBreath;
+  uniform float uAudio;
+  uniform vec2 uMouse;
+  uniform vec3 uCamPos;
+  uniform samplerCube uEnvMap;
+  uniform float uTime;
+  uniform sampler2D uHeightMap;
+  uniform vec2 uHeightMapSize;
+  uniform vec2 uHeightMapOrigin;
+
+  // Minimal noise — only for surface grain (no FBM in fragment).
+  float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+  float noise(vec2 p){
+    vec2 i=floor(p); vec2 f=fract(p);
+    vec2 u=f*f*(3.-2.*f);
+    float a=hash(i),b=hash(i+vec2(1,0)),c=hash(i+vec2(0,1)),d=hash(i+vec2(1,1));
+    return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
+  }
+
+  // Sample the baked heightmap texture at a world XZ position.
+  float sampleHeightMap(vec2 worldXZ) {
+    vec2 uv = (worldXZ - uHeightMapOrigin) / uHeightMapSize;
+    return texture2D(uHeightMap, uv).r;
+  }
+
+  // Compute a smooth analytic normal from the heightmap texture.
+  // Samples at 4 neighbors and computes the surface gradient → gives a
+  // per-pixel normal that matches the intended mathematical surface,
+  // independent of mesh triangle density.
+  vec3 computeAnalyticNormal(vec2 worldXZ) {
+    float eps = 0.6;
+    float hL = sampleHeightMap(worldXZ - vec2(eps, 0.0));
+    float hR = sampleHeightMap(worldXZ + vec2(eps, 0.0));
+    float hD = sampleHeightMap(worldXZ - vec2(0.0, eps));
+    float hU = sampleHeightMap(worldXZ + vec2(0.0, eps));
+    // Surface P(x,z) = (x, h(x,z), z). Tangent vectors:
+    //   T_x = (1, dh/dx, 0),  T_z = (0, dh/dz, 1)
+    // Normal = T_x × T_z = (-dh/dx, 1, -dh/dz), normalized.
+    float dhdx = (hR - hL) / (2.0 * eps);
+    float dhdz = (hU - hD) / (2.0 * eps);
+    return normalize(vec3(-dhdx, 1.0, -dhdz));
+  }
+
+  void main(){
+    // ── PER-PIXEL NORMAL ─────────────────────────────────────
+    // Primary: analytic normal sampled from the baked heightmap texture.
+    // This is smooth across triangle boundaries and matches the intended
+    // mathematical surface — eliminates per-triangle color banding.
+    // Fallback: dFdx/dFdy (per-triangle face normal) for fragments outside
+    // the texture bounds (shouldn't happen since terrain = texture extent).
+    vec2 uv = (vWorldXZ - uHeightMapOrigin) / uHeightMapSize;
+    vec3 N;
+    if(uv.x >= 0.0 && uv.x <= 1.0 && uv.y >= 0.0 && uv.y <= 1.0){
+      N = computeAnalyticNormal(vWorldXZ);
+    } else {
+      vec3 dpdx = dFdx(vWorldPos);
+      vec3 dpdy = dFdy(vWorldPos);
+      N = normalize(cross(dpdx, dpdy));
+      if(N.y < 0.0) N = -N;
+    }
+
+    // === SURFACE MICRO-DETAIL — single octave, subtle ===
+    float microN = noise(vWorldXZ * 5.0);
+    vec3 microPerturb = vec3(
+      (microN - 0.5) * 0.10,
+      0.0,
+      (noise(vWorldXZ * 5.0 + 100.0) - 0.5) * 0.10
+    );
+    N = normalize(N + microPerturb);
+
+    // Recompute slope from per-pixel normal
+    float slopeAngle = 1.0 - abs(N.y);
+    float heightT = clamp((vHeight + 1.0) / 13.0, 0.0, 1.0);
+
+    // === COLOR ZONES — refined from vertex hint, with riverbed + scree ===
+    vec3 cMoss     = vec3(0.045, 0.095, 0.050);
+    vec3 cGrass    = vec3(0.085, 0.140, 0.075);
+    vec3 cSoil     = vec3(0.110, 0.090, 0.055);
+    vec3 cRock     = vec3(0.205, 0.165, 0.095);
+    vec3 cDrystone = vec3(0.560, 0.395, 0.155);
+    vec3 cSnow     = vec3(0.86, 0.84, 0.80);
+
+    vec3 flatColor = mix(cMoss, cGrass, smoothstep(0.0, 0.18, heightT));
+    flatColor = mix(flatColor, cSoil, smoothstep(0.18, 0.42, heightT));
+    flatColor = mix(flatColor, cDrystone, smoothstep(0.45, 0.85, heightT));
+
+    // SNOW CAPS — only on high, flat areas
+    float snowAmount = smoothstep(0.62, 0.85, heightT) * smoothstep(0.32, 0.10, slopeAngle);
+    float snowSparkle = pow(noise(vWorldXZ * 28.0), 6.0) * 0.18;
+    flatColor = mix(flatColor, cSnow + snowSparkle, snowAmount);
+
+    // SCREE AT SLOPE BASES
+    float screeMask = smoothstep(0.18, 0.42, slopeAngle) * smoothstep(0.45, 0.15, heightT);
+    vec3 cScree = vec3(0.34, 0.27, 0.16);
+    flatColor = mix(flatColor, cScree, screeMask * 0.55);
+
+    // Steep slopes → rock
+    vec3 baseColor = mix(flatColor, cRock, smoothstep(0.28, 0.72, slopeAngle));
+
+    // RIVERBED TINT — lighter sandy color where the riverbed was carved
+    vec3 cRiverbed = vec3(0.42, 0.34, 0.20);
+    baseColor = mix(baseColor, cRiverbed, vRiverbed * 0.65);
+
+    // === SURFACE GRAIN — single-octave, subtle ===
+    float grain = noise(vWorldXZ * 6.0);
+    vec3 surfaceColor = baseColor;
+    float ao = smoothstep(-0.5, 0.5, vHeight + 1.5);
+    surfaceColor *= 0.50 + 0.50 * ao;
+    surfaceColor *= 0.90 + 0.10 * grain;
+
+    // ── IBL ─────────────────────────────────────────────────
+    vec3 irradiance = textureCube(uEnvMap, N).rgb;
+    vec3 V = normalize(uCamPos - vWorldPos);
+    vec3 R = reflect(-V, N);
+    vec3 reflected = textureCube(uEnvMap, R).rgb;
+
+    float specMask = smoothstep(0.30, 0.75, heightT) * (1.0 - snowAmount * 0.6);
+    vec3 specCol = reflected * specMask * 0.50;
+    float snowSpec = pow(max(dot(N, normalize(vec3(0.38, 0.78, -0.50))), 0.0), 80.0) * snowAmount * 0.6;
+    specCol += vec3(1.0, 0.95, 0.85) * snowSpec;
+
+    // Directional lighting
+    vec3 sunDir  = normalize(vec3(0.38, 0.78, -0.50));
+    vec3 sunCol  = vec3(0.85, 0.55, 0.14);
+    float sunDif = max(dot(N, sunDir), 0.0);
+    vec3 fillDir = normalize(vec3(-0.55, 0.40, 0.52));
+    vec3 fillCol = vec3(0.12, 0.26, 0.14);
+    float fillDif = max(dot(N, fillDir), 0.0);
+    vec3 rimDir  = normalize(vec3(0.0, 0.45, 0.90));
+    vec3 rimCol  = vec3(0.60, 0.34, 0.04);
+    float rimDif = max(dot(N, rimDir), 0.0);
+
+    vec3 ambient = irradiance * 0.55;
+
+    vec3 col = surfaceColor * (ambient
+      + sunCol  * sunDif  * 1.45
+      + fillCol * fillDif * 0.55
+      + rimCol  * rimDif  * 0.38
+    );
+    col += specCol;
+    col += vec3(0.85, 0.58, 0.12) * specMask * 0.12;
+
+    // Audio-reactive pulses
+    col += vec3(0.06, 0.03, 0.0) * uBreath * 0.45;
+    col += vec3(0.04, 0.02, 0.0) * uAudio * 0.30;
+
+    // ── NATIVE WEBGL CURSOR GLOW ───────────────────────────
+    float mouseDist = length(vWorldXZ - uMouse);
+    float glowRadius = 4.5;
+    float glow = exp(-mouseDist * mouseDist / (glowRadius * glowRadius * 0.5));
+    glow *= (1.0 - smoothstep(0.0, 1.0, mouseDist / glowRadius));
+    float glowIntensity = 0.18 + uAudio * 0.35;
+    col += vec3(0.92, 0.66, 0.18) * glow * glowIntensity;
+
+    // ── DISTANCE HAZE ──────────────────────────────────────
+    float viewDist = length(uCamPos - vWorldPos);
+    float hazeFactor = smoothstep(28.0, 95.0, viewDist);
+    vec3 viewDir = normalize(vWorldPos - uCamPos);
+    vec3 hazeColor = textureCube(uEnvMap, viewDir).rgb;
+    col = mix(col, hazeColor, hazeFactor * 0.55 * (1.0 - snowAmount * 0.5));
+
+    // SDF inversion color blend
+    if(vInvertMask > 0.0){
+      col = mix(col, vec3(0.04, 0.06, 0.12), vInvertMask*0.55);
+    }
+
+    col = pow(clamp(col, 0.0, 1.0), vec3(0.92));
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+
+// ═══════════════════════════════════════
+// WEBGL CAPABILITY CHECK
+// ═══════════════════════════════════════
+// Try/catch on WebGLRenderer construction catches both "no WebGL context"
+// and "context creation failed" (disabled, headless, blocked GPU).
+// On failure we apply body.no-webgl which:
+//   • hides the canvas / loader / cursor
+//   • shows a static CSS gradient background
+//   • reveals content + nav immediately
+//   • skips the cinematic and the render loop
+function webglAvailable() {
+  try {
+    const c = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext &&
+      (c.getContext('webgl') || c.getContext('experimental-webgl')));
+  } catch (e) { return false; }
+}
+const WEBGL_OK = webglAvailable();
+
+// ═══════════════════════════════════════
+// SCENE SETUP
+// ═══════════════════════════════════════
+const canvas = document.getElementById('canvas');
+let renderer = null;
+if (WEBGL_OK) {
+  try {
+    // Disable antialiasing on LOW_PERF — MSAA is expensive and the
+    // difference is negligible on high-DPI mobile displays.
+    renderer = new THREE.WebGLRenderer({canvas, antialias: !LOW_PERF});
+    // Cap pixel ratio: 1.6 desktop, 1.0 mobile (LOW_PERF). High-DPR mobile
+    // GPUs are fill-rate limited; capping at 1.0 halves fragment shader cost
+    // at the cost of slightly softer edges — invisible on small screens.
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, LOW_PERF ? 1.0 : 1.6));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // sRGB output encoding — required now that ColorManagement is enabled.
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+    renderer.setClearColor(0x0A1509,1);
+  } catch (e) {
+    console.warn('[Leon] WebGLRenderer construction failed; falling back to static.', e);
+  }
+}
+const WEBGL_ACTIVE = !!renderer;
+
+if (!WEBGL_ACTIVE) {
+  // Static fallback: hide WebGL chrome, reveal content immediately.
+  document.body.classList.add('no-webgl');
+  const loaderEl = document.getElementById('loader');
+  if (loaderEl) loaderEl.style.display = 'none';
+  ['#cursor','#cursor-ring','#cursor-glow','#canvas','#vignette','#breath-overlay','#shock-canvas']
+      .forEach(sel => { const el = document.querySelector(sel); if (el) el.style.display = 'none'; });
+  document.getElementById('nav').classList.add('visible');
+  document.getElementById('hints')?.classList.add('visible');
+}
+
+const scene = new THREE.Scene();
+// NOTE: initial fog density here is overridden by the cinematic cold-open
+// (which sets it to 0.18 then tweens to 0.025). The value below only matters
+// in the no-WebGL fallback path, where the cinematic is skipped — so we
+// use 0.025 (WS.hero.fog) to keep the fallback visually consistent with
+// what the WebGL path settles to after the cinematic.
+scene.fog = new THREE.FogExp2(0x1a1208, 0.025);
+
+const camera = new THREE.PerspectiveCamera(40, window.innerWidth/window.innerHeight, 0.1, 240);  // FOV 40 = telephoto start (spline opens to 72)
+camera.position.set(0, 22, 36);  // Match CAM_KEYFRAMES[0] for clean start
+camera.lookAt(0,0,0);
+
+// ═══════════════════════════════════════
+// SKY — hemisphere gradient dome
+// ═══════════════════════════════════════
+const skyGeo = new THREE.SphereGeometry(200, 24, 12);
+skyGeo.scale(-1, 1, 1); // inside-out
+const SKY_VERT = `
+  varying float vY;
+  void main(){
+    vY = position.y;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+  }
+`;
+const SKY_FRAG = `
+  varying float vY;
+  void main(){
+    float t = clamp((vY + 40.0) / 200.0, 0.0, 1.0);
+    // horizon: warm dark amber-brown; zenith: deep void green-black
+    vec3 horizon = vec3(0.072, 0.048, 0.018);
+    vec3 zenith  = vec3(0.022, 0.040, 0.022);
+    vec3 col = mix(horizon, zenith, smoothstep(0.0, 0.55, t));
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+const skyMat = new THREE.ShaderMaterial({vertexShader:SKY_VERT,fragmentShader:SKY_FRAG,side:THREE.BackSide,depthWrite:false});
+scene.add(new THREE.Mesh(skyGeo, skyMat));
+
+// ═══════════════════════════════════════
+// NOISE (CPU — for terrain generation only)
+// ═══════════════════════════════════════
+// h21 must return [0,1). JS `%` keeps sign of dividend, so use n-Math.floor(n).
+function h21(p){const n=Math.sin(p[0]*127.1+p[1]*311.7)*43758.5453;return n-Math.floor(n);}
+function snoise(p){
+  const i=[Math.floor(p[0]),Math.floor(p[1])];
+  const f=[p[0]-i[0],p[1]-i[1]];
+  const u=[f[0]*f[0]*(3-2*f[0]),f[1]*f[1]*(3-2*f[1])];
+  const a=h21(i), b=h21([i[0]+1,i[1]]), c=h21([i[0],i[1]+1]), d=h21([i[0]+1,i[1]+1]);
+  // Correct bilinear blend: a(1-u)(1-v) + b*u(1-v) + c(1-u)v + d*u*v
+  // Previously was: a+(b-a)*u[0]+(c-a)*u[1]+(d-a-b+a)*u[0]*u[1]  ← wrong (term simplified to d-b)
+  return a*(1-u[0])*(1-u[1]) + b*u[0]*(1-u[1]) + c*(1-u[0])*u[1] + d*u[0]*u[1];
+}
+function fbmCPU(p,oct=5){let v=0,a=0.5,f=1,m=0;for(let i=0;i<oct;i++){v+=snoise([p[0]*f,p[1]*f])*a;m+=a;a*=0.48;f*=2.15;}return v/m;}
+
+// ═══════════════════════════════════════
+// TERRAIN HEIGHT CACHE — for particle lookup at runtime
+// ═══════════════════════════════════════
+// The per-frame particle loop previously called authoredHeight() ~2200 times,
+// each invoking fbmCPU (5 octaves of snoise → ~20 sin calls). That's ~44k sin
+// calls/frame just to know the floor height. We precompute a low-res grid once
+// and bilinearly interpolate at runtime — O(1) per particle.
+const HGN = 72;                       // grid resolution
+const HGS = 64;                       // grid span (covers x,z ∈ [-32, 32])
+const HGO = -HGS / 2;                 // grid origin
+const hgrid = new Float32Array(HGN * HGN);
+for (let gi = 0; gi < HGN; gi++) {
+  for (let gj = 0; gj < HGN; gj++) {
+    const gx = HGO + (gi / (HGN - 1)) * HGS;
+    const gz = HGO + (gj / (HGN - 1)) * HGS;
+    hgrid[gi * HGN + gj] = authoredHeight(gx, gz);
+  }
+}
+function sampleHeightCached(x, z) {
+  const u = (x - HGO) / HGS * (HGN - 1);
+  const v = (z - HGO) / HGS * (HGN - 1);
+  if (u < 0 || u > HGN - 1 || v < 0 || v > HGN - 1) return 0;
+  const i = Math.floor(u), j = Math.floor(v);
+  const fi = u - i, fj = v - j;
+  // Clamp upper index for edge samples
+  const ip = Math.min(i + 1, HGN - 1);
+  const jp = Math.min(j + 1, HGN - 1);
+  const a = hgrid[i * HGN + j];
+  const b = hgrid[ip * HGN + j];
+  const c = hgrid[i * HGN + jp];
+  const d = hgrid[ip * HGN + jp];
+  return a*(1-fi)*(1-fj) + b*fi*(1-fj) + c*(1-fi)*fj + d*fi*fj;
+}
+
+// ═══════════════════════════════════════
+// HAND-AUTHORED TERRAIN — sculpted primitives (v3: no procedural noise)
+// ═══════════════════════════════════════
+// v3 abandons the FBM-driven heightmap entirely. Every feature is a
+// deliberate primitive (gaussian peak, sigmoid wall, carved basin, etc.)
+// with hand-tuned position/shape. The terrain now reads as a designed
+// landscape, not "noise displacement".
+//
+// Features:
+//   • Twin peaks at NW and SE corners — visible silhouettes from any angle
+//   • Central valley bowl with a meandering riverbed carved through it
+//   • Asymmetric canyon walls (steep NE, gentle SW)
+//   • Signature arch at (-12, -8)
+//   • Plateau at (8, 5)
+//   • Spiral canyon carving through the western half
+//   • Rolling foothills at the perimeter — soft, not noisy
+//
+// Base height = foothills (low-amplitude, hand-shaped, not FBM)
+function authoredHeight(x,z) {
+  let h = 0;
+
+  // ── FOOTHILLS (base layer) ────────────────────────────────────
+  // Three overlapping low gaussian bumps — gives the perimeter gentle
+  // variation without the high-frequency chatter of FBM.
+  h += gauss2d(x, z, -22, -16, 14, 11, 2.2);   // NW foothill
+  h += gauss2d(x, z,  20,  18, 13, 12, 1.8);   // SE foothill
+  h += gauss2d(x, z,   4, -22, 18,  8, 1.4);   // S gentle roll
+
+  // ── TWIN PEAKS ────────────────────────────────────────────────
+  // Sharp conical peaks — the dominant silhouettes. Pow sharpening on
+  // the gaussian falloff gives a peak rather than a rounded hill.
+  h += peak(x, z, -22, -16, 4.5, 9.0);   // NW peak — taller
+  h += peak(x, z,  20,  18, 5.5, 7.5);   // SE peak
+
+  // ── CENTRAL VALLEY ────────────────────────────────────────────
+  // Wide gaussian basin centered at origin — carves out the canyon floor.
+  h -= gauss2d(x, z, 0, 0, 18, 14, 3.2);
+
+  // ── MEANDERING RIVERBED ───────────────────────────────────────
+  // Sine-meander groove masked to the valley. Visible as a lighter
+  // streak in the color shader.
+  const meanderZ = z + Math.sin(x * 0.18) * 3.5;
+  const riverbedDist = Math.abs(meanderZ - x * 0.08);
+  const riverbedMask = Math.exp(-riverbedDist * riverbedDist * 0.6) * Math.exp(-(x*x + z*z) * 0.002);
+  h -= riverbedMask * 1.8;
+
+  // ── ASYMMETRIC CANYON WALLS ───────────────────────────────────
+  // Steep sigmoid rise on +X side, gentler on -X. Sigmoid gives a clean
+  // "wall" shape — flat top, flat bottom, sharp transition.
+  h += sigmoidWall(x,  6, 3.0, 4.5);   // +X wall — steep, +4.5 max
+  h += sigmoidWall(-x, 8, 4.0, 2.2);   // -X wall — gentler, +2.2 max
+
+  // ── SIGNATURE ARCH ────────────────────────────────────────────
+  // Stone arch at (-12, -8): raised ring with a hole through the middle.
+  const archDist = Math.sqrt(Math.pow(x+12,2)/9 + Math.pow(z+8,2)/4);
+  const archHeight = Math.exp(-archDist*archDist*0.08)*6.0;
+  const archVoid = Math.exp(-Math.pow(x+12,2)*0.15)*Math.exp(-Math.pow(z+8,2)*0.6)*3.5;
+  h += archHeight - archVoid;
+
+  // ── DELIBERATE PLATEAU ────────────────────────────────────────
+  // Flat mesa at (8, 5) — soft disc blend to a fixed height.
+  const platDist = Math.sqrt(Math.pow(x-8,2)+Math.pow(z-5,2));
+  if(platDist < 7) {
+    const platBlend = Math.max(0, 1 - platDist/7);
+    const platSmooth = platBlend*platBlend*(3-2*platBlend);
+    h = h*(1-platSmooth) + 4.5*platSmooth;
+  }
+
+  // ── SPIRAL CANYON ─────────────────────────────────────────────
+  // Negative spiral carving through the western half.
+  const angle = Math.atan2(z, x);
+  const radius = Math.sqrt(x*x + z*z);
+  const spiralDist = Math.abs((radius - (angle/(Math.PI*2))*8 - 6) % 8 - 4);
+  if(spiralDist < 2.5 && radius > 3 && radius < 28) {
+    h -= (2.5 - spiralDist) * 0.9 * Math.exp(-radius * 0.04);
+  }
+
+  return h;
+}
+
+// ── SCULPTING PRIMITIVES ─────────────────────────────────────────
+// gauss2d: 2D gaussian bump. cx,cz = center; rx,rz = radii; amp = peak height.
+function gauss2d(x, z, cx, cz, rx, rz, amp) {
+  const dx = (x - cx) / rx;
+  const dz = (z - cz) / rz;
+  return amp * Math.exp(-(dx*dx + dz*dz));
+}
+
+// peak: sharpened gaussian — pow falloff gives a conical peak rather than
+// a rounded hill. cx,cz = peak position; sharp = higher = pointier; amp = height.
+function peak(x, z, cx, cz, sharp, amp) {
+  const dx = x - cx;
+  const dz = z - cz;
+  const d2 = dx*dx + dz*dz;
+  // Falloff: 1/(1 + d^sharp). At d=0, value=1. Falls to ~0 at d=sharp.
+  const falloff = 1 / (1 + Math.pow(d2 / (sharp*sharp), 1.6));
+  return amp * falloff;
+}
+
+// sigmoidWall: smooth wall rising from 0 to amp around position `edge`.
+// width controls the transition sharpness. Mirrors on -x for the -X wall.
+function sigmoidWall(x, edge, width, amp) {
+  const t = (x - edge) / width;
+  return amp / (1 + Math.exp(-t * 1.8));
+}
+
+// ═══════════════════════════════════════
+// TERRAIN MESH
+// ═══════════════════════════════════════
+// v4: bumped mesh density to eliminate silhouette faceting.
+//   • Desktop: 180 → 240 segments (32k → 57k verts, ~1.8×)
+//   • Mobile:  72  → 128 segments (5k → 16k verts, ~3×)
+// The vertex shader is now lightweight (no FBM displacement), so the
+// extra vertex cost is negligible. Fragment shader cost is unchanged
+// (same pixel count, just more triangles to rasterize).
+setLoad(20,'Authoring landmark terrain');
+const TSIZE=88, TSEGS=LOW_PERF ? 128 : 240;
+const terrGeo = new THREE.PlaneGeometry(TSIZE,TSIZE,TSEGS,TSEGS);
+terrGeo.rotateX(-Math.PI/2);
+const posAttr = terrGeo.attributes.position;
+const baseHeights = new Float32Array(posAttr.count);
+
+for(let i=0;i<posAttr.count;i++){
+  const bh = authoredHeight(posAttr.getX(i), posAttr.getZ(i));
+  posAttr.setY(i, bh);
+  baseHeights[i] = bh;
+}
+terrGeo.computeVertexNormals();
+terrGeo.setAttribute('baseHeight', new THREE.BufferAttribute(baseHeights,1));
+
+const terrUniforms = {
+  uTime:{value:0},uErosion:{value:0},uInvert:{value:0},
+  uInvertCenter:{value:new THREE.Vector3(0, 0, 0)},
+  uInvertRadius:{value:0},
+  uMouse:{value:new THREE.Vector2(999,999)},
+  uShockwaveTime:{value:0},uShockwaveOrigin:{value:new THREE.Vector2(0,0)},
+  uBreath:{value:0},
+  uAudio:{value:0},
+  uCamPos:{value:new THREE.Vector3()},
+  uEnvMap:{value:null},
+};
+const terrMat = new THREE.ShaderMaterial({
+  vertexShader:VERT_SHADER, fragmentShader:FRAG_SHADER,
+  uniforms:terrUniforms,
+  // dFdx/dFdy for per-pixel normals. WebGL2 has these as core; this flag
+  // is for WebGL1 fallback safety.
+  extensions:{derivatives:true},
+});
+const terrain = new THREE.Mesh(terrGeo, terrMat);
+terrain.receiveShadow = false;
+scene.add(terrain);
+
+// ═══════════════════════════════════════
+// HEIGHTMAP DATA TEXTURE — for fragment-shader analytic normals
+// ═══════════════════════════════════════
+// Bake authoredHeight() into a 512×512 float texture covering the full
+// terrain extent (±TSIZE/2). The fragment shader samples this at the
+// fragment's world position to compute a smooth per-pixel normal that
+// matches the intended mathematical surface — independent of mesh
+// resolution. Eliminates per-triangle color banding even on mobile
+// (128-seg) where mesh density is lower.
+const HGT_TEX_SIZE = 512;
+const HGT_TEX_SPAN = TSIZE;
+const HGT_TEX_ORIGIN = -HGT_TEX_SPAN / 2;
+const heightData = new Float32Array(HGT_TEX_SIZE * HGT_TEX_SIZE);
+for (let yi = 0; yi < HGT_TEX_SIZE; yi++) {
+  for (let xi = 0; xi < HGT_TEX_SIZE; xi++) {
+    const x = HGT_TEX_ORIGIN + (xi / (HGT_TEX_SIZE - 1)) * HGT_TEX_SPAN;
+    const z = HGT_TEX_ORIGIN + (yi / (HGT_TEX_SIZE - 1)) * HGT_TEX_SPAN;
+    heightData[yi * HGT_TEX_SIZE + xi] = authoredHeight(x, z);
+  }
+}
+const heightMapTex = new THREE.DataTexture(
+  heightData, HGT_TEX_SIZE, HGT_TEX_SIZE,
+  THREE.RedFormat, THREE.FloatType
+);
+heightMapTex.needsUpdate = true;
+heightMapTex.minFilter = THREE.LinearFilter;
+heightMapTex.magFilter = THREE.LinearFilter;
+heightMapTex.wrapS = heightMapTex.wrapT = THREE.ClampToEdgeWrapping;
+terrUniforms.uHeightMap = { value: heightMapTex };
+terrUniforms.uHeightMapSize = { value: new THREE.Vector2(HGT_TEX_SPAN, HGT_TEX_SPAN) };
+terrUniforms.uHeightMapOrigin = { value: new THREE.Vector2(HGT_TEX_ORIGIN, HGT_TEX_ORIGIN) };
+
+// Wire removed — clean terrain only
+
+setLoad(40,'Scattering particles');
+
+// ═══════════════════════════════════════
+// GPU-DRIVEN PARTICLES (v7 — eliminates CPU loop entirely)
+// ═══════════════════════════════════════
+// v6 updated 2200 (or 880 mobile) particles per frame on the CPU —
+// ~44k sin/cos calls/frame. v7 moves ALL motion to the vertex shader.
+// Particles drift via per-particle Lissajous curves computed from uTime
+// + aSeed. Cursor scatter and shockwave push are preserved via uniforms.
+// CPU cost: 0 per frame. GPU cost: one sin/cos per vertex (cheap).
+const PCOUNT = LOW_PERF ? 880 : 2200;
+const pGeo=new THREE.BufferGeometry();
+const pPos=new Float32Array(PCOUNT*3);
+const pCol=new Float32Array(PCOUNT*3);
+const pSize=new Float32Array(PCOUNT);
+const pSeed=new Float32Array(PCOUNT);  // per-particle random 0..1 for GPU drift
+
+for(let i=0;i<PCOUNT;i++){
+  const rx=(Math.random()-.5)*56, rz=(Math.random()-.5)*56;
+  const th=authoredHeight(rx,rz);
+  const fy=th+0.4+Math.random()*11;
+  pPos[i*3]=rx;pPos[i*3+1]=fy;pPos[i*3+2]=rz;
+  const amb=Math.random()>.5;
+  pCol[i*3]=amb?.80:.22;pCol[i*3+1]=amb?.50:.46;pCol[i*3+2]=amb?.07:.18;
+  pSize[i] = 0.08 + Math.random()*0.32 * Math.max(0.1, 1.0 - fy * 0.04);
+  pSeed[i] = Math.random();
+}
+pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+pGeo.setAttribute('aSize',new THREE.BufferAttribute(pSize,1));
+pGeo.setAttribute('aSeed',new THREE.BufferAttribute(pSeed,1));
+
+const pUniforms = {
+  uTime: {value: 0},
+  uMousePos: {value: new THREE.Vector2(999, 999)},
+  uShockwaveTime: {value: 0},
+  uShockwaveOrigin: {value: new THREE.Vector2(0, 0)},
+  uBreath: {value: 0},
+  uInversion: {value: 0},
+  uAudio: {value: 0},
+  uSceneDepth: {value: null},
+  uCamPos: {value: new THREE.Vector3()},
+  uScreenSize: {value: new THREE.Vector2(window.innerWidth, window.innerHeight)},
+};
+
+const P_VERT = `
+  attribute float aSize;
+  attribute float aSeed;
+  attribute vec3 color;
+  uniform float uTime;
+  uniform vec2 uMousePos;
+  uniform float uShockwaveTime;
+  uniform vec2 uShockwaveOrigin;
+  uniform float uBreath;
+  uniform float uInversion;
+  uniform float uAudio;
+  varying vec3 vCol;
+  varying float vDepth;
+  varying vec4 vClipPos;   // for soft-particle screen-space UV
+  void main(){
+    vCol = color;
+    vec3 pos = position;
+    float seed = aSeed * 6.283185;  // 0..2π
+    // Drift: per-particle Lissajous curve from uTime + audio-reactive jitter
+    pos.x += sin(uTime * 0.88 + seed) * 0.4;
+    pos.y += cos(uTime * 0.63 + seed) * 0.2;
+    pos.z += sin(uTime * 0.82 + seed) * 0.4;
+    // Audio-reactive jitter — particles shake harder when the bass spikes
+    pos.x += sin(uTime * 6.0 + seed * 2.0) * uAudio * 0.18;
+    pos.y += cos(uTime * 5.0 + seed * 2.0) * uAudio * 0.12;
+    // Slow vertical rise + recycle
+    pos.y += mod(uTime * 0.3 + aSeed * 12.0, 14.0);
+    // Cursor scatter
+    vec2 d = pos.xz - uMousePos;
+    float dist = length(d);
+    if(dist < 7.0 && dist > 0.01){
+      float sc = 0.042 * (1.0 - dist / 7.0);
+      pos.x += d.x / dist * sc;
+      pos.z += d.y / dist * sc;
+    }
+    // Shockwave push
+    if(uShockwaveTime > 0.0){
+      vec2 sd = pos.xz - uShockwaveOrigin;
+      float sdist = length(sd);
+      float ring = uShockwaveTime * 28.0;
+      float push = sin((sdist - ring) * 0.5) * exp(-abs(sdist - ring) * 0.3) * (1.0 - uShockwaveTime) * 2.0;
+      pos.x += sd.x / max(sdist, 0.01) * push;
+      pos.z += sd.y / max(sdist, 0.01) * push;
+      pos.y += push * 0.5;
+    }
+    // Breath scatter
+    pos.x += uBreath * (sin(seed * 3.0) * 0.04);
+    pos.z += uBreath * (cos(seed * 3.0) * 0.04);
+    // Inversion — particles rise wildly
+    if(uInversion > 0.1){
+      pos.y += uInversion * (aSeed * 3.0);
+    }
+    vec4 mv = modelViewMatrix * vec4(pos, 1.0);
+    vDepth = -mv.z;
+    gl_PointSize = aSize * (320.0 / -mv.z) * (1.0 + uAudio * 0.4);
+    vec4 clip = projectionMatrix * mv;
+    vClipPos = clip;
+    gl_Position = clip;
+  }
+`;
+const P_FRAG = `
+  varying vec3 vCol;
+  varying float vDepth;
+  varying vec4 vClipPos;
+  uniform sampler2D uSceneDepth;
+  uniform vec2 uScreenSize;
+  void main(){
+    float d = length(gl_PointCoord - vec2(0.5));
+    if(d > 0.5) discard;
+
+    // ── SOFT PARTICLES ────────────────────────────────────
+    // Sample the scene depth texture (terrain rendered first) and compare
+    // to this particle's depth. When the particle is close to the terrain
+    // behind it, fade alpha to 0. Removes the harsh clip-through look.
+    vec2 screenUV = (vClipPos.xy / vClipPos.w) * 0.5 + 0.5;
+    float sceneDepth = texture2D(uSceneDepth, screenUV).r;
+    // sceneDepth is in [0,1] NDC z; convert particle depth the same way.
+    float particleNDC = vClipPos.z / vClipPos.w * 0.5 + 0.5;
+    float depthDiff = particleNDC - sceneDepth;
+    // Soft fade: fade out when within 0.005 of the terrain depth
+    float softFade = smoothstep(0.0, 0.008, depthDiff);
+    // Also fade particles that are BEHIND the terrain (depthDiff < 0)
+    if(depthDiff < -0.002) discard;
+
+    float op = mix(0.85, 0.22, smoothstep(8.0, 55.0, vDepth));
+    op *= (1.0 - d*1.6);
+    op *= softFade;
+    gl_FragColor = vec4(vCol, op);
+  }
+`;
+const pMat = new THREE.ShaderMaterial({
+  vertexShader: P_VERT, fragmentShader: P_FRAG,
+  uniforms: pUniforms,
+  transparent: true, depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+const particles=new THREE.Points(pGeo,pMat);
+scene.add(particles);
+
+setLoad(55,'Lighting the canyon');
+
+// ═══════════════════════════════════════
+// LIGHTS
+// ═══════════════════════════════════════
+const ambient=new THREE.AmbientLight(0x192b1e,1.0); scene.add(ambient);
+const sun=new THREE.DirectionalLight(0xC17F24,2.5); sun.position.set(10,22,-12); scene.add(sun);
+const fill=new THREE.DirectionalLight(0x3d6644,0.65); fill.position.set(-14,10,14); scene.add(fill);
+const rim=new THREE.PointLight(0xE8A94D,2.2,48); rim.position.set(0,14,-18); scene.add(rim);
+const moon=new THREE.PointLight(0x7788bb,0,65); moon.position.set(-12,32,10); scene.add(moon);
+
+// ═══════════════════════════════════════
+// PROCEDURAL HDRI ENVIRONMENT MAP (IBL)
+// ═══════════════════════════════════════
+// Instead of fetching an external .hdr file (network cost + CORS), we bake
+// a small gradient scene into a cube render target, then run it through
+// PMREMGenerator to get a pre-filtered radiance map suitable for IBL.
+// This gives natural ambient color bounces without any asset loading.
+let envMap = null;
+try {
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  // Mini scene: gradient sky (warm horizon → cool zenith) + a fake "sun"
+  // sphere to inject directional warmth into the IBL.
+  const iblScene = new THREE.Scene();
+  const skyGrad = new THREE.Mesh(
+    new THREE.SphereGeometry(50, 16, 8),
+    new THREE.ShaderMaterial({
+      side: THREE.BackSide, depthWrite: false,
+      vertexShader: `varying vec3 vDir; void main(){ vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+      fragmentShader: `
+        varying vec3 vDir;
+        void main(){
+          float t = clamp(vDir.y * 0.5 + 0.5, 0.0, 1.0);
+          vec3 horizon = vec3(0.18, 0.10, 0.04);   // warm dark amber
+          vec3 zenith  = vec3(0.03, 0.06, 0.10);   // cool deep blue
+          vec3 col = mix(horizon, zenith, smoothstep(0.0, 0.6, t));
+          // Add a hot sun spot
+          vec3 sunDir = normalize(vec3(0.38, 0.55, -0.45));
+          float sunSpot = pow(max(dot(normalize(vDir), sunDir), 0.0), 64.0);
+          col += vec3(1.2, 0.7, 0.2) * sunSpot;
+          gl_FragColor = vec4(col, 1.0);
+        }
+      `
+    })
+  );
+  iblScene.add(skyGrad);
+  envMap = pmrem.fromScene(iblScene, 0.04).texture;
+  terrUniforms.uEnvMap.value = envMap;
+  pmrem.dispose();
+} catch(e){
+  console.warn('[Leon] IBL env map generation failed; falling back to flat ambient.', e);
+}
+
+// ═══════════════════════════════════════
+// POST-PROCESSING (EffectComposer) — desktop only
+// ═══════════════════════════════════════
+// EffectComposer with: RenderPass → UnrealBloom → FilmGrain/ChromaticAberration → OutputPass
+// The ChromaticAberration pass is wired to a global `uAberration` that spikes
+// on fast scroll / shockwave and decays back to a low resting value.
+// Mobile (LOW_PERF) skips the composer entirely and renders straight to the
+// canvas — saves significant fill-rate on tile-based GPUs.
+let composer = null;
+let bloomPass = null;
+let fxPass = null;
+const POST_FX_ENABLED = WEBGL_ACTIVE && !LOW_PERF;
+let uAberration = 0.0;        // current chromatic aberration amount (driven by scroll vel + shockwave)
+let uAberrationTarget = 0.0;  // resting target
+
+// Custom shader pass: film grain + chromatic aberration + subtle vignette.
+const FX_SHADER = {
+  uniforms: {
+    tDiffuse:   {value: null},
+    uTime:      {value: 0},
+    uAberration:{value: 0.0},
+    uVignette:  {value: 0.10},   // subtle — DOM #vignette already provides the main vignette
+  },
+  vertexShader: `
+    varying vec2 vUv;
+    void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }
+  `,
+  fragmentShader: `
+    uniform sampler2D tDiffuse;
+    uniform float uTime;
+    uniform float uAberration;
+    uniform float uVignette;
+    varying vec2 vUv;
+    // Hash for film grain
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+    void main(){
+      vec2 uv = vUv;
+      vec2 centerOff = uv - 0.5;
+      float r2 = dot(centerOff, centerOff);
+
+      // Chromatic aberration — radial, scales with uAberration
+      float ca = uAberration * (0.4 + r2 * 1.6);
+      vec2 dir = normalize(centerOff + 1e-6);
+      vec3 col;
+      col.r = texture2D(tDiffuse, uv + dir * ca).r;
+      col.g = texture2D(tDiffuse, uv).g;
+      col.b = texture2D(tDiffuse, uv - dir * ca).b;
+
+      // Film grain — animated, density scales slightly with r for cinematic vignette
+      float grain = (hash(uv * vec2(1920.0, 1080.0) + uTime * 60.0) - 0.5) * 0.06;
+      col += grain;
+
+      // Vignette (in addition to the DOM #vignette layer)
+      float vig = 1.0 - r2 * uVignette * 2.4;
+      col *= clamp(vig, 0.55, 1.0);
+
+      // Subtle scanline for Y2K-tech accent (very faint)
+      float scan = sin(uv.y * 800.0) * 0.008;
+      col -= scan;
+
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `
+};
+
+if (POST_FX_ENABLED) {
+  composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    0.55,   // strength — subtle, lets the amber highlights glow
+    0.7,    // radius
+    0.18    // threshold — only the brightest peaks bloom
+  );
+  composer.addPass(bloomPass);
+  fxPass = new ShaderPass(FX_SHADER);
+  composer.addPass(fxPass);
+  composer.addPass(new OutputPass());
+}
+
+// ═══════════════════════════════════════
+// DEPTH RENDER TARGET — for soft particles
+// ═══════════════════════════════════════
+// We render the terrain (only) into a depth texture once per frame, before
+// the particle pass. The particle fragment shader samples this to fade out
+// particles near the ground. Desktop only — mobile skips and lives with the
+// original additive blending.
+let depthTarget = null;
+const SOFT_PARTICLES_ENABLED = WEBGL_ACTIVE && !LOW_PERF;
+if (SOFT_PARTICLES_ENABLED) {
+  depthTarget = new THREE.WebGLRenderTarget(
+    window.innerWidth, window.innerHeight,
+    { type: THREE.UnsignedByteType, format: THREE.DepthFormat, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter }
+  );
+  pUniforms.uSceneDepth.value = depthTarget.texture;
+}
+
+setLoad(65,'Building star field');
+
+// ═══════════════════════════════════════
+// STAR FIELD + INVERSION CANVAS
+// ═══════════════════════════════════════
+const starCv=document.getElementById('star-canvas');
+const sctx=starCv.getContext('2d');
+const invCv=document.getElementById('inversion-canvas');
+const ictx=invCv.getContext('2d');
+function resizeAuxCanvases(){
+  starCv.width=invCv.width=window.innerWidth;
+  starCv.height=invCv.height=window.innerHeight;
+}
+resizeAuxCanvases();
+
+const STARS=Array.from({length:320},()=>({
+  x:Math.random(),y:Math.random(),
+  r:Math.random()*1.6+0.2,
+  op:Math.random()*.85+.1,
+  tw:Math.random()*Math.PI*2,
+  sp:Math.random()*.022+.004
+}));
+const LEON_CONST=[
+  // L
+  {x:.34,y:.18},{x:.34,y:.24},{x:.34,y:.30},{x:.37,y:.30},
+  // E
+  {x:.42,y:.18},{x:.42,y:.24},{x:.42,y:.30},{x:.45,y:.18},{x:.45,y:.24},{x:.45,y:.30},
+  // O
+  {x:.50,y:.18},{x:.50,y:.24},{x:.50,y:.30},{x:.53,y:.18},{x:.53,y:.30},{x:.51,y:.17},{x:.52,y:.31},
+  // N
+  {x:.58,y:.18},{x:.58,y:.24},{x:.58,y:.30},{x:.61,y:.18},{x:.61,y:.24},{x:.61,y:.30},{x:.595,y:.21}
+];
+let starOp=0, constOp=0;
+
+function drawStars(){
+  sctx.clearRect(0,0,starCv.width,starCv.height);
+  if(starOp<.01) return;
+  STARS.forEach(s=>{
+    s.tw+=s.sp;
+    const tw=.55+Math.sin(s.tw)*.45;
+    sctx.beginPath();
+    sctx.arc(s.x*starCv.width,s.y*starCv.height,s.r,0,Math.PI*2);
+    sctx.fillStyle=`rgba(245,240,232,${s.op*tw*starOp})`;
+    sctx.fill();
+  });
+  if(constOp>.01){
+    sctx.strokeStyle=`rgba(232,169,77,${constOp*.3})`;
+    sctx.lineWidth=.6;
+    for(let i=0;i<LEON_CONST.length-1;i++){
+      const a=LEON_CONST[i],b=LEON_CONST[i+1];
+      const dx=Math.abs(a.x-b.x),dy=Math.abs(a.y-b.y);
+      if(dx<.08&&dy<.08){
+        sctx.beginPath();
+        sctx.moveTo(a.x*starCv.width,a.y*starCv.height);
+        sctx.lineTo(b.x*starCv.width,b.y*starCv.height);
+        sctx.stroke();
+      }
+    }
+    LEON_CONST.forEach(p=>{
+      sctx.beginPath();
+      sctx.arc(p.x*starCv.width,p.y*starCv.height,2.4,0,Math.PI*2);
+      sctx.fillStyle=`rgba(232,169,77,${constOp*.88})`;
+      sctx.fill();
+    });
+  }
+}
+
+// ═══════════════════════════════════════
+// SHOCKWAVE CANVAS (2D ring effect)
+// ═══════════════════════════════════════
+const shockCv=document.getElementById('shock-canvas');
+shockCv.width=window.innerWidth; shockCv.height=window.innerHeight;
+const shockCtx=shockCv.getContext('2d');
+let shockwaves=[];
+
+function fireShockwave(sx,sy,wx,wz){
+  shockwaves.push({sx,sy,age:0,maxAge:80,wx,wz});
+  // GPU shockwave — terrain + particles both read these uniforms
+  terrUniforms.uShockwaveOrigin.value.set(wx,wz);
+  terrUniforms.uShockwaveTime.value=0.001;
+  // Particle push is now handled in the vertex shader (P_VERT) via
+  // uShockwaveTime + uShockwaveOrigin. No CPU loop needed.
+  // Audio
+  playImpact();
+  // Screen flash
+  gsap.to('#breath-overlay',{backgroundColor:'rgba(232,169,77,0.08)',duration:.08,yoyo:true,repeat:1});
+}
+
+function drawShockwaves(){
+  // Early-return when no shockwaves — saves a full-canvas clearRect per frame.
+  // The shockwave canvas is full-viewport; clearRect on a 1440×900 canvas
+  // costs ~0.3ms/frame even when there's nothing to draw.
+  if(shockwaves.length === 0) return;
+  shockCtx.clearRect(0,0,shockCv.width,shockCv.height);
+  shockwaves=shockwaves.filter(s=>s.age<s.maxAge);
+  shockwaves.forEach(s=>{
+    s.age++;
+    const prog=s.age/s.maxAge;
+    const r=prog*Math.min(shockCv.width,shockCv.height)*0.55;
+    const op=(1-prog)*0.55;
+    const grad=shockCtx.createRadialGradient(s.sx,s.sy,r*.9,s.sx,s.sy,r);
+    grad.addColorStop(0,'rgba(232,169,77,0)');
+    grad.addColorStop(0.5,`rgba(232,169,77,${op})`);
+    grad.addColorStop(1,'rgba(232,169,77,0)');
+    shockCtx.beginPath();
+    shockCtx.arc(s.sx,s.sy,r,0,Math.PI*2);
+    shockCtx.strokeStyle=`rgba(232,169,77,${op*.6})`;
+    shockCtx.lineWidth=2;
+    shockCtx.stroke();
+    // Inner ring
+    shockCtx.beginPath();
+    shockCtx.arc(s.sx,s.sy,r*.6,0,Math.PI*2);
+    shockCtx.strokeStyle=`rgba(193,127,36,${op*.3})`;
+    shockCtx.lineWidth=1;
+    shockCtx.stroke();
+  });
+  // If all shockwaves expired, clear the canvas one last time so nothing lingers.
+  if(shockwaves.length === 0) shockCtx.clearRect(0,0,shockCv.width,shockCv.height);
+}
+
+setLoad(75,'Wiring interactions');
+
+// ═══════════════════════════════════════
+// CINEMATIC CAMERA RIG v2 — CatmullRom spline + dolly + FOV
+// ═══════════════════════════════════════
+// Replaces the 5-band step function with a smooth CatmullRom spline
+// through 5 keyframes. Adds: idle orbit, FOV animation, terrain-feature
+// lookAt targets, frame-rate-independent damping, smoothstep mouse parallax.
+
+const CAM_KEYFRAMES = [
+  // 0.00 — Hero: high establishing shot, telephoto compression
+  { pos: new THREE.Vector3(0, 22, 36),   look: new THREE.Vector3(0, -2, 0),    fov: 40 },
+  // 0.14 — About: descend toward the arch, dolly forward
+  { pos: new THREE.Vector3(-4, 14, 28),  look: new THREE.Vector3(-12, 2, -8),  fov: 48 },
+  // 0.28 — Project 1: fly to the stone arch. v2: raised y 5→9 so the
+  // camera clears the arch (height ~6) instead of clipping through it.
+  { pos: new THREE.Vector3(-14, 9, 14),  look: new THREE.Vector3(-12, 3, -8),  fov: 54 },
+  // 0.42 — Project 2: sweep east to the plateau. v2: y 6→10 (plateau is 4.5).
+  { pos: new THREE.Vector3(12, 10, 12),  look: new THREE.Vector3(8, 4, 5),     fov: 56 },
+  // 0.56 — Project 3: dive toward the spiral canyon center. v2: y 4→9 — was
+  // the worst offender, camera went straight under the canyon walls.
+  { pos: new THREE.Vector3(0, 9, 10),    look: new THREE.Vector3(0, 0, 0),    fov: 60 },
+  // 0.72 — Skills: rise above the canopy, wider FOV
+  { pos: new THREE.Vector3(0, 14, 30),   look: new THREE.Vector3(0, -4, 0),   fov: 62 },
+  // 1.00 — Ending: lift off, look up at the stars
+  { pos: new THREE.Vector3(0, 28, 40),   look: new THREE.Vector3(0, 18, 0),   fov: 72 },
+];
+
+const camPosSpline = new THREE.CatmullRomCurve3(
+  CAM_KEYFRAMES.map(k => k.pos), false, 'catmullrom', 0.5
+);
+const camLookSpline = new THREE.CatmullRomCurve3(
+  CAM_KEYFRAMES.map(k => k.look), false, 'catmullrom', 0.5
+);
+const camFovCurve = CAM_KEYFRAMES.map(k => k.fov);
+
+// Scratch vectors (avoid GC churn in hot loop)
+const _tmpPos = new THREE.Vector3();
+const _tmpLook = new THREE.Vector3();
+const _tmpMousePos = new THREE.Vector3();
+const _tmpMouseLook = new THREE.Vector3();
+
+const cam = {
+  pos: new THREE.Vector3(0, 22, 36),
+  look: new THREE.Vector3(0, -2, 0),
+  fov: 40,
+  posK: 11.0,    // position damping coefficient — was 6.0, raised for snap
+  lookK: 16.0,   // lookAt damping — was 8.0, snappier so aim feels intentional
+  fovK: 6.0,     // FOV damping — was 4.0, slightly snappier
+  idleArcRadius: 6,
+};
+
+function smoothstep(t){ t = Math.max(0, Math.min(1, t)); return t*t*(3-2*t); }
+
+function sampleCameraPath(t){
+  const tc = Math.max(0, Math.min(1, t));
+  camPosSpline.getPoint(tc, _tmpPos);
+  camLookSpline.getPoint(tc, _tmpLook);
+  const segCount = camFovCurve.length - 1;
+  const segF = tc * segCount;
+  const segIdx = Math.min(Math.floor(segF), segCount - 1);
+  const segT = segF - segIdx;
+  const fov = camFovCurve[segIdx] + (camFovCurve[segIdx+1] - camFovCurve[segIdx]) * segT;
+  return { pos: _tmpPos, look: _tmpLook, fov };
+}
+
+function updateCamera(dt){
+  const sp = scrollProg;
+  const sample = sampleCameraPath(sp);
+
+  // Idle arc — slow orbit during hero (sp < 0.05), lerps to 0 on scroll
+  const idleAmt = Math.max(0, 1 - sp / 0.05);
+  cam.idleArcRadius = 6 * idleAmt * idleAmt;
+  const idleAngle = globalTime * 0.08;
+  const idleX = Math.cos(idleAngle) * cam.idleArcRadius;
+  const idleZ = Math.sin(idleAngle) * cam.idleArcRadius;
+
+  // Mouse parallax — smoothstep-dampened, max ±0.8 world units (was 2.4)
+  const mNX = smoothstep(Math.abs(mouseInflX) / 0.5) * Math.sign(mouseInflX) * 0.8;
+  const mNZ = smoothstep(Math.abs(mouseInflZ) / 0.5) * Math.sign(mouseInflZ) * 0.5;
+
+  // Aspect compensation — pull camera back on portrait, forward on ultrawide
+  const aspect = window.innerWidth / window.innerHeight;
+  const aspectAdjust = aspect < 0.8 ? 1.4 : (aspect > 2 ? 0.8 : 1.0);
+
+  _tmpMousePos.set(
+    sample.pos.x + idleX + mNX,
+    sample.pos.y,
+    sample.pos.z * aspectAdjust + idleZ + mNZ
+  );
+  _tmpMouseLook.set(
+    sample.look.x + mNX * 0.3,
+    sample.look.y,
+    sample.look.z + mNZ * 0.3
+  );
+
+  // Frame-rate-independent exponential damping
+  const posAlpha = 1 - Math.exp(-cam.posK * dt * 0.0167);
+  const lookAlpha = 1 - Math.exp(-cam.lookK * dt * 0.0167);
+  const fovAlpha = 1 - Math.exp(-cam.fovK * dt * 0.0167);
+
+  cam.pos.lerp(_tmpMousePos, posAlpha);
+
+  // ── TERRAIN CLEARANCE CLAMP ─────────────────────────────
+  // Even with raised project keyframes, the CatmullRom spline can dip
+  // below terrain between keyframes (especially around project 2→3 where
+  // the path arcs through the canyon walls). Sample the cached terrain
+  // height at the camera's XZ and push the camera up if it would clip.
+  // MIN_CLEARANCE keeps the camera 3.5 units above the surface so the
+  // viewer never sees "inside" a mountain.
+  const terrainH = sampleHeightCached(cam.pos.x, cam.pos.z);
+  const MIN_CLEARANCE = 3.5;
+  const minY = terrainH + MIN_CLEARANCE;
+  if(cam.pos.y < minY){
+    cam.pos.y = minY;
+  }
+
+  cam.look.lerp(_tmpMouseLook, lookAlpha);
+  cam.fov += (sample.fov - cam.fov) * fovAlpha;
+
+  camera.position.copy(cam.pos);
+  camera.lookAt(cam.look);
+  camera.fov = cam.fov;
+  camera.updateProjectionMatrix();
+}
+
+// ═══════════════════════════════════════
+// WORLD STATE SYSTEM
+// ═══════════════════════════════════════
+const WS={
+  hero:    {fog:.025,sun:2.5,sunR:.76,sunG:.50,sunB:.14,amb:1.0,moon:0,pOp:.68,fogR:.039,fogG:.082,fogB:.036},
+  about:   {fog:.020,sun:1.9,sunR:.65,sunG:.44,sunB:.16,amb:1.2,moon:0,pOp:.52,fogR:.045,fogG:.090,fogB:.040},
+  projects:{fog:.030,sun:2.9,sunR:.84,sunG:.56,sunB:.09,amb:0.8,moon:0,pOp:.78,fogR:.038,fogG:.075,fogB:.033},
+  skills:  {fog:.044,sun:0.8,sunR:.28,sunG:.26,sunB:.32,amb:0.5,moon:.5,pOp:.38,fogR:.028,fogG:.048,fogB:.038},
+  ending:  {fog:.016,sun:0.2,sunR:.16,sunG:.16,sunB:.26,amb:0.3,moon:2.0,pOp:.22,fogR:.016,fogG:.026,fogB:.042},
+};
+let wsName='hero', wsT=1;
+let wsFrom=Object.assign({},WS.hero), wsTo=Object.assign({},WS.hero);
+
+function transWorld(name){
+  if(wsName===name) return;
+  wsFrom={
+    fog:scene.fog.density,sun:sun.intensity,
+    sunR:sun.color.r,sunG:sun.color.g,sunB:sun.color.b,
+    amb:ambient.intensity,moon:moon.intensity,pOp:pMat.opacity,
+    fogR:scene.fog.color.r,fogG:scene.fog.color.g,fogB:scene.fog.color.b,
+  };
+  wsTo=WS[name]; wsT=0; wsName=name;
+  document.body.className='state-'+name;
+}
+function applyWS(t){
+  const e=t<.5?2*t*t:-1+(4-2*t)*t;
+  const L=(a,b)=>a+(b-a)*e;
+  scene.fog.density=L(wsFrom.fog,wsTo.fog);
+  sun.intensity=L(wsFrom.sun,wsTo.sun);
+  sun.color.setRGB(L(wsFrom.sunR,wsTo.sunR),L(wsFrom.sunG,wsTo.sunG),L(wsFrom.sunB,wsTo.sunB));
+  ambient.intensity=L(wsFrom.amb,wsTo.amb);
+  moon.intensity=L(wsFrom.moon,wsTo.moon);
+  pMat.opacity=L(wsFrom.pOp,wsTo.pOp);
+  scene.fog.color.setRGB(L(wsFrom.fogR,wsTo.fogR),L(wsFrom.fogG,wsTo.fogG),L(wsFrom.fogB,wsTo.fogB));
+  renderer.setClearColor(scene.fog.color,1);
+}
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let scrollProg=0, tgtScroll=0;
+let mouseInflX=0, mouseInflZ=0;
+let mouseWorld={x:0,z:0};
+let rawMX=window.innerWidth/2, rawMY=window.innerHeight/2;
+let curX=rawMX,curY=rawMY,ringX=curX,ringY=curY,glowX=curX,glowY=curY;
+let breathHeld=false, breathT=0, breathDir=1;
+let inversionT=0;
+let isInverted=false;
+let globalTime=0;
+let lastTime=performance.now();
+let shockwaveActive=0;
+
+window.addEventListener('scroll',()=>{
+  const max=document.body.scrollHeight-window.innerHeight;
+  tgtScroll=max>0?window.scrollY/max:0;
+});
+
+// ═══════════════════════════════════════
+// RAF-THROTTLED MOUSEMOVE (Phase 4)
+// ═══════════════════════════════════════
+// The original mousemove handler did a full THREE.Vector3.unproject() per
+// event — expensive (matrix inverse + normalize). On a 60Hz display with a
+// high-poll-rate mouse (gaming mice poll at 1000Hz), that's up to 16
+// unproject calls per rendered frame. We now set a dirty flag + store raw
+// coords in mousemove, and process the unproject ONCE per frame in animate().
+let mouseDirty = false;
+let mouseEventX = window.innerWidth / 2;
+let mouseEventY = window.innerHeight / 2;
+
+document.addEventListener('mousemove', e => {
+  rawMX = e.clientX; rawMY = e.clientY;
+  curX = e.clientX; curY = e.clientY;
+  mouseEventX = e.clientX; mouseEventY = e.clientY;
+  mouseDirty = true;
+}, {passive: true});
+
+// Process the pending mousemove — called once per frame from animate().
+function processMouseInput(){
+  if(!mouseDirty) return;
+  mouseDirty = false;
+  mouseInflX = (mouseEventX / window.innerWidth - .5) * .8;
+  mouseInflZ = (mouseEventY / window.innerHeight - .5) * .5;
+  // world ray (only computed once per frame now, not per event)
+  const nx = (mouseEventX / window.innerWidth) * 2 - 1;
+  const ny = -(mouseEventY / window.innerHeight) * 2 + 1;
+  const ray = new THREE.Vector3(nx, ny, .5).unproject(camera);
+  const dir = ray.sub(camera.position).normalize();
+  if(Math.abs(dir.y) > .001){
+    const t2 = -camera.position.y / dir.y;
+    if(t2 > 0 && t2 < 200){
+      mouseWorld.x = camera.position.x + dir.x * t2;
+      mouseWorld.z = camera.position.z + dir.z * t2;
+    }
+  }
+  terrUniforms.uMouse.value.set(mouseWorld.x, mouseWorld.z);
+}
+
+// ═══════════════════════════════════════
+// TOUCH INTERACTION HANDLERS (Phase 3)
+// ═══════════════════════════════════════
+// Touch equivalents for the three desktop interactions:
+//   mousemove → touchmove (single finger, updates mouseWorld for terrain cursor)
+//   dblclick   → two-finger tap (shockwave)
+//   mousedown  → long-press (>600ms single finger, breath)
+//
+// All handlers use passive:false only where preventDefault is needed.
+// Touch events on interactive elements (links, buttons, fissures) are
+// ignored so users can scroll/tap them normally.
+
+// Helper: convert a Touch event's first touch to {clientX, clientY, worldX, worldZ}
+function touchToWorld(touch){
+  const nx=(touch.clientX/window.innerWidth)*2-1;
+  const ny=-(touch.clientY/window.innerHeight)*2+1;
+  const ray=new THREE.Vector3(nx,ny,.5).unproject(camera);
+  const dir=ray.sub(camera.position).normalize();
+  let wx=0, wz=0;
+  if(Math.abs(dir.y)>.001){
+    const t2=-camera.position.y/dir.y;
+    if(t2>0&&t2<200){
+      wx=camera.position.x+dir.x*t2;
+      wz=camera.position.z+dir.z*t2;
+    }
+  }
+  return {clientX:touch.clientX, clientY:touch.clientY, worldX:wx, worldZ:wz};
+}
+
+// Track touch state for two-finger tap detection
+let lastTwoFingerTap = 0;
+const TWO_FINGER_TAP_MS = 300;  // max time between fingers for a "tap"
+
+document.addEventListener('touchstart', e => {
+  // Ignore touches on interactive elements — let the browser handle them natively
+  if(e.target.closest('a,button,.fissure-trigger,.contact-link,input,textarea,[contenteditable]')) return;
+
+  // Two-finger tap → shockwave
+  if(e.touches.length === 2){
+    const now = Date.now();
+    // Use midpoint of the two touches
+    const t1 = e.touches[0], t2 = e.touches[1];
+    const midX = (t1.clientX + t2.clientX) / 2;
+    const midY = (t1.clientY + t2.clientY) / 2;
+    const fakeTouch = { clientX: midX, clientY: midY };
+    const w = touchToWorld(fakeTouch);
+    fireShockwave(midX, midY, w.worldX, w.worldZ);
+    lastTwoFingerTap = now;
+    return;
+  }
+
+  // Single-finger long-press → breath
+  if(e.touches.length === 1){
+    const touch = e.touches[0];
+    const w = touchToWorld(touch);
+    mouseWorld.x = w.worldX; mouseWorld.z = w.worldZ;
+    terrUniforms.uMouse.value.set(mouseWorld.x, mouseWorld.z);
+
+    // Start breath-hold timer (mirrors desktop mousedown logic)
+    holdTimer = setInterval(()=>{
+      holdDuration += 16;
+      if(holdDuration > 600 && !breathHeld){
+        breathHeld = true;
+        breathDir = 1;
+      }
+    }, 16);
+  }
+}, {passive: true});
+
+document.addEventListener('touchmove', e => {
+  // Ignore touchmove on interactive elements (let scrolling work)
+  if(e.target.closest('a,button,.fissure-trigger,.contact-link,input,textarea,[contenteditable]')) return;
+  if(e.touches.length !== 1) return;
+
+  const touch = e.touches[0];
+  const w = touchToWorld(touch);
+  mouseWorld.x = w.worldX; mouseWorld.z = w.worldZ;
+  // On touch, mouseInflX/Z drive camera parallax. Dampen the influence on
+  // mobile so the camera doesn't whip around as the user scrolls.
+  mouseInflX = (touch.clientX/window.innerWidth - .5) * (LOW_PERF ? 0.3 : 0.6);
+  mouseInflZ = (touch.clientY/window.innerHeight - .5) * (LOW_PERF ? 0.2 : 0.4);
+  terrUniforms.uMouse.value.set(mouseWorld.x, mouseWorld.z);
+}, {passive: true});
+
+document.addEventListener('touchend', e => {
+  // Mirror mouseup: clear breath-hold timer
+  clearInterval(holdTimer);
+  holdDuration = 0;
+  if(breathHeld){
+    breathHeld = false;
+    breathDir = -1;
+  }
+}, {passive: true});
+
+document.addEventListener('touchcancel', e => {
+  // Same as touchend — finger left the screen unexpectedly
+  clearInterval(holdTimer);
+  holdDuration = 0;
+  if(breathHeld){
+    breathHeld = false;
+    breathDir = -1;
+  }
+}, {passive: true});
+
+// INTERACTION 2 — DOUBLE CLICK SHOCKWAVE
+// Ignore dblclick on interactive elements so users can interact with
+// links, contact cards, and fissures without detonating the world.
+document.addEventListener('dblclick',e=>{
+  if(e.target.closest('a,button,.fissure,.contact-link,[contenteditable]')) return;
+  fireShockwave(e.clientX,e.clientY,mouseWorld.x,mouseWorld.z);
+});
+
+// INTERACTION 3 — HOLD TO BREATHE
+// Only respond to primary mouse button (left). Right-click (context menu)
+// previously triggered breath-hold.
+let holdTimer=null, holdDuration=0;
+document.addEventListener('mousedown',e=>{
+  if(e.button!==0) return;            // ignore right/middle clicks
+  holdTimer=setInterval(()=>{
+    holdDuration+=16;
+    if(holdDuration>600&&!breathHeld){
+      breathHeld=true;
+      breathDir=1;
+      gsap.to(document.body,{duration:.1});
+    }
+  },16);
+});
+document.addEventListener('mouseup',e=>{
+  if(e.button!==0) return;
+  clearInterval(holdTimer);
+  holdDuration=0;
+  if(breathHeld){
+    breathHeld=false;
+    breathDir=-1;
+  }
+});
+
+// ═══════════════════════════════════════
+// EVENT DELEGATION FOR CURSOR HOVER (Phase 4)
+// ═══════════════════════════════════════
+// v4 attached mouseenter/mouseleave to every a/.fissure/.skill-item/.tag
+// individually — that's ~30 listeners. v5 uses a single delegated pair on
+// document via mouseover/mouseout (which bubble; mouseenter/leave don't).
+// Less memory, works for dynamically-added elements, fewer handler registrations.
+const HOVER_SELECTOR = 'a,.fissure,.skill-item,.tag,.fissure-trigger,.contact-link,.sl,.mute-btn,.proj-link';
+function isHoverTarget(el){
+  return el && el.nodeType === 1 && el.matches(HOVER_SELECTOR);
+}
+document.addEventListener('mouseover', e => {
+  if(!isHoverTarget(e.target)) return;
+  // Skip on touch devices — cursor is hidden anyway, no need to animate.
+  if(COARSE_POINTER) return;
+  gsap.to('#cursor',     {width:4, height:4, opacity:.3, duration:.18});
+  gsap.to('#cursor-ring',{width:54, height:54, borderColor:'rgba(232,169,77,.7)', duration:.24});
+});
+document.addEventListener('mouseout', e => {
+  if(!isHoverTarget(e.target)) return;
+  // Only reset if the related target (where mouse is going) is NOT also a hover target
+  if(isHoverTarget(e.relatedTarget)) return;
+  if(COARSE_POINTER) return;
+  gsap.to('#cursor',     {width:7, height:7, opacity:1, duration:.18});
+  gsap.to('#cursor-ring',{width:32, height:32, borderColor:'rgba(232,169,77,.3)', duration:.24});
+});
+
+// ═══════════════════════════════════════
+// AUDIO — Cinematic tier
+// ═══════════════════════════════════════
+// Drone oscillators (preserved) + BiquadFilter low-pass mapped to scroll
+// velocity + white-noise "wind" layer that swells on fast scroll. An
+// AnalyserNode taps the sub-bass drone; its low-frequency bin average is
+// exposed via `audioBass` and bound to shader uniform uAudio, so the
+// terrain breathes & the cursor glow pulses in sync with the actual audio.
+let audioCtx=null,masterGain=null,audioOn=false;
+let droneOscs={};
+let lowPass=null, windGain=null, windSrc=null, analyser=null, analyserData=null;
+let audioBass = 0;        // 0..1 — analyser-driven, read each frame
+let scrollVelocityAudio = 0; // 0..1 — driven by main loop, used here
+
+function initAudio(){
+  if(audioOn) return; audioOn=true;
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  masterGain=audioCtx.createGain(); masterGain.gain.value=0;
+  masterGain.connect(audioCtx.destination);
+
+  // ── LOW-PASS FILTER (mapped to scroll velocity) ──────────
+  // Cutoff frequency is modulated in the main loop. Fast scroll = muffled.
+  lowPass = audioCtx.createBiquadFilter();
+  lowPass.type = 'lowpass';
+  lowPass.frequency.value = 1800;     // resting cutoff — full range
+  lowPass.Q.value = 0.7;
+
+  function mkOsc(f,t,g){
+    const o=audioCtx.createOscillator(),gn=audioCtx.createGain();
+    o.type=t;o.frequency.value=f;gn.gain.value=g;
+    o.connect(gn);gn.connect(lowPass);o.start();return{o,gn};
+  }
+  droneOscs.d1=mkOsc(55,'sine',.28);
+  droneOscs.d2=mkOsc(82.4,'sine',.14);
+  droneOscs.d3=mkOsc(110,'triangle',.07);
+  droneOscs.sub=mkOsc(27.5,'sine',.22);
+
+  // ── ANALYSER NODE (taps the drone bus for shader feedback) ──
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 256;
+  analyser.smoothingTimeConstant = 0.78;
+  analyserData = new Uint8Array(analyser.frequencyBinCount);
+  lowPass.connect(analyser);
+
+  // ── WHITE-NOISE WIND LAYER ────────────────────────────────
+  // Buffer of random samples → band-pass filter → gain. Gain is modulated
+  // in the main loop; swells when scroll velocity is high.
+  const noiseBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
+  const ch = noiseBuf.getChannelData(0);
+  for(let i=0;i<ch.length;i++) ch[i] = Math.random()*2 - 1;
+  windSrc = audioCtx.createBufferSource();
+  windSrc.buffer = noiseBuf; windSrc.loop = true;
+  const windFilter = audioCtx.createBiquadFilter();
+  windFilter.type = 'bandpass';
+  windFilter.frequency.value = 600;
+  windFilter.Q.value = 0.6;
+  windGain = audioCtx.createGain();
+  windGain.gain.value = 0;
+  windSrc.connect(windFilter); windFilter.connect(windGain);
+  windGain.connect(masterGain);
+  windSrc.start();
+
+  lowPass.connect(masterGain);
+
+  if(!isMuted){
+    masterGain.gain.linearRampToValueAtTime(.015,audioCtx.currentTime+4);
+  }
+}
+
+function playChime(freq,vol=.055){
+  if(!audioCtx||isMuted) return;
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.type='sine';o.frequency.value=freq;
+  g.gain.setValueAtTime(0,audioCtx.currentTime);
+  g.gain.linearRampToValueAtTime(vol,audioCtx.currentTime+.04);
+  g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+2.4);
+  o.connect(g);g.connect(audioCtx.destination);
+  o.start();o.stop(audioCtx.currentTime+2.6);
+}
+
+function playImpact(){
+  if(!audioCtx||isMuted) return;
+  [80,120,160].forEach((f,i)=>{
+    setTimeout(()=>{
+      const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(.09,audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.8);
+      o.connect(g);g.connect(audioCtx.destination);
+      o.start();o.stop(audioCtx.currentTime+.9);
+    },i*30);
+  });
+}
+
+function shiftAudio(name){
+  if(!audioCtx||isMuted) return;
+  const cfg={hero:{f1:55,f2:82.4,mv:.015},about:{f1:49,f2:73,mv:.013},projects:{f1:55,f2:82.4,mv:.019},skills:{f1:41,f2:61,mv:.011},ending:{f1:36.7,f2:55,mv:.026}};
+  const c=cfg[name]||cfg.hero;
+  const now=audioCtx.currentTime;
+  droneOscs.d1.o.frequency.linearRampToValueAtTime(c.f1,now+2.5);
+  droneOscs.d2.o.frequency.linearRampToValueAtTime(c.f2,now+2.5);
+  masterGain.gain.linearRampToValueAtTime(c.mv,now+2);
+  if(name==='ending') setTimeout(()=>playChime(329.63,.038),800);
+}
+
+// Read the analyser's low-frequency bins. Called once per frame from animate().
+function updateAnalyser(){
+  if(!analyser || !analyserData) return;
+  analyser.getByteFrequencyData(analyserData);
+  // Average the first 4 bins (≈0–86Hz at fftSize=256, 44.1kHz sample rate).
+  // This captures the sub-bass drone (27.5Hz + 55Hz fundamentals).
+  let sum = 0;
+  const n = Math.min(4, analyserData.length);
+  for(let i=0;i<n;i++) sum += analyserData[i];
+  const target = sum / n / 255;
+  // Smooth — avoid jitter
+  audioBass += (target - audioBass) * 0.18;
+}
+
+document.querySelectorAll('.fissure').forEach((card,i)=>{
+  // Hover still plays chime (desktop)
+  card.addEventListener('mouseenter',()=>playChime([523.25,659.25,783.99][i%3]));
+  // Click toggles open state for keyboard / touch users (Phase 3 will add touch)
+  const trigger = card.querySelector('.fissure-trigger');
+  if(trigger){
+    trigger.addEventListener('click',()=>{
+      const isOpen = card.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if(isOpen) playChime([523.25,659.25,783.99][i%3]);
+    });
+  }
+});
+['click','scroll','keydown','touchstart'].forEach(e=>{
+  document.addEventListener(e,()=>{ if(!REDUCED_MOTION) initAudio(); },{once:true});
+});
+
+// ═══════════════════════════════════════
+// MUTE TOGGLE (button + keyboard shortcut M)
+// ═══════════════════════════════════════
+const muteBtn = document.getElementById('mute-toggle');
+function syncMuteUI(){
+  if(!muteBtn) return;
+  muteBtn.setAttribute('aria-pressed', isMuted ? 'true' : 'false');
+  muteBtn.setAttribute('aria-label', isMuted ? 'Unmute ambient audio' : 'Mute ambient audio');
+  muteBtn.title = isMuted ? 'Unmute audio (M)' : 'Mute audio (M)';
+}
+function setMuted(muted){
+  isMuted = muted;
+  try { localStorage.setItem('leon-muted', String(muted)); } catch(e){}
+  syncMuteUI();
+  // Live-adjust master gain so toggle takes effect immediately
+  if(audioCtx && masterGain){
+    if(muted){
+      masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime+0.3);
+    } else {
+      // Re-ramp to a reasonable drone level (use last shifted config or default)
+      const cfg = wsName ? {hero:.015,about:.013,projects:.019,skills:.011,ending:.026}[wsName] : .015;
+      masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(cfg, audioCtx.currentTime+0.8);
+    }
+  }
+}
+if(muteBtn){
+  syncMuteUI();
+  muteBtn.addEventListener('click',()=>setMuted(!isMuted));
+}
+// Keyboard shortcut: M to toggle mute (when not typing in an input)
+document.addEventListener('keydown',e=>{
+  if(e.key==='m'||e.key==='M'){
+    if(e.target.matches('input,textarea,[contenteditable]')) return;
+    setMuted(!isMuted);
+  }
+});
+
+// ═══════════════════════════════════════
+// MAIN LOOP
+// ═══════════════════════════════════════
+// Reduced-motion users get a single static render then no RAF. Particle
+// animation, shockwaves, breath, cursor lerp — all skipped. Content is
+// revealed by CSS @media(prefers-reduced-motion) overrides.
+
+// RAF pause when tab hidden (Phase 4). Saves 100% GPU+CPU when the user
+// switches tabs — the WebGL renderer, particle loop, and all per-frame
+// work simply stops. On return, we reset lastTime so dt doesn't spike
+// (which would otherwise cause a massive camera/particle jump).
+let rafPaused = false;
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden){
+    rafPaused = true;
+    // Suspend audio context to save CPU (browsers usually do this automatically,
+    // but explicit suspension is faster and more reliable).
+    if(audioCtx && audioCtx.state === 'running') audioCtx.suspend();
+  } else {
+    if(rafPaused){
+      rafPaused = false;
+      lastTime = performance.now();  // prevent dt spike
+      // Resume audio if it was running.
+      if(audioCtx && audioCtx.state === 'suspended' && !isMuted) audioCtx.resume();
+      // Restart the RAF loop — it stopped because we didn't schedule next frame.
+      if(WEBGL_ACTIVE && !REDUCED_MOTION) requestAnimationFrame(animate);
+    }
+  }
+});
+
+// SCROLL VELOCITY — tracked for audio low-pass + chromatic aberration spike
+let lastTgtScroll = 0;
+let scrollVel = 0;      // smoothed absolute scroll velocity, 0..1
+
+function animate(now){
+  if(REDUCED_MOTION || rafPaused) return;  // don't schedule next frame
+  requestAnimationFrame(animate);
+  const dt=Math.min((now-lastTime)/16.7,3); lastTime=now;
+  globalTime+=.004*dt;
+
+  // Process pending mousemove — one unproject per frame, not per event.
+  processMouseInput();
+
+  // ── SCROLL VELOCITY ─────────────────────────────────────
+  // Compute |ΔtgtScroll| per frame, smoothed. Drives audio low-pass +
+  // chromatic aberration spike + wind layer gain.
+  const dScroll = Math.abs(tgtScroll - lastTgtScroll);
+  lastTgtScroll = tgtScroll;
+  scrollVel += (Math.min(dScroll * 8.0, 1.0) - scrollVel) * 0.18 * dt;
+  scrollVel = Math.max(0, scrollVel - 0.005 * dt); // decay
+
+  // ── AUDIO: low-pass + wind modulation ───────────────────
+  if(audioCtx && lowPass && windGain && !isMuted){
+    // Fast scroll → cutoff drops to 350Hz (muffled). Rest → 1800Hz.
+    const targetCut = 1800 - scrollVel * 1450;
+    lowPass.frequency.setTargetAtTime(targetCut, audioCtx.currentTime, 0.08);
+    // Wind swells with scroll velocity
+    windGain.gain.setTargetAtTime(scrollVel * 0.018, audioCtx.currentTime, 0.10);
+  }
+  // ── ANALYSER → audioBass (drives uAudio) ────────────────
+  updateAnalyser();
+
+  scrollProg+=(tgtScroll-scrollProg)*.036*dt;
+
+  // World state
+  if(wsT<1){wsT=Math.min(1,wsT+.016*dt);applyWS(wsT);}
+
+  // Shockwave GPU time
+  if(terrUniforms.uShockwaveTime.value>0){
+    terrUniforms.uShockwaveTime.value=Math.min(1,terrUniforms.uShockwaveTime.value+.018*dt);
+    if(terrUniforms.uShockwaveTime.value>=.99) terrUniforms.uShockwaveTime.value=0;
+  }
+
+  // BREATH
+  if(breathHeld){breathT=Math.min(1,breathT+.012*dt);}
+  else{breathT=Math.max(0,breathT-.018*dt);}
+  const breathWave=breathT*Math.sin(globalTime*3.5)*.5+breathT*.5;
+  // uBreath now blends the user-triggered breath with the analyser bass.
+  // Audio-reactive: terrain pulses with the sub-bass drone at all times.
+  const audioModulatedBreath = breathWave + audioBass * 0.45;
+  terrUniforms.uBreath.value=audioModulatedBreath;
+
+  // INVERSION — SDF sphere expands from camera-look target during ending
+  if(wsName==='ending'){inversionT=Math.min(1,inversionT+.008*dt);}
+  else{inversionT=Math.max(0,inversionT-.012*dt);}
+  terrUniforms.uInvert.value=inversionT*inversionT;
+  // SDF sphere: center follows the current camera lookAt (so the wave
+  // originates from where the user is "looking" at the canyon); radius
+  // grows from 0 to ~70 as inversionT goes 0→1.
+  terrUniforms.uInvertCenter.value.copy(cam.look);
+  terrUniforms.uInvertRadius.value = inversionT * 70.0;
+
+  // Star field
+  if(wsName==='ending'){starOp=Math.min(1,starOp+.007*dt);constOp=Math.min(1,constOp+.004*dt);}
+  else{starOp=Math.max(0,starOp-.01*dt);constOp=Math.max(0,constOp-.01*dt);}
+
+  // CAMERA — spline + dolly + FOV (replaces old 5-band step function)
+  updateCamera(dt);
+
+  // ── CHROMATIC ABERRATION spike ──────────────────────────
+  // Resting value: 0.0008 (subtle). Spikes on: scroll velocity, shockwave,
+  // inversion wavefront. Decays back to resting.
+  const resting = 0.0008;
+  const spike = scrollVel * 0.004
+              + (terrUniforms.uShockwaveTime.value > 0 ? 0.006 * terrUniforms.uShockwaveTime.value : 0)
+              + inversionT * 0.003;
+  uAberrationTarget = resting + spike;
+  uAberration += (uAberrationTarget - uAberration) * 0.18 * dt;
+
+  // GPU uniforms
+  terrUniforms.uTime.value=globalTime;
+  terrUniforms.uErosion.value=Math.min(scrollProg*2.8,.9);
+  terrUniforms.uAudio.value = audioBass;
+  terrUniforms.uCamPos.value.copy(camera.position);
+  rim.position.set(mouseInflX*16,14,mouseInflZ*10-18);
+
+  // GPU PARTICLE UNIFORMS — replaces the entire CPU particle loop.
+  pUniforms.uTime.value = globalTime;
+  pUniforms.uMousePos.value.set(mouseWorld.x, mouseWorld.z);
+  pUniforms.uShockwaveTime.value = terrUniforms.uShockwaveTime.value;
+  pUniforms.uShockwaveOrigin.value.copy(terrUniforms.uShockwaveOrigin.value);
+  pUniforms.uBreath.value = audioModulatedBreath;
+  pUniforms.uInversion.value = inversionT;
+  pUniforms.uAudio.value = audioBass;
+  pUniforms.uCamPos.value.copy(camera.position);
+  if(pUniforms.uScreenSize) pUniforms.uScreenSize.value.set(window.innerWidth, window.innerHeight);
+
+  terrain.position.y=Math.sin(globalTime*.52)*.04*(1-inversionT);
+
+  // ── RENDER ──────────────────────────────────────────────
+  // Desktop: depth pre-pass for soft particles → composer (Bloom + FX) → canvas
+  // Mobile: straight renderer.render — no composer, no depth target.
+  if (POST_FX_ENABLED && composer) {
+    // Depth pre-pass: render terrain (only) into depthTarget. Hide particles
+    // temporarily so they don't write themselves into the depth texture.
+    if (SOFT_PARTICLES_ENABLED && depthTarget) {
+      particles.visible = false;
+      const prevTarget = renderer.getRenderTarget();
+      renderer.setRenderTarget(depthTarget);
+      renderer.clear();
+      renderer.render(scene, camera);
+      renderer.setRenderTarget(prevTarget);
+      particles.visible = true;
+    }
+    // Update FX pass uniforms
+    if (fxPass) {
+      fxPass.uniforms.uTime.value = globalTime;
+      fxPass.uniforms.uAberration.value = uAberration;
+    }
+    composer.render();
+  } else {
+    renderer.render(scene,camera);
+  }
+
+  // CURSOR UPDATE
+  // NOTE: gsap.set overwrites the entire transform, killing the CSS
+  // translate(-50%,-50%). Use xPercent/yPercent to preserve centering.
+  ringX+=(curX-ringX)*.13*dt; ringY+=(curY-ringY)*.13*dt;
+  glowX+=(curX-glowX)*.07*dt; glowY+=(curY-glowY)*.07*dt;
+  gsap.set('#cursor',{x:curX,y:curY,xPercent:-50,yPercent:-50});
+  gsap.set('#cursor-ring',{x:ringX,y:ringY,xPercent:-50,yPercent:-50});
+  gsap.set('#cursor-glow',{x:glowX,y:glowY,xPercent:-50,yPercent:-50});
+
+  drawStars();
+  drawShockwaves();
+}
+
+// ═══════════════════════════════════════
+// SPLIT CHARS
+// ═══════════════════════════════════════
+function splitChars(el){
+  const html=el.innerHTML;
+  let out='',i=0;
+  let ci=0;
+  while(i<html.length){
+    if(html[i]==='<'){const e=html.indexOf('>',i);out+=html.slice(i,e+1);i=e+1;}
+    else if(html[i]==='&'){const e=html.indexOf(';',i);out+=`<span class="char" style="--ci:${ci++}">${html.slice(i,e+1)}</span>`;i=e+1;}
+    else if(html[i].trim()){out+=`<span class="char" style="--ci:${ci++}">${html[i]}</span>`;i++;}
+    else{out+=html[i];i++;}
+  }
+  el.innerHTML=out;
+  return el.querySelectorAll('.char');
+}
+
+// ═══════════════════════════════════════
+// GSAP TIMELINES
+// ═══════════════════════════════════════
+function bootAnimations(){
+  // Show mute toggle as soon as boot fires (regardless of path).
+  const muteBtn = document.getElementById('mute-toggle');
+  if(muteBtn) muteBtn.classList.add('visible');
+
+  // ── REDUCED MOTION PATH ─────────────────────────────────
+  // Skip the entire cinematic. Reveal all content immediately. CSS
+  // @media(prefers-reduced-motion) handles the visual overrides.
+  if(REDUCED_MOTION || !WEBGL_ACTIVE) {
+    gsap.set(['.hero-eyebrow','#hero-name-el','.hero-scroll-hint','#nav','#hints','.contact-links','.ending-ltp','.ending-sub','.ending-cta-line'],{opacity:1});
+    document.querySelector('.ending-line')?.classList.add('drawn');
+    document.getElementById('nav').classList.add('visible');
+    const hintsEl = document.getElementById('hints');
+    if(hintsEl) hintsEl.classList.add('visible');
+    return;
+  }
+
+  // ── CINEMATIC COLD OPEN (v7 — restructured to 4.0s, scroll-interrupt at 1.5s) ───
+  // Beat 0.0s  Void. World renders black. Camera at FOV 40 (telephoto).
+  // Beat 0.5s  Fog lifts, lights rise. World arrives.
+  // Beat 1.5s  Nav reveals. USER CAN NOW SCROLL. Don't hold them hostage.
+  // Beat 2.0s  "LEON" lands — character by character, physics-weighted.
+  // Beat 3.0s  Scroll hint + interaction hints visible.
+  // Beat 4.0s  Done. FOV breathing handled by camera rig (not timeline).
+  //
+  // If the user scrolls past 50px before the cinematic finishes, we kill
+  // the timeline and jump to the final state. The terrain is already
+  // rendered — don't hold the world hostage.
+
+  if (WEBGL_ACTIVE) {
+    gsap.set('#vignette',{opacity:1});
+    gsap.set(['.hero-eyebrow','#hero-name-el','.hero-scroll-hint','#nav','#hints'],{opacity:0});
+
+    renderer.setClearColor(0x020504,1);
+    scene.fog.density=0.18;
+    sun.intensity=0;
+    ambient.intensity=0;
+    rim.intensity=0;
+
+    const cinematic = gsap.timeline();
+
+    // Beat 0→0.5: hold in darkness
+    cinematic.to({},{duration:0.5});
+
+    // Beat 0.5→2.0: fog lifts, lights rise, world breathes into existence
+    cinematic.to(scene.fog,{density:0.025,duration:1.5,ease:'power2.inOut'},0.5);
+    cinematic.to(sun,{intensity:2.5,duration:1.8,ease:'power2.inOut'},0.5);
+    cinematic.to(ambient,{intensity:1.0,duration:1.5,ease:'power2.out'},0.7);
+    cinematic.to(rim,{intensity:2.2,duration:1.3,ease:'power2.out'},1.0);
+    cinematic.to('#vignette',{opacity:0.7,duration:1.8,ease:'power2.inOut'},0.5);
+
+    // Beat 1.5: nav reveals — USER CAN NOW SCROLL
+    cinematic.add(()=>{
+      document.getElementById('nav').classList.add('visible');
+      gsap.to('#nav',{opacity:1,duration:0.8,ease:'power2.out'});
+    }, 1.5);
+
+    // Beat 2.0: LEON lands — physics-weighted character animation
+    cinematic.add(()=>{
+      const nameEl=document.getElementById('hero-name-el');
+      nameEl.style.opacity='1';
+      const chars = Array.from(splitChars(nameEl));
+      const total = chars.length;
+      chars.forEach((ch, i) => {
+        const t = i / Math.max(total - 1, 1);
+        const weight = 1 - t * 0.55;
+        const baseDelay = i * 0.06;
+        gsap.fromTo(ch,
+          {opacity:0, y:90 + weight*50, rotation:gsap.utils.random(-10,10),
+           filter:'blur(14px)', scale:1.10 - weight*0.06, transformOrigin:'50% 100%'},
+          {opacity:1, y:0, rotation:0, filter:'blur(0px)', scale:1,
+           duration:1.0 + weight*0.4, ease:'expo.out', delay:baseDelay}
+        );
+      });
+    }, 2.0);
+
+    // Beat 2.5: eyebrow label
+    cinematic.add(()=>{
+      const eb=document.querySelector('.hero-eyebrow');
+      eb.style.opacity='1';
+      gsap.fromTo(eb,
+        {opacity:0,y:6,letterSpacing:'0.5em'},
+        {opacity:1,y:0,letterSpacing:'0.32em',duration:0.8,ease:'power2.out'}
+      );
+    }, 2.5);
+
+    // Beat 3.0: scroll hint + interaction hints
+    cinematic.to('.hero-scroll-hint',{opacity:1,duration:0.8,ease:'power2.out'},3.0);
+    cinematic.to('.hero-role',{opacity:1,y:0,duration:0.9,ease:'power2.out'},2.8);
+    cinematic.add(()=>{
+      document.getElementById('hints').classList.add('visible');
+    }, 3.2);
+
+    // ── SCROLL-INTERRUPT ──────────────────────────────────
+    // If the user scrolls past 50px before the cinematic finishes,
+    // kill the timeline and jump to the final state.
+    let userHasScrolled = false;
+    const scrollInterrupt = () => {
+      if (window.scrollY > 50 && !userHasScrolled) {
+        userHasScrolled = true;
+        cinematic.kill();
+        gsap.set(['.hero-eyebrow','.hero-role','#hero-name-el','.hero-scroll-hint','#nav','#hints'],{opacity:1});
+        document.getElementById('nav').classList.add('visible');
+        document.getElementById('hints').classList.add('visible');
+        // Ensure world is fully lit (in case we killed mid-fade)
+        scene.fog.density = 0.025;
+        sun.intensity = 2.5;
+        ambient.intensity = 1.0;
+        rim.intensity = 2.2;
+        gsap.set('#vignette',{opacity:0.7});
+        window.removeEventListener('scroll', scrollInterrupt);
+      }
+    };
+    window.addEventListener('scroll', scrollInterrupt, {passive: true});
+
+  } else {
+    gsap.set(['.hero-eyebrow','.hero-role','#hero-name-el','.hero-scroll-hint'],{opacity:1});
+  }
+
+  // ── PER-SECTION MOTION VOCABULARIES ────────────────────
+  // Each section reveals in a different register — not one uniform fade
+
+  // ABOUT: headline splits by word with blur drift; body copy words surface individually
+  const aboutHeadline = document.querySelector('#about .about-headline');
+  if(aboutHeadline){
+    // v7: Simplified — animate the whole headline as one unit instead of
+    // splitting into chars (which broke <em> tags). More robust, still elegant.
+    gsap.fromTo(aboutHeadline,
+      {opacity:0, y:28, filter:'blur(6px)'},
+      {opacity:1, y:0, filter:'blur(0px)',
+       duration:1.2, ease:'expo.out',
+       scrollTrigger:{trigger:aboutHeadline, start:'top 95%', toggleActions:'play none none none'}
+      }
+    );
+  }
+
+  // About body paragraphs: words surface from below with slight depth shift
+  document.querySelectorAll('#about .about-body').forEach((p, pi) => {
+    gsap.fromTo(p,
+      {opacity:0, y:18, filter:'blur(3px)'},
+      {opacity:1, y:0, filter:'blur(0px)',
+       duration:1.0, ease:'power2.out',
+       scrollTrigger:{trigger:p, start:'top 95%', toggleActions:'play none none none'},
+       delay: pi * 0.15
+      }
+    );
+  });
+
+  // About tags: arrive from left like tectonic layers being exposed
+  const tags = document.querySelectorAll('#about .tag');
+  gsap.fromTo(tags,
+    {opacity:0, x:-22, filter:'blur(3px)'},
+    {opacity:1, x:0, filter:'blur(0px)',
+     duration:0.7, ease:'expo.out',
+     stagger:0.07,
+     scrollTrigger:{trigger:document.querySelector('#about .about-tags'), start:'top 95%', toggleActions:'play none none none'}
+    }
+  );
+
+  // PROJECTS: headline cracks in via clipPath reveal
+  const projHeadline = document.querySelector('#projects .projects-headline');
+  if(projHeadline){
+    gsap.fromTo(projHeadline,
+      {opacity:0, clipPath:'inset(0 100% 0 0)', x:-8},
+      {opacity:1, clipPath:'inset(0 0% 0 0)', x:0,
+       duration:1.1, ease:'expo.out',
+       scrollTrigger:{trigger:projHeadline, start:'top 95%', toggleActions:'play none none none'}
+      }
+    );
+  }
+
+  // PROJECT ANNOTATIONS: title drops from terrain, rule draws, desc surfaces
+  document.querySelectorAll('.project-annotation').forEach((ann, ai) => {
+    // Crosshair fades first
+    const crosshair = ann.querySelector('.proj-crosshair');
+    if(crosshair) gsap.fromTo(crosshair,
+      {opacity:0, x:-14},
+      {opacity:1, x:0, duration:0.7, ease:'expo.out',
+       scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'}
+      }
+    );
+    // Title drops in with weight — the big terrain typography
+    const title = ann.querySelector('.proj-title');
+    if(title) gsap.fromTo(title,
+      {opacity:0, y:40, filter:'blur(10px)'},
+      {opacity:1, y:0, filter:'blur(0px)', duration:1.3, ease:'expo.out', delay:0.1,
+       scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'},
+       onComplete:()=>{ ann.classList.add('is-entered'); }
+      }
+    );
+    // Desc and stack surface after title lands
+    const desc = ann.querySelector('.proj-desc');
+    if(desc) gsap.fromTo(desc,
+      {opacity:0, y:16},
+      {opacity:1, y:0, duration:0.9, ease:'power2.out', delay:0.55,
+       scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'}
+      }
+    );
+    const stack = ann.querySelector('.proj-stack');
+    if(stack) gsap.fromTo(stack,
+      {opacity:0, y:10},
+      {opacity:1, y:0, duration:0.7, ease:'power2.out', delay:0.75,
+       scrollTrigger:{trigger:ann, start:'top 85%', toggleActions:'play none none none'}
+      }
+    );
+  });
+
+  // Fissure lines: legacy — no-op if none present
+  document.querySelectorAll('.fissure').forEach((f, fi) => {
+    gsap.fromTo(f,
+      {opacity:0, scaleX:0.97, transformOrigin:'center center'},
+      {opacity:1, scaleX:1,
+       duration:0.9, ease:'expo.out',
+       scrollTrigger:{trigger:f, start:'top 95%', toggleActions:'play none none none'},
+       delay: fi * 0.11
+      }
+    );
+    const label = f.querySelector('.fissure-label');
+    if(label) gsap.fromTo(label,
+      {opacity:0, letterSpacing:'0.4em'},
+      {opacity:1, letterSpacing:'0.2em',
+       duration:0.8, ease:'power2.out',
+       scrollTrigger:{trigger:f, start:'top 95%', toggleActions:'play none none none'},
+       delay: 0.3 + fi * 0.11
+      }
+    );
+  });
+
+  // SKILLS: section label and headline — geological excavation feel
+  const skillsHead = document.querySelector('#skills .skills-headline');
+  if(skillsHead){
+    gsap.fromTo(skillsHead,
+      {opacity:0, y:28, filter:'blur(6px)'},
+      {opacity:1, y:0, filter:'blur(0px)',
+       duration:1.2, ease:'expo.out',
+       scrollTrigger:{trigger:skillsHead, start:'top 95%', toggleActions:'play none none none'}
+      }
+    );
+  }
+
+  // Skill strata: slide in from left like geological layers being revealed by excavation
+  document.querySelectorAll('.skill-stratum').forEach((s, si) => {
+    gsap.fromTo(s,
+      {opacity:0, x:-40, filter:'blur(3px)'},
+      {opacity:1, x:0, filter:'blur(0px)',
+       duration:0.85, ease:'expo.out',
+       scrollTrigger:{trigger:s, start:'top 95%', toggleActions:'play none none none'},
+       delay: si * 0.08
+      }
+    );
+    // Skill items within each stratum ripple in
+    gsap.fromTo(s.querySelectorAll('.skill-item'),
+      {opacity:0, y:10},
+      {opacity:1, y:0,
+       duration:0.5, ease:'power2.out',
+       stagger:0.04,
+       scrollTrigger:{trigger:s, start:'top 95%', toggleActions:'play none none none'},
+       delay: 0.3 + si * 0.08
+      }
+    );
+  });
+
+  // Ending cinematic — LTP initials drop in, gold line draws, contact links materialize
+  ScrollTrigger.create({
+    trigger:'#ending',start:'top 60%',
+    onEnter:()=>{
+      transWorld('ending'); shiftAudio('ending');
+      // LTP: each letter drops in with physics weight, like the hero name
+      const endEl=document.getElementById('ending-name-el');
+      endEl.style.opacity='1';
+      const chars = Array.from(splitChars(endEl));
+      chars.forEach((ch, i) => {
+        const weight = 1 - i * 0.15;
+        gsap.fromTo(ch,
+          {opacity:0, y:120 + weight*60, rotation:gsap.utils.random(-8,8), filter:'blur(16px)', scale:1.15},
+          {opacity:1, y:0, rotation:0, filter:'blur(0px)', scale:1,
+           duration:1.4 + weight*0.3, ease:'expo.out', delay:0.3 + i * 0.15}
+        );
+      });
+      // Gold line draws beneath the initials
+      setTimeout(()=>{
+        document.querySelector('.ending-line')?.classList.add('drawn');
+      }, 1200);
+      // Subtitle fades in
+      gsap.fromTo('.ending-sub',
+        {opacity:0, y:12, letterSpacing:'0.5em'},
+        {opacity:1, y:0, letterSpacing:'0.32em', duration:1.0, ease:'power2.out', delay:1.8}
+      );
+      // CTA line surfaces after sub
+      gsap.fromTo('.ending-cta-line',
+        {opacity:0, y:16},
+        {opacity:1, y:0, duration:1.0, ease:'power2.out', delay:2.2}
+      );
+      // Contact links: materialise from the void
+      gsap.set('.contact-links',{opacity:1});
+      const links = document.querySelectorAll('.contact-link');
+      const origins = [{x:-60,y:30},{x:0,y:50},{x:60,y:30}];
+      links.forEach((l, li) => {
+        gsap.fromTo(l,
+          {opacity:0, x:origins[li].x, y:origins[li].y, filter:'blur(8px)', scale:0.92},
+          {opacity:1, x:0, y:0, filter:'blur(0px)', scale:1,
+           duration:1.2, ease:'expo.out', delay:2.2 + li * 0.12}
+        );
+      });
+      // Show inversion canvas
+      setTimeout(()=>{invCv.style.opacity='1';},2000);
+    },
+    onLeaveBack:()=>{transWorld('skills');shiftAudio('skills');}
+  });
+
+  // Section world states — 7 sections (v9: 3 individual project sections).
+  // project1/2/3 all use the 'projects' world state + audio config.
+  const sectionMap = [
+    ['hero',     0, 'hero'],
+    ['about',    1, 'about'],
+    ['project1', 2, 'projects'],
+    ['project2', 3, 'projects'],
+    ['project3', 4, 'projects'],
+    ['skills',   5, 'skills'],
+    ['ending',   6, 'ending'],
+  ];
+  sectionMap.forEach(([id, idx, wsName])=>{
+    ScrollTrigger.create({
+      trigger:`#${id}`,start:'top center',end:'bottom center',
+      onEnter:()=>{updateStrata(idx);transWorld(wsName);shiftAudio(wsName);},
+      onEnterBack:()=>{updateStrata(idx);transWorld(wsName);shiftAudio(wsName);}
+    });
+  });
+
+  // ── SCROLLTRIGGER REFRESH (v7 fix) ────────────────────
+  // If the user scrolled during the cinematic (triggering the scroll-interrupt),
+  // some reveal elements may already be in the viewport when their ScrollTriggers
+  // are created. ScrollTrigger needs a refresh() to detect this and fire
+  // the reveals retroactively. Without this, about/projects/skills content
+  // stays invisible if the user scrolls fast.
+  ScrollTrigger.refresh();
+
+  // ── AGGRESSIVE CAMERA EASING ──────────────────────────
+  // The critique asked for either ScrollTrigger.snap OR aggressive expo
+  // easing on the camera. We chose the latter (cam.posK 6→11, lookK 8→16)
+  // because forcing the scroll itself to snap is jarring on desktop with a
+  // mouse wheel — users expect free scroll. The snappier damping means the
+  // camera now "whips and locks" to each keyframe instead of drifting.
+  // Combined with the camera path being a CatmullRom spline through 7
+  // world-coords keyframes, the effect is the cinematic "slam into focus"
+  // without breaking native scroll feel.
+}
+
+// STRATA — now buttons. updateStrata syncs aria-current too.
+const sls=document.querySelectorAll('.sl');
+function updateStrata(idx){
+  sls.forEach((l,i)=>{
+    const isActive = i===idx;
+    l.classList.toggle('active', isActive);
+    l.setAttribute('aria-current', isActive ? 'true' : 'false');
+  });
+}
+sls.forEach(l=>{
+  l.addEventListener('click',()=>{
+    document.getElementById(l.dataset.s).scrollIntoView({behavior: REDUCED_MOTION ? 'auto' : 'smooth'});
+  });
+});
+
+// NAV LINKS — ensure smooth scroll on click (v8 fix).
+// The native scroll-behavior:smooth handles this, but we add explicit
+// handlers as a safety net in case any other JS intercepts the event.
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if(href && href.startsWith('#')){
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if(target){
+        target.scrollIntoView({behavior: REDUCED_MOTION ? 'auto' : 'smooth'});
+      }
+    }
+  });
+});
+
+// ═══════════════════════════════════════
+// RESIZE
+// ═══════════════════════════════════════
+window.addEventListener('resize',()=>{
+  if(!WEBGL_ACTIVE) return;          // nothing 3D to resize in fallback mode
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  resizeAuxCanvases();
+  shockCv.width=window.innerWidth; shockCv.height=window.innerHeight;
+  // Resize composer + bloom pass + depth target to match new viewport
+  if(composer) composer.setSize(window.innerWidth, window.innerHeight);
+  if(bloomPass) bloomPass.setSize(window.innerWidth, window.innerHeight);
+  if(depthTarget) depthTarget.setSize(window.innerWidth, window.innerHeight);
+});
+
+setLoad(85,'Almost there');
+
+// Name reveal in loader
+setTimeout(()=>{
+  const ln=document.getElementById('loader-name');
+  if (ln) { ln.style.opacity='1'; ln.style.transform='translateY(0)'; }
+},200);
+
+// ═══════════════════════════════════════
+// LAUNCH
+// ═══════════════════════════════════════
+// Previous version: fake timer incremented loadPct to 100 in ~2s and triggered
+// the cinematic — but CDN assets (Three.js, GSAP, ~600KB) might still be
+// downloading, leaving users staring at "Terrain ready" over a black screen.
+//
+// New strategy: keep the animated progress bar (it feels good), but the
+// "launch" gate is now `window.load` AND a minimum dwell time. The bar
+// caps at 92% until window.load fires, then completes.
+let assetsReady = false;
+window.addEventListener('load', () => { assetsReady = true; });
+// Fallback safety net: if load doesn't fire in 8s (rare), proceed anyway.
+setTimeout(() => { assetsReady = true; }, 8000);
+
+if (!WEBGL_ACTIVE || REDUCED_MOTION) {
+  // No-WebGL OR reduced-motion path: skip loader + cinematic, content
+  // already revealed by fallback / CSS overrides. bootAnimations runs
+  // to wire mute button + skip-cinematic reveal.
+  const loaderEl = document.getElementById('loader');
+  if (loaderEl) loaderEl.style.display = 'none';
+  bootAnimations();
+} else {
+  // WebGL path: animate loader, wait for assets, then cinematic.
+  let li=setInterval(()=>{
+    // Cap at 92% until assets are ready — gives users visual signal
+    // that something is still loading without lying about completion.
+    const cap = assetsReady ? 100 : 92;
+    loadPct += Math.random()*4+1.5;
+    if (loadPct >= cap) {
+      loadPct = cap;
+      setLoad(loadPct, assetsReady ? 'Terrain ready' : 'Awaiting assets');
+      if (assetsReady) {
+        clearInterval(li);
+        setTimeout(()=>{
+          gsap.to('#loader',{opacity:0,duration:1.3,ease:'power2.inOut',
+            onComplete:()=>{
+              const lEl=document.getElementById('loader');
+              if (lEl) lEl.style.display='none';
+              animate(performance.now());
+              bootAnimations();
+            }
+          });
+        },400);
+      }
+    } else {
+      const labels=['Authoring landmark terrain','Carving the spiral canyon','Scattering particles','Lighting the canyon','Ready'];
+      setLoad(loadPct, labels[Math.min(Math.floor(loadPct/22),labels.length-1)]);
+    }
+  },90);
+}
+
+// ═══════════════════════════════════════
+// DEBUG EXPOSURE (Phase 4)
+// ═══════════════════════════════════════
+// Module-scoped variables aren't visible on window by default. Expose key
+// state for debugging and automated testing. Gated behind __LEON_DEBUG__
+// which is always set in dev; in production you could strip this block.
+if (typeof window !== 'undefined') {
+  window.__leon = {
+    get state(){
+      return {
+        WEBGL_ACTIVE, REDUCED_MOTION, COARSE_POINTER, LOW_PERF, PERF_SCALE,
+        PCOUNT, TSEGS, isMuted, rafPaused, mouseDirty, breathHeld,
+        globalTime, scrollProg, wsName, inversionT,
+        threeVersion: THREE.REVISION,
+        colorManagement: THREE.ColorManagement.enabled,
+        POST_FX_ENABLED, SOFT_PARTICLES_ENABLED,
+        audioBass, scrollVel, uAberration,
+        envMap: !!envMap,
+      };
+    },
+    THREE,
+    terrUniforms,
+    pUniforms,
+    mouseWorld,
+    shockwaves,
+    composer,
+    bloomPass,
+    fxPass,
+    sampleHeight: sampleHeightCached,
+  };
+}
+
+// ═══════════════════════════════════════
+// REVEAL SAFETY NET (v8)
+// ═══════════════════════════════════════
+// If GSAP/ScrollTrigger fails to reveal elements within 5 seconds (e.g.,
+// CDN blocked, JS error, ScrollTrigger timing issue), force all .reveal
+// and .char elements visible. Better to show content without animation
+// than to show a blank page.
+setTimeout(() => {
+  document.querySelectorAll('.reveal, .char, .wrd').forEach(el => {
+    if(getComputedStyle(el).opacity === '0'){
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.filter = 'none';
+    }
+  });
+}, 5000);
+</script>
+</body>
+</html>
